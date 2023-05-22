@@ -71,7 +71,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 180F958C2A1B356000C571FD /* Build configuration list for PBXNativeTarget "MODA" */;
 			buildPhases = (
-				180F958F2A1B38D000C571FD /* ShellScript */,
+				180F958F2A1B38D000C571FD /* SwiftLint Script */,
 				180F95742A1B355F00C571FD /* Sources */,
 				180F95752A1B355F00C571FD /* Frameworks */,
 				180F95762A1B355F00C571FD /* Resources */,
@@ -131,15 +131,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		180F958F2A1B38D000C571FD /* ShellScript */ = {
+		180F958F2A1B38D000C571FD /* SwiftLint Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
 			);
+			name = "SwiftLint Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
