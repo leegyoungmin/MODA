@@ -7,6 +7,13 @@ force_try:
 line_length:
   warning: 100
   error: 110
+  
+disabled_rules:
+  - vertical_whitespace
+  - trailing_whitespace
+  - unused_optional_binding
+  - todo
+  - unused_capture_list
 
 # 기본(default) 룰이 아닌 룰들을 활성화
 opt_in_rules:
