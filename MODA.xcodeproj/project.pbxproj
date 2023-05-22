@@ -56,9 +56,6 @@
 			children = (
 				180F95912A1B3C5600C571FD /* Sources */,
 				180F95902A1B3C5200C571FD /* Resource */,
-				180F957B2A1B355F00C571FD /* AppDelegate.swift */,
-				180F957D2A1B355F00C571FD /* SceneDelegate.swift */,
-				180F957F2A1B355F00C571FD /* ViewController.swift */,
 			);
 			path = MODA;
 			sourceTree = "<group>";
@@ -76,6 +73,9 @@
 		180F95912A1B3C5600C571FD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				180F957B2A1B355F00C571FD /* AppDelegate.swift */,
+				180F957D2A1B355F00C571FD /* SceneDelegate.swift */,
+				180F957F2A1B355F00C571FD /* ViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
