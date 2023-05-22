@@ -52,6 +52,27 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		180983EE2A1B679E00F0E854 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		180983EF2A1B67A600F0E854 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		180983F02A1B67B000F0E854 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		180F956F2A1B355F00C571FD = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +113,9 @@
 			children = (
 				180983ED2A1B676A00F0E854 /* App */,
 				180983EC2A1B676500F0E854 /* Controllers */,
+				180983EE2A1B679E00F0E854 /* Models */,
+				180983F02A1B67B000F0E854 /* Utility */,
+				180983EF2A1B67A600F0E854 /* Views */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
