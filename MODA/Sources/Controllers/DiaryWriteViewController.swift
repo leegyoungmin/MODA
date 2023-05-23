@@ -62,6 +62,35 @@ final class DiaryWriteViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         configureUI()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willShowKeyboard),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willHideKeyboard),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+}
+
+private extension DiaryWriteViewController {
+    @objc func willShowKeyboard(_ notification: NSNotification) {
+        let keyboardEndFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+        guard let keyboardHeight = (keyboardEndFrame as? NSValue)?.cgRectValue else { return }
+        
+        navigationController?.navigationBar.isHidden = true
+        self.view.frame.origin.y = (-keyboardHeight.height + (saveButton.frame.height + 32))
+    }
+    
+    @objc func willHideKeyboard(_ notification: NSNotification) {
+        navigationController?.navigationBar.isHidden = false
+        self.view.frame.origin.y = .zero
     }
 }
 
@@ -88,6 +117,7 @@ private extension DiaryWriteViewController {
             primaryAction: dismissAction
         )
         navigationItem.leftBarButtonItem = dismissButton
+        navigationItem.title = "Exampe"
     }
     
     func makeConstraints() {
