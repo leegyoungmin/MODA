@@ -59,7 +59,6 @@ class DiaryListViewController: UIViewController {
 
 private extension DiaryListViewController {
     @objc func didTapMonthButton() {
-        print(monthButton.titleLabel?.text)
     }
 }
 
@@ -118,7 +117,12 @@ private extension DiaryListViewController {
         titleStackView.frame.size.height = max(titleLabel.frame.height, monthButton.frame.height)
         navigationItem.titleView = titleStackView
         
-        let addButton = UIBarButtonItem(systemItem: .add)
+        let presentAction = UIAction { [weak self] _ in
+            guard let self = self else { return }
+            let controller = DiaryWriteViewController()
+            self.present(controller, animated: true)
+        }
+        let addButton = UIBarButtonItem(systemItem: .add, primaryAction: presentAction)
         addButton.tintColor = UIColor(named: "AccentColor")
         navigationItem.rightBarButtonItem = addButton
         
