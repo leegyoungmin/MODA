@@ -15,6 +15,7 @@
 		185F81622A1CC6F000C4D554 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81612A1CC6F000C4D554 /* Diary.swift */; };
 		185F81662A1CCA6A00C4D554 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 185F81652A1CCA6A00C4D554 /* SnapKit */; };
 		185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81682A1CCB7700C4D554 /* DiaryListCell.swift */; };
+		18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1072A1CE7C4007125FC /* Date + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		180F95892A1B356000C571FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		185F81612A1CC6F000C4D554 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		185F81682A1CCB7700C4D554 /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
+		18A8E1072A1CE7C4007125FC /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		180F95912A1B3C5600C571FD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				18A8E1062A1CE7BC007125FC /* Extensions */,
 				185F81672A1CCB6F00C4D554 /* Views */,
 				185F81602A1CC6C300C4D554 /* Model */,
 				180983ED2A1B676A00F0E854 /* App */,
@@ -118,6 +121,14 @@
 				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		18A8E1062A1CE7BC007125FC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18A8E1072A1CE7C4007125FC /* Date + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +235,7 @@
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
+				18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
