@@ -22,6 +22,10 @@ struct DiaryMeta {
     let createdDate: Date
     let issuedDate: Date
     var isSaved: Bool = false
+    
+    var day: String {
+        return createdDate.day()
+    }
 }
 
 extension Diary {
