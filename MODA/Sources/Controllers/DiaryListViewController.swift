@@ -19,6 +19,26 @@ class DiaryListViewController: UIViewController {
         return collectionView
     }()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor(named: "AccentColor")
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 18)
+        label.text = Date().month()
+        return label
+    }()
+    
+    private let monthButton: UIButton = {
+        let button = UIButton()
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)
+        let tintColor = UIColor(named: "AccentColor") ?? .black
+        let image = UIImage(systemName: "chevron.down.circle.fill")?
+            .withConfiguration(symbolConfiguration)
+            .withTintColor(tintColor, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
     private let mockDatas: [Diary] = Diary.mockDatas
     
     override func viewDidLoad() {
@@ -26,7 +46,20 @@ class DiaryListViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        monthButton.addTarget(
+            self,
+            action: #selector(didTapMonthButton),
+            for: .touchUpInside
+        )
+        
         configureUI()
+    }
+}
+
+private extension DiaryListViewController {
+    @objc func didTapMonthButton() {
+        print(monthButton.titleLabel?.text)
     }
 }
 
@@ -68,12 +101,27 @@ extension DiaryListViewController: UICollectionViewDelegateFlowLayout {
 
 private extension DiaryListViewController {
     func configureUI() {
+        configureNavigationBar()
         configureHierarchy()
         makeConstraints()
     }
     
     func configureHierarchy() {
         [collectionView].forEach(view.addSubview)
+    }
+    
+    func configureNavigationBar() {
+        let titleStackView = UIStackView(arrangedSubviews: [titleLabel, monthButton])
+        titleStackView.axis = .horizontal
+        titleStackView.spacing = 6
+        titleStackView.frame.size.width = titleLabel.frame.width + monthButton.frame.width
+        titleStackView.frame.size.height = max(titleLabel.frame.height, monthButton.frame.height)
+        navigationItem.titleView = titleStackView
+        
+        let addButton = UIBarButtonItem(systemItem: .add)
+        addButton.tintColor = UIColor(named: "AccentColor")
+        navigationItem.rightBarButtonItem = addButton
+        
     }
     
     func makeConstraints() {
