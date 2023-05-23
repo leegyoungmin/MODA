@@ -120,7 +120,9 @@ private extension DiaryListViewController {
         let presentAction = UIAction { [weak self] _ in
             guard let self = self else { return }
             let controller = DiaryWriteViewController()
-            self.present(controller, animated: true)
+            let navigationController = UINavigationController(rootViewController: controller)
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true)
         }
         let addButton = UIBarButtonItem(systemItem: .add, primaryAction: presentAction)
         addButton.tintColor = UIColor(named: "AccentColor")
