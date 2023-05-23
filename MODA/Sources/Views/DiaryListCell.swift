@@ -14,7 +14,8 @@ final class DiaryListCell: UICollectionViewCell {
     private let createdDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.textColor = UIColor(named: "AccentColor")
         label.textAlignment = .center
         return label
     }()
@@ -36,7 +37,8 @@ final class DiaryListCell: UICollectionViewCell {
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 5
+        label.numberOfLines = 10
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +47,7 @@ final class DiaryListCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.layer.cornerRadius = 12
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = UIColor(named: "SecondaryColor")
         
         configureUI()
     }
@@ -65,7 +67,7 @@ final class DiaryListCell: UICollectionViewCell {
     }
     
     func setUpDatas(to diary: Diary) {
-        createdDateLabel.text = diary.meta.createdDate.description
+        createdDateLabel.text = diary.meta.day
         conditionLabel.text = diary.condition.rawValue.description
         contentLabel.text = diary.content
     }
@@ -108,7 +110,7 @@ private extension DiaryListCell {
             $0.bottom.equalTo(dividerView.snp.bottom)
             $0.leading.equalTo(dividerView.snp.trailing).offset(12)
             $0.trailing.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(0.8)
+            $0.width.equalToSuperview().multipliedBy(0.7)
         }
     }
 }
