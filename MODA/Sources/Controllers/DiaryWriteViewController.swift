@@ -23,9 +23,9 @@ final class DiaryWriteViewController: UIViewController {
         return label
     }()
     
-    private let goodConditionButton = ConditionButton(symbol: Diary.Condition.good.description)
-    private let normalConditionButton = ConditionButton(symbol: Diary.Condition.normal.description)
-    private let badConditionButton = ConditionButton(symbol: Diary.Condition.bad.description)
+    private let goodConditionButton = ConditionButton(symbol: Diary.Condition.good)
+    private let normalConditionButton = ConditionButton(symbol: Diary.Condition.normal)
+    private let badConditionButton = ConditionButton(symbol: Diary.Condition.bad)
     
     private let conditionStackView: UIStackView = {
         let stackView = UIStackView()
@@ -62,6 +62,10 @@ final class DiaryWriteViewController: UIViewController {
         
         addNotificationCenterObservers()
         configureUI()
+        
+        [goodConditionButton, normalConditionButton, badConditionButton].forEach {
+            $0.delegate = self
+        }
     }
     
     deinit {
@@ -69,9 +73,28 @@ final class DiaryWriteViewController: UIViewController {
     }
 }
 
+extension DiaryWriteViewController: ConditionButtonDelegate {
+    func conditionButton(
+        _ button: ConditionButton,
+        didTapButton condition: Diary.Condition
+    ) {
+        let stackSubviews = conditionStackView.arrangedSubviews
+        guard let conditionButtons = stackSubviews as? [ConditionButton] else { return }
+        
+        conditionButtons.forEach { button in
+            UIView.animate(withDuration: 0.4) {
+                if button.condition == condition {
+                    button.layer.backgroundColor = UIColor(named: "BackgroundColor")?.cgColor
+                } else {
+                    button.layer.backgroundColor = UIColor(named: "SecondaryColor")?.cgColor
+                }
+            }
+        }
+    }
+}
+
 // MARK: 키보드 관련 메서드
 private extension DiaryWriteViewController {
-    
     func addNotificationCenterObservers() {
         NotificationCenter.default.addObserver(
             self,
