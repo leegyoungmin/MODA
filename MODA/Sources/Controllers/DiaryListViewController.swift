@@ -11,6 +11,8 @@ class DiaryListViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.register(DiaryListCell.self, forCellReuseIdentifier: DiaryListCell.identifier)
         return tableView
     }()
     
@@ -30,12 +32,17 @@ extension DiaryListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tableCell = UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: DiaryListCell.identifier,
+            for: indexPath
+        ) as? DiaryListCell else {
+            return UITableViewCell()
+        }
         
         let item = mockDatas[indexPath.row]
+        cell.setUpDatas(to: item)
         
-        tableCell.textLabel?.text = item.content
-        return tableCell
+        return cell
     }
 }
 
