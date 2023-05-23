@@ -60,9 +60,19 @@ final class DiaryWriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        addNotificationCenterObservers()
         configureUI()
-        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+// MARK: 키보드 관련 메서드
+private extension DiaryWriteViewController {
+    
+    func addNotificationCenterObservers() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(willShowKeyboard),
@@ -77,9 +87,7 @@ final class DiaryWriteViewController: UIViewController {
             object: nil
         )
     }
-}
-
-private extension DiaryWriteViewController {
+    
     @objc func willShowKeyboard(_ notification: NSNotification) {
         let keyboardEndFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
         guard let keyboardHeight = (keyboardEndFrame as? NSValue)?.cgRectValue else { return }
@@ -96,6 +104,7 @@ private extension DiaryWriteViewController {
 
 private extension DiaryWriteViewController {
     func configureUI() {
+        view.backgroundColor = .systemBackground
         configureNavigationBar()
         configureHierarchy()
         makeConstraints()
