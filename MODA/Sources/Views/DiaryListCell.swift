@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class DiaryListCell: UITableViewCell {
+final class DiaryListCell: UICollectionViewCell {
     static var identifier: String {
         return String(describing: Self.self)
     }
@@ -15,6 +15,7 @@ final class DiaryListCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
+        label.textAlignment = .center
         return label
     }()
     
@@ -22,7 +23,7 @@ final class DiaryListCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 32)
-        label.textAlignment = .natural
+        label.textAlignment = .center
         return label
     }()
     
@@ -39,12 +40,13 @@ final class DiaryListCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        contentView.backgroundColor = UIColor(named: "AccentColor")
         contentView.layer.cornerRadius = 12
+        contentView.backgroundColor = .red
+        
         configureUI()
     }
     
@@ -52,6 +54,14 @@ final class DiaryListCell: UITableViewCell {
         super.init(coder: coder)
         
         configureUI()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(
+            by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        )
     }
     
     func setUpDatas(to diary: Diary) {
@@ -74,13 +84,15 @@ private extension DiaryListCell {
     
     func makeConstraints() {
         createdDateLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(12)
             $0.height.lessThanOrEqualTo(50)
         }
         
         conditionLabel.snp.makeConstraints {
             $0.top.equalTo(createdDateLabel.snp.bottom)
             $0.leading.equalToSuperview().offset(12)
+            $0.trailing.equalTo(createdDateLabel.snp.trailing)
             $0.bottom.equalToSuperview().offset(-12)
         }
         

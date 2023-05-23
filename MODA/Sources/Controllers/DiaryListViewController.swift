@@ -8,12 +8,15 @@ import UIKit
 import SnapKit
 
 class DiaryListViewController: UIViewController {
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(
+            DiaryListCell.self,
+            forCellWithReuseIdentifier: DiaryListCell.identifier
+        )
         
-        tableView.register(DiaryListCell.self, forCellReuseIdentifier: DiaryListCell.identifier)
-        return tableView
+        return collectionView
     }()
     
     private let mockDatas: [Diary] = Diary.mockDatas
@@ -21,28 +24,45 @@ class DiaryListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         configureUI()
     }
 }
 
-extension DiaryListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension DiaryListViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         return mockDatas.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: DiaryListCell.identifier,
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: DiaryListCell.identifier,
             for: indexPath
         ) as? DiaryListCell else {
-            return UITableViewCell()
+            return UICollectionViewCell()
         }
         
         let item = mockDatas[indexPath.row]
         cell.setUpDatas(to: item)
-        
         return cell
+    }
+}
+
+extension DiaryListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let size = collectionView.frame.size
+        return CGSize(width: size.width, height: size.width / 2)
     }
 }
 
@@ -53,11 +73,11 @@ private extension DiaryListViewController {
     }
     
     func configureHierarchy() {
-        [tableView].forEach(view.addSubview)
+        [collectionView].forEach(view.addSubview)
     }
     
     func makeConstraints() {
-        tableView.snp.makeConstraints {
+        collectionView.snp.makeConstraints {
             $0.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview()
         }
