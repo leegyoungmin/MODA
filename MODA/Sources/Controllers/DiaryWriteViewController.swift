@@ -21,10 +21,25 @@ final class DiaryWriteViewController: UIViewController {
         return label
     }()
     
+    private let goodConditionButton = ConditionButton(symbol: Diary.Condition.good.description)
+    private let normalConditionButton = ConditionButton(symbol: Diary.Condition.normal.description)
+    private let badConditionButton = ConditionButton(symbol: Diary.Condition.bad.description)
+    
+    private let conditionStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.spacing = 12
+        stackView.distribution = .fillEqually
+        stackView.layoutMargins = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
+    }()
+    
     private let contentTextView: UITextView = {
         let textView = UITextView()
         textView.layer.backgroundColor = UIColor(named: "SecondaryColor")?.cgColor
-        textView.layer.cornerRadius = 12
+        textView.layer.cornerRadius = 14
         return textView
     }()
     
@@ -43,7 +58,9 @@ private extension DiaryWriteViewController {
     }
     
     func configureHierarchy() {
-        [conditionTitleLabel, contentTitleLabel, contentTextView]
+        [goodConditionButton, normalConditionButton, badConditionButton]
+            .forEach(conditionStackView.addArrangedSubview)
+        [conditionTitleLabel, contentTitleLabel, contentTextView, conditionStackView]
             .forEach(view.addSubview)
     }
     
@@ -54,8 +71,15 @@ private extension DiaryWriteViewController {
             $0.trailing.equalToSuperview().offset(-22)
         }
         
-        contentTitleLabel.snp.makeConstraints {
+        conditionStackView.snp.makeConstraints {
             $0.top.equalTo(conditionTitleLabel.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(view.snp.width).multipliedBy(0.9)
+            $0.height.equalTo(view.snp.width).multipliedBy(0.3)
+        }
+        
+        contentTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(conditionStackView.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(22)
             $0.trailing.equalToSuperview().offset(-22)
         }
