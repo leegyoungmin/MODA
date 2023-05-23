@@ -23,7 +23,7 @@ final class DiaryListCell: UICollectionViewCell {
     private let conditionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 32)
+        label.font = .systemFont(ofSize: 48)
         label.textAlignment = .center
         return label
     }()
@@ -68,7 +68,7 @@ final class DiaryListCell: UICollectionViewCell {
     
     func setUpDatas(to diary: Diary) {
         createdDateLabel.text = diary.meta.day
-        conditionLabel.text = diary.condition.rawValue.description
+        conditionLabel.text = diary.condition.description
         contentLabel.text = diary.content
     }
 }
@@ -86,22 +86,22 @@ private extension DiaryListCell {
     
     func makeConstraints() {
         createdDateLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(12)
             $0.leading.equalToSuperview().offset(12)
-            $0.height.lessThanOrEqualTo(50)
+            $0.height.equalTo(50).priority(.high)
         }
         
         conditionLabel.snp.makeConstraints {
             $0.top.equalTo(createdDateLabel.snp.bottom)
             $0.leading.equalToSuperview().offset(12)
             $0.trailing.equalTo(createdDateLabel.snp.trailing)
-            $0.bottom.equalToSuperview().offset(-12)
+            $0.bottom.equalTo(contentView.snp.centerY)
         }
         
         dividerView.snp.makeConstraints {
-            $0.top.equalTo(createdDateLabel.snp.top).offset(12)
+            $0.top.equalTo(createdDateLabel.snp.top)
             $0.leading.equalTo(createdDateLabel.snp.trailing).offset(12)
-            $0.bottom.equalTo(conditionLabel.snp.bottom)
+            $0.bottom.equalToSuperview().offset(-12)
             $0.width.equalTo(1)
         }
         

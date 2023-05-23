@@ -11,6 +11,17 @@ struct Diary {
         case good
         case normal
         case bad
+        
+        var description: String {
+            switch self {
+            case .good:
+                return "😃"
+            case .normal:
+                return "😑"
+            case .bad:
+                return "😞"
+            }
+        }
     }
     
     let meta: DiaryMeta
