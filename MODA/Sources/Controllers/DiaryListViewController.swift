@@ -15,7 +15,7 @@ final class DiaryListViewController: UIViewController {
             DiaryListCell.self,
             forCellWithReuseIdentifier: DiaryListCell.identifier
         )
-        
+        collectionView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         return collectionView
     }()
     
@@ -128,6 +128,12 @@ private extension DiaryListViewController {
         addButton.tintColor = UIColor(named: "AccentColor")
         navigationItem.rightBarButtonItem = addButton
         
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .white
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
     }
     
     func makeConstraints() {
