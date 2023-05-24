@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 
-class DiaryListViewController: UIViewController {
+final class DiaryListViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
