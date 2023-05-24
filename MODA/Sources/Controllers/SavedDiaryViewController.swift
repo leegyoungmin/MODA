@@ -16,6 +16,7 @@ final class SavedDiaryViewController: UIViewController {
             forCellWithReuseIdentifier: SavedDiaryCell.identifier
         )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     

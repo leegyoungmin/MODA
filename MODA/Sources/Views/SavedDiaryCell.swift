@@ -13,7 +13,7 @@ final class SavedDiaryCell: UICollectionViewCell {
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = UIColor(named: "BackgroundColor")
         label.font = .boldSystemFont(ofSize: 24)
         return label
     }()
@@ -58,7 +58,7 @@ final class SavedDiaryCell: UICollectionViewCell {
         super.layoutSubviews()
         
         contentView.frame = contentView.frame.inset(
-            by: UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 10)
+            by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         )
     }
 }
