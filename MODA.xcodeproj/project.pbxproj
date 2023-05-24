@@ -21,6 +21,7 @@
 		18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E10B2A1CF824007125FC /* ConditionButton.swift */; };
 		18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */; };
 		18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */; };
+		18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		18A8E10B2A1CF824007125FC /* ConditionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionButton.swift; sourceTree = "<group>"; };
 		18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryViewController.swift; sourceTree = "<group>"; };
 		18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryCell.swift; sourceTree = "<group>"; };
+		18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
 				188423072A1DC5AD0047A946 /* TabViewController.swift */,
 				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
+				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
 				18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */,
 				18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */,
+				18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,33 +35,29 @@ private extension TabViewController {
     enum Router: Int, CaseIterable {
         case home
         case save
+        case setting
         
         var title: String {
             switch self {
-            case .home:
-                return "홈"
-            case .save:
-                return "저장일기"
+            case .home:     return "홈"
+            case .save:     return "저장일기"
+            case .setting:  return "설정"
             }
         }
         
         var imageName: String {
             switch self {
-            case .home:
-                return "list.bullet"
-                
-            case .save:
-                return "star"
+            case .home:     return "list.bullet"
+            case .save:     return "star"
+            case .setting:  return "gearshape"
             }
         }
         
         var instance: UIViewController {
             switch self {
-            case .home:
-                return DiaryListViewController()
-                
-            case .save:
-                return SavedDiaryViewController()
+            case .home:     return DiaryListViewController()
+            case .save:     return SavedDiaryViewController()
+            case .setting:  return SettingViewController()
             }
         }
     }
