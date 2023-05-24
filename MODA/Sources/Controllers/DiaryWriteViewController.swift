@@ -66,6 +66,8 @@ final class DiaryWriteViewController: UIViewController {
         [goodConditionButton, normalConditionButton, badConditionButton].forEach {
             $0.delegate = self
         }
+        
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
     }
     
     deinit {
@@ -73,6 +75,7 @@ final class DiaryWriteViewController: UIViewController {
     }
 }
 
+// MARK: Condition Button Delegate Method
 extension DiaryWriteViewController: ConditionButtonDelegate {
     func conditionButton(
         _ button: ConditionButton,
@@ -90,6 +93,14 @@ extension DiaryWriteViewController: ConditionButtonDelegate {
                 }
             }
         }
+    }
+}
+
+// MARK: Button Methods
+private extension DiaryWriteViewController {
+    @objc func didTapSaveButton() {
+        print("Save Success")
+        self.dismiss(animated: true)
     }
 }
 
