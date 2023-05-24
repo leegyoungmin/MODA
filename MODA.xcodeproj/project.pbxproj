@@ -20,6 +20,7 @@
 		18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */; };
 		18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E10B2A1CF824007125FC /* ConditionButton.swift */; };
 		18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */; };
+		18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewController.swift; sourceTree = "<group>"; };
 		18A8E10B2A1CF824007125FC /* ConditionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionButton.swift; sourceTree = "<group>"; };
 		18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryViewController.swift; sourceTree = "<group>"; };
+		18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			children = (
 				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
 				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
+				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,
 				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
+				18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
 				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
 				18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */,

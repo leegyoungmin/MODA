@@ -12,8 +12,8 @@ final class SavedDiaryViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(
-            DiaryListCell.self,
-            forCellWithReuseIdentifier: DiaryListCell.identifier
+            SavedDiaryCell.self,
+            forCellWithReuseIdentifier: SavedDiaryCell.identifier
         )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -44,14 +44,14 @@ extension SavedDiaryViewController: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DiaryListCell.identifier,
+            withReuseIdentifier: SavedDiaryCell.identifier,
             for: indexPath
-        ) as? DiaryListCell else {
+        ) as? SavedDiaryCell else {
             return UICollectionViewCell()
         }
         
         let item = mockDatas[indexPath.row]
-        cell.setUpDatas(to: item)
+        cell.setUpData(to: item)
         
         return cell
     }
@@ -63,8 +63,8 @@ extension SavedDiaryViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let size = view.frame.size
-        return CGSize(width: size.width, height: size.height * 0.2)
+        let size = collectionView.frame.size
+        return CGSize(width: size.width, height: size.height * 0.4)
     }
 }
 
@@ -81,7 +81,7 @@ private extension SavedDiaryViewController {
     
     func makeConstraints() {
         savedDiaryListView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
