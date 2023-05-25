@@ -6,6 +6,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class SavedDiaryViewController: UIViewController {
     private let savedDiaryListView: UICollectionView = {
@@ -22,40 +23,31 @@ final class SavedDiaryViewController: UIViewController {
     }()
     
     
-    private let mockDatas: [Diary] = Diary.mockDatas
+    private let mockDatas: Observable<[Diary]> = Observable.of(Diary.mockDatas)
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        savedDiaryListView.dataSource = self
-        savedDiaryListView.delegate = self
+        bindings()
     }
 }
 
-extension SavedDiaryViewController: UICollectionViewDataSource {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return mockDatas.count
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: SavedDiaryCell.identifier,
-            for: indexPath
-        ) as? SavedDiaryCell else {
-            return UICollectionViewCell()
+private extension SavedDiaryViewController {
+    func bindings() {
+        self.mockDatas.bind(
+            to: savedDiaryListView.rx.items(
+                cellIdentifier: SavedDiaryCell.identifier,
+                cellType: SavedDiaryCell.self
+            )
+        ) { (_, model, cell) in
+            cell.setUpData(to: model)
         }
+        .disposed(by: disposeBag)
         
-        let item = mockDatas[indexPath.row]
-        cell.setUpData(to: item)
-        
-        return cell
+        savedDiaryListView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
 }
 

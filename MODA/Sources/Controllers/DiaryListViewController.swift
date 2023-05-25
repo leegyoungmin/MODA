@@ -57,7 +57,7 @@ private extension DiaryListViewController {
     func binding() {
         monthButton.rx.tap
             .bind { [weak self] _ in
-                guard let self = self else { return }
+                guard let _ = self else { return }
                 print("Tapped Month Alert Button")
             }
             .disposed(by: disposeBag)
