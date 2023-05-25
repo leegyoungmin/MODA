@@ -6,6 +6,8 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class DiaryListViewController: UIViewController {
     private let collectionView: UICollectionView = {
@@ -40,6 +42,7 @@ final class DiaryListViewController: UIViewController {
     }()
     
     private let mockDatas: [Diary] = Diary.mockDatas
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,20 +50,34 @@ final class DiaryListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        monthButton.addTarget(
-            self,
-            action: #selector(didTapMonthButton),
-            for: .touchUpInside
-        )
-        
         configureUI()
+        
+        binding()
     }
 }
 
 private extension DiaryListViewController {
-    @objc func didTapMonthButton() {
+    func binding() {
+        monthButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                print("Tapped Month Alert Button")
+            }
+            .disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem?.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                
+                let controller = DiaryWriteViewController()
+                let navigationController = UINavigationController(rootViewController: controller)
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
+
 
 extension DiaryListViewController: UICollectionViewDataSource {
     func collectionView(
@@ -117,14 +134,7 @@ private extension DiaryListViewController {
         titleStackView.frame.size.height = max(titleLabel.frame.height, monthButton.frame.height)
         navigationItem.titleView = titleStackView
         
-        let presentAction = UIAction { [weak self] _ in
-            guard let self = self else { return }
-            let controller = DiaryWriteViewController()
-            let navigationController = UINavigationController(rootViewController: controller)
-            navigationController.modalPresentationStyle = .fullScreen
-            self.present(navigationController, animated: true)
-        }
-        let addButton = UIBarButtonItem(systemItem: .add, primaryAction: presentAction)
+        let addButton = UIBarButtonItem(systemItem: .add)
         addButton.tintColor = UIColor(named: "AccentColor")
         navigationItem.rightBarButtonItem = addButton
         
