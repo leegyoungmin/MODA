@@ -41,14 +41,11 @@ final class DiaryListViewController: UIViewController {
         return button
     }()
     
-    private let mockDatas: [Diary] = Diary.mockDatas
+    private let mockDatas: Observable<[Diary]> = Observable.of(Diary.mockDatas)
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
         
         configureUI()
         
@@ -75,32 +72,19 @@ private extension DiaryListViewController {
                 self.present(navigationController, animated: true)
             }
             .disposed(by: disposeBag)
-    }
-}
-
-
-extension DiaryListViewController: UICollectionViewDataSource {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return mockDatas.count
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DiaryListCell.identifier,
-            for: indexPath
-        ) as? DiaryListCell else {
-            return UICollectionViewCell()
-        }
         
-        let item = mockDatas[indexPath.row]
-        cell.setUpDatas(to: item)
-        return cell
+        self.mockDatas.bind(
+            to: collectionView.rx.items(
+                cellIdentifier: DiaryListCell.identifier,
+                cellType: DiaryListCell.self
+            )
+        ) { (_, model, cell) in
+            cell.setUpDatas(to: model)
+        }
+        .disposed(by: disposeBag)
+        
+        collectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
 }
 
