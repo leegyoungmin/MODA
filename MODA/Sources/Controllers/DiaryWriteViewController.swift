@@ -6,6 +6,8 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class DiaryWriteViewController: UIViewController {
     private let conditionTitleLabel: UILabel = {
@@ -57,21 +59,41 @@ final class DiaryWriteViewController: UIViewController {
         return button
     }()
     
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addNotificationCenterObservers()
         configureUI()
         
         [goodConditionButton, normalConditionButton, badConditionButton].forEach {
             $0.delegate = self
         }
         
-        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        bindings()
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+}
+
+extension DiaryWriteViewController {
+    func bindings() {
+        keyboardHeight()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] height in
+                guard let self = self else { return }
+                
+                self.navigationController?.isNavigationBarHidden = (height == 0 ? false : true)
+                let moveHeight = height == 0 ? 0 : (-height + (saveButton.frame.height + 32))
+                self.view.frame.origin.y = moveHeight
+            }
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                print("Save Success")
+                self.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -96,43 +118,21 @@ extension DiaryWriteViewController: ConditionButtonDelegate {
     }
 }
 
-// MARK: Button Methods
 private extension DiaryWriteViewController {
-    @objc func didTapSaveButton() {
-        print("Save Success")
-        self.dismiss(animated: true)
-    }
-}
-
-// MARK: 키보드 관련 메서드
-private extension DiaryWriteViewController {
-    func addNotificationCenterObservers() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willShowKeyboard),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willHideKeyboard),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
-    
-    @objc func willShowKeyboard(_ notification: NSNotification) {
-        let keyboardEndFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
-        guard let keyboardHeight = (keyboardEndFrame as? NSValue)?.cgRectValue else { return }
-        
-        navigationController?.navigationBar.isHidden = true
-        self.view.frame.origin.y = (-keyboardHeight.height + (saveButton.frame.height + 32))
-    }
-    
-    @objc func willHideKeyboard(_ notification: NSNotification) {
-        navigationController?.navigationBar.isHidden = false
-        self.view.frame.origin.y = .zero
+    func keyboardHeight() -> Observable<CGFloat> {
+        return Observable
+            .from([
+                NotificationCenter.default.rx
+                    .notification(UIResponder.keyboardWillShowNotification)
+                    .map {
+                        ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+                    },
+                
+                NotificationCenter.default.rx
+                    .notification(UIResponder.keyboardWillHideNotification)
+                    .map { _ in 0 }
+            ])
+            .merge()
     }
 }
 
