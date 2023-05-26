@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		180247412A206B2400B7B221 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247402A206B2400B7B221 /* AlertController.swift */; };
+		180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247422A207B9F00B7B221 /* SignInViewController.swift */; };
 		180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957B2A1B355F00C571FD /* AppDelegate.swift */; };
 		180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957D2A1B355F00C571FD /* SceneDelegate.swift */; };
 		180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* DiaryListViewController.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		180247402A206B2400B7B221 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		180247422A207B9F00B7B221 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		180F95782A1B355F00C571FD /* MODA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MODA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		180F957B2A1B355F00C571FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		180F957D2A1B355F00C571FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
 				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
 				180247402A206B2400B7B221 /* AlertController.swift */,
+				180247422A207B9F00B7B221 /* SignInViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
 				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
+				180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */,
 				18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */,
 				18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */,
 				18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */,
