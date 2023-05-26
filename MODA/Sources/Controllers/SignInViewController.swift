@@ -9,53 +9,15 @@ import RxSwift
 import RxCocoa
 
 final class SignInViewController: UIViewController {
-    private let idLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = UIColor(named: "BackgroundColor")
-        label.text = "아이디"
-        return label
+    
+    private let idFormView: AuthFormStackView = {
+        let formView = AuthFormStackView(title: "아이디")
+        return formView
     }()
     
-    private let idTextField: PaddingTextField = {
-        let textField = PaddingTextField()
-        textField.backgroundColor = UIColor(named: "SecondaryColor")
-        textField.layer.cornerRadius = 8
-        textField.autocapitalizationType = .none
-        return textField
-    }()
-    
-    private let passwordLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
-        label.textColor = UIColor(named: "BackgroundColor")
-        label.text = "비밀번호"
-        return label
-    }()
-    
-    private let passWordTextField: PaddingTextField = {
-        let textField = PaddingTextField()
-        textField.backgroundColor = UIColor(named: "SecondaryColor")
-        textField.layer.cornerRadius = 8
-        textField.autocapitalizationType = .none
-        textField.isSecureTextEntry = true
-        return textField
-    }()
-    
-    private let idStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.spacing = 8
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-    
-    private let passwordStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.spacing = 8
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        return stackView
+    private let passwordFormView: AuthFormStackView = {
+        let formView = AuthFormStackView(title: "비밀번호")
+        return formView
     }()
     
     private let contentStackView: UIStackView = {
@@ -134,31 +96,28 @@ private extension SignInViewController {
     }
     
     func configureHierarchy() {
-        [idLabel, idTextField].forEach(idStackView.addArrangedSubview)
-        [passwordLabel, passWordTextField].forEach(passwordStackView.addArrangedSubview)
         [signUpLabel, signUpButton].forEach(signUpStackView.addArrangedSubview)
-        
-        [idStackView, passwordStackView, signInButton, signUpStackView].forEach(view.addSubview)
+        [idFormView, passwordFormView, signInButton, signUpStackView].forEach(view.addSubview)
     }
     
     func makeConstraints() {
         
-        idStackView.snp.makeConstraints {
+        idFormView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(44)
             $0.trailing.equalToSuperview().offset(-44)
             $0.centerY.equalToSuperview().offset(-50)
         }
         
-        passwordStackView.snp.makeConstraints {
+        passwordFormView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(44)
             $0.trailing.equalToSuperview().offset(-44)
-            $0.top.equalTo(idStackView.snp.bottom).offset(8)
+            $0.top.equalTo(idFormView.snp.bottom).offset(8)
         }
         
         signInButton.snp.makeConstraints {
-            $0.leading.equalTo(passwordStackView.snp.leading)
-            $0.trailing.equalTo(passwordStackView.snp.trailing)
-            $0.top.equalTo(passwordStackView.snp.bottom).offset(28)
+            $0.leading.equalTo(passwordFormView.snp.leading)
+            $0.trailing.equalTo(passwordFormView.snp.trailing)
+            $0.top.equalTo(passwordFormView.snp.bottom).offset(28)
         }
         
         signUpStackView.snp.makeConstraints {
