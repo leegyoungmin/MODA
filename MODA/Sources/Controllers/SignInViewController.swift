@@ -82,8 +82,11 @@ private extension SignInViewController {
             .disposed(by: disposeBag)
         
         signUpButton.rx.tap
-            .bind { _ in
-                print("Tapped Present SignUp Button")
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                
+                let controller = SignUpViewController()
+                self.present(controller, animated: true)
             }
             .disposed(by: disposeBag)
     }
