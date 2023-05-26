@@ -8,7 +8,6 @@ import UIKit
 import RxSwift
 
 final class AlertController: UIViewController {
-    
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -24,7 +23,7 @@ final class AlertController: UIViewController {
         label.text = "보고 싶은 달을 선택해주세요."
         return label
     }()
-    
+
     private let confirmButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor(named: "AccentColor")
@@ -34,6 +33,35 @@ final class AlertController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         return button
     }()
+    
+    private var titleDescription: String?
+    private var isTapDismiss: Bool = true
+    private var hasCancelButton: Bool = false
+    private var contentView: UIView?
+    private var buttonHandler: () -> Void = { }
+    
+    convenience init(
+        title: String,
+        isTapDismiss: Bool = true,
+        hasCancelButton: Bool = false,
+        contentView: UIView? = nil,
+        buttonHandler: @escaping () -> Void
+    ) {
+        self.init(nibName: nil, bundle: nil)
+        self.titleDescription = title
+        self.isTapDismiss = isTapDismiss
+        self.hasCancelButton = hasCancelButton
+        self.contentView = contentView
+        self.buttonHandler = buttonHandler
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     private let disposeBag = DisposeBag()
     
@@ -45,7 +73,15 @@ final class AlertController: UIViewController {
         confirmButton.rx.tap
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                self.dismiss(animated: true)
+                
+                if self.isTapDismiss {
+                    self.dismiss(animated: true) {
+                        self.buttonHandler()
+                    }
+                } else {
+                    self.buttonHandler()
+                    self.dismiss(animated: true)
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -68,9 +104,8 @@ private extension AlertController {
         containerView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-            
+
             $0.width.equalTo(view.snp.width).multipliedBy(0.9)
-            $0.height.equalTo(view.snp.height).multipliedBy(0.3)
         }
         
         titleLabel.snp.makeConstraints {
@@ -83,6 +118,12 @@ private extension AlertController {
             $0.leading.equalToSuperview().offset(16)
             $0.bottom.equalToSuperview().offset(-12)
             $0.trailing.equalToSuperview().offset(-16)
+            
+            if let contentView = contentView {
+                $0.top.equalTo(contentView.snp.bottom).offset(12)
+            } else {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            }
         }
     }
 }
