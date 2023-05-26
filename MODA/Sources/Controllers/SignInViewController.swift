@@ -21,6 +21,7 @@ final class SignInViewController: UIViewController {
         let textField = PaddingTextField()
         textField.backgroundColor = UIColor(named: "SecondaryColor")
         textField.layer.cornerRadius = 8
+        textField.autocapitalizationType = .none
         return textField
     }()
     
@@ -36,6 +37,8 @@ final class SignInViewController: UIViewController {
         let textField = PaddingTextField()
         textField.backgroundColor = UIColor(named: "SecondaryColor")
         textField.layer.cornerRadius = 8
+        textField.autocapitalizationType = .none
+        textField.isSecureTextEntry = true
         return textField
     }()
     
