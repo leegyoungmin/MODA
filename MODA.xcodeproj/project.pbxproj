@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180247412A206B2400B7B221 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247402A206B2400B7B221 /* AlertController.swift */; };
 		180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957B2A1B355F00C571FD /* AppDelegate.swift */; };
 		180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957D2A1B355F00C571FD /* SceneDelegate.swift */; };
 		180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* DiaryListViewController.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180247402A206B2400B7B221 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		180F95782A1B355F00C571FD /* MODA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MODA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		180F957B2A1B355F00C571FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		180F957D2A1B355F00C571FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				188423072A1DC5AD0047A946 /* TabViewController.swift */,
 				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
 				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
+				180247402A206B2400B7B221 /* AlertController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */,
+				180247412A206B2400B7B221 /* AlertController.swift in Sources */,
 				180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */,
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,

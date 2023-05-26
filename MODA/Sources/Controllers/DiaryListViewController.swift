@@ -57,8 +57,12 @@ private extension DiaryListViewController {
     func binding() {
         monthButton.rx.tap
             .bind { [weak self] _ in
-                guard let _ = self else { return }
-                print("Tapped Month Alert Button")
+                guard let self = self else { return }
+                
+                let controller = AlertController()
+                controller.modalTransitionStyle = .crossDissolve
+                controller.modalPresentationStyle = .overFullScreen
+                self.present(controller, animated: true)
             }
             .disposed(by: disposeBag)
         
