@@ -11,15 +11,14 @@ import RxCocoa
 
 final class DiaryListViewController: UIViewController {
     // MARK: - UI 구성 요소
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(
+    private let diaryListTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(
             DiaryListCell.self,
-            forCellWithReuseIdentifier: DiaryListCell.identifier
+            forCellReuseIdentifier: DiaryListCell.identifier
         )
-        collectionView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        return collectionView
+        tableView.separatorStyle = .none
+        return tableView
     }()
     
     private let titleLabel: UILabel = {
@@ -71,13 +70,15 @@ private extension DiaryListViewController {
         let input = DiaryListViewModel.Input()
         
         let output = viewModel.transform(input: input)
+        
         output.diaries
             .bind(
-                to: collectionView.rx.items(
+                to: diaryListTableView.rx.items(
                     cellIdentifier: DiaryListCell.identifier,
                     cellType: DiaryListCell.self
                 )
             ) { (_, model, cell) in
+                cell.selectionStyle = .none
                 cell.setUpDatas(to: model)
             }
             .disposed(by: disposeBag)
@@ -108,21 +109,6 @@ private extension DiaryListViewController {
                 self.present(navigationController, animated: true)
             }
             .disposed(by: disposeBag)
-        
-        collectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - CollectionView Delegate 메서드
-extension DiaryListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        let size = collectionView.frame.size
-        return CGSize(width: size.width, height: size.width / 2)
     }
 }
 
@@ -167,11 +153,11 @@ private extension DiaryListViewController {
     }
     
     func configureHierarchy() {
-        [collectionView].forEach(view.addSubview)
+        [diaryListTableView].forEach(view.addSubview)
     }
     
     func makeConstraints() {
-        collectionView.snp.makeConstraints {
+        diaryListTableView.snp.makeConstraints {
             $0.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview()
         }

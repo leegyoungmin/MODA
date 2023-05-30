@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class DiaryListCell: UICollectionViewCell {
+final class DiaryListCell: UITableViewCell {
     private let createdDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,15 +33,15 @@ final class DiaryListCell: UICollectionViewCell {
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 5
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.layer.cornerRadius = 12
         contentView.backgroundColor = UIColor(named: "SecondaryColor")
@@ -59,7 +59,7 @@ final class DiaryListCell: UICollectionViewCell {
         super.layoutSubviews()
         
         contentView.frame = contentView.frame.inset(
-            by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+            by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         )
     }
     
@@ -93,13 +93,13 @@ private extension DiaryListCell {
             $0.top.equalTo(createdDateLabel.snp.bottom)
             $0.leading.equalToSuperview().offset(12)
             $0.trailing.equalTo(createdDateLabel.snp.trailing)
-            $0.bottom.equalTo(contentView.snp.centerY)
+            $0.bottom.equalToSuperview().offset(-12)
         }
         
         dividerView.snp.makeConstraints {
             $0.top.equalTo(createdDateLabel.snp.top)
             $0.leading.equalTo(createdDateLabel.snp.trailing).offset(12)
-            $0.bottom.equalToSuperview().offset(-12)
+            $0.bottom.equalTo(conditionLabel.snp.bottom).offset(-12)
             $0.width.equalTo(1)
         }
         
