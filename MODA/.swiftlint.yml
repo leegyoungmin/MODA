@@ -4,9 +4,9 @@ force_cast: error
 force_try:
   severity: error
   
-line_length:
-  warning: 100
-  error: 110
+#line_length:
+#  warning: 100
+#  error: 110
   
 disabled_rules:
   - vertical_whitespace

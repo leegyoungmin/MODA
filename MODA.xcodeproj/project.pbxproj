@@ -7,21 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180247412A206B2400B7B221 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247402A206B2400B7B221 /* AlertController.swift */; };
+		180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247422A207B9F00B7B221 /* SignInViewController.swift */; };
+		180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247442A208CCE00B7B221 /* SignUpViewController.swift */; };
+		180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247482A209F8F00B7B221 /* AuthFormStackView.swift */; };
 		180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957B2A1B355F00C571FD /* AppDelegate.swift */; };
 		180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957D2A1B355F00C571FD /* SceneDelegate.swift */; };
-		180F95802A1B355F00C571FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* ViewController.swift */; };
+		180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* DiaryListViewController.swift */; };
 		180F95852A1B356000C571FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 180F95842A1B356000C571FD /* Assets.xcassets */; };
 		180F95882A1B356000C571FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180F95862A1B356000C571FD /* LaunchScreen.storyboard */; };
+		18194A602A1F36E700C0541F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18194A5F2A1F36E700C0541F /* Setting.swift */; };
+		185F81622A1CC6F000C4D554 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81612A1CC6F000C4D554 /* Diary.swift */; };
+		185F81662A1CCA6A00C4D554 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 185F81652A1CCA6A00C4D554 /* SnapKit */; };
+		185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81682A1CCB7700C4D554 /* DiaryListCell.swift */; };
+		188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423072A1DC5AD0047A946 /* TabViewController.swift */; };
+		18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1072A1CE7C4007125FC /* Date + Extension.swift */; };
+		18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */; };
+		18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E10B2A1CF824007125FC /* ConditionButton.swift */; };
+		18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */; };
+		18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */; };
+		18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */; };
+		18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */; };
+		18D0154E2A1FBA45002DBF22 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154D2A1FBA45002DBF22 /* RxCocoa */; };
+		18D015502A1FBA45002DBF22 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154F2A1FBA45002DBF22 /* RxRelay */; };
+		18D015522A1FBA45002DBF22 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D015512A1FBA45002DBF22 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180247402A206B2400B7B221 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		180247422A207B9F00B7B221 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		180247442A208CCE00B7B221 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		180247482A209F8F00B7B221 /* AuthFormStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFormStackView.swift; sourceTree = "<group>"; };
 		180F95782A1B355F00C571FD /* MODA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MODA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		180F957B2A1B355F00C571FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		180F957D2A1B355F00C571FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		180F957F2A1B355F00C571FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		180F957F2A1B355F00C571FD /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
 		180F95842A1B356000C571FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		180F95872A1B356000C571FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		180F95892A1B356000C571FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18194A5F2A1F36E700C0541F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		185F81612A1CC6F000C4D554 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
+		185F81682A1CCB7700C4D554 /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
+		188423072A1DC5AD0047A946 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		18A8E1072A1CE7C4007125FC /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
+		18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewController.swift; sourceTree = "<group>"; };
+		18A8E10B2A1CF824007125FC /* ConditionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionButton.swift; sourceTree = "<group>"; };
+		18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryViewController.swift; sourceTree = "<group>"; };
+		18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryCell.swift; sourceTree = "<group>"; };
+		18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,18 +63,85 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D015502A1FBA45002DBF22 /* RxRelay in Frameworks */,
+				18D0154E2A1FBA45002DBF22 /* RxCocoa in Frameworks */,
+				18D015522A1FBA45002DBF22 /* RxSwift in Frameworks */,
+				185F81662A1CCA6A00C4D554 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180983EC2A1B676500F0E854 /* Controllers */ = {
+		180517742A2592F400DB9152 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				180F957F2A1B355F00C571FD /* ViewController.swift */,
 			);
-			path = Controllers;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		180517752A2592F900DB9152 /* DiaryListView */ = {
+			isa = PBXGroup;
+			children = (
+				180F957F2A1B355F00C571FD /* DiaryListViewController.swift */,
+			);
+			path = DiaryListView;
+			sourceTree = "<group>";
+		};
+		180517762A25931E00DB9152 /* DiaryWriteView */ = {
+			isa = PBXGroup;
+			children = (
+				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
+			);
+			path = DiaryWriteView;
+			sourceTree = "<group>";
+		};
+		180517772A25932E00DB9152 /* SavedDiaryView */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
+			);
+			path = SavedDiaryView;
+			sourceTree = "<group>";
+		};
+		180517782A25933900DB9152 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
+			);
+			path = SettingView;
+			sourceTree = "<group>";
+		};
+		180517792A25934200DB9152 /* AuthView */ = {
+			isa = PBXGroup;
+			children = (
+				180247422A207B9F00B7B221 /* SignInViewController.swift */,
+				180247442A208CCE00B7B221 /* SignUpViewController.swift */,
+			);
+			path = AuthView;
+			sourceTree = "<group>";
+		};
+		1805177A2A2593A600DB9152 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */,
+				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
+				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		180983EC2A1B676500F0E854 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				180517792A25934200DB9152 /* AuthView */,
+				180517752A2592F900DB9152 /* DiaryListView */,
+				180517762A25931E00DB9152 /* DiaryWriteView */,
+				180517772A25932E00DB9152 /* SavedDiaryView */,
+				180517782A25933900DB9152 /* SettingView */,
+				188423072A1DC5AD0047A946 /* TabViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		180983ED2A1B676A00F0E854 /* App */ = {
@@ -50,27 +151,6 @@
 				180F957D2A1B355F00C571FD /* SceneDelegate.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		180983EE2A1B679E00F0E854 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		180983EF2A1B67A600F0E854 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		180983F02A1B67B000F0E854 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		180F956F2A1B355F00C571FD = {
@@ -112,12 +192,41 @@
 			isa = PBXGroup;
 			children = (
 				180983ED2A1B676A00F0E854 /* App */,
-				180983EC2A1B676500F0E854 /* Controllers */,
-				180983EE2A1B679E00F0E854 /* Models */,
-				180983F02A1B67B000F0E854 /* Utility */,
-				180983EF2A1B67A600F0E854 /* Views */,
+				1805177A2A2593A600DB9152 /* Cells */,
+				18A8E1062A1CE7BC007125FC /* Extensions */,
+				185F81602A1CC6C300C4D554 /* Model */,
+				185F81672A1CCB6F00C4D554 /* SubViews */,
+				180517742A2592F400DB9152 /* ViewModel */,
+				180983EC2A1B676500F0E854 /* Views */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		185F81602A1CC6C300C4D554 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				185F81612A1CC6F000C4D554 /* Diary.swift */,
+				18194A5F2A1F36E700C0541F /* Setting.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		185F81672A1CCB6F00C4D554 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				180247402A206B2400B7B221 /* AlertController.swift */,
+				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
+				180247482A209F8F00B7B221 /* AuthFormStackView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		18A8E1062A1CE7BC007125FC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18A8E1072A1CE7C4007125FC /* Date + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +246,12 @@
 			dependencies = (
 			);
 			name = MODA;
+			packageProductDependencies = (
+				185F81652A1CCA6A00C4D554 /* SnapKit */,
+				18D0154D2A1FBA45002DBF22 /* RxCocoa */,
+				18D0154F2A1FBA45002DBF22 /* RxRelay */,
+				18D015512A1FBA45002DBF22 /* RxSwift */,
+			);
 			productName = MODA;
 			productReference = 180F95782A1B355F00C571FD /* MODA.app */;
 			productType = "com.apple.product-type.application";
@@ -165,6 +280,10 @@
 				Base,
 			);
 			mainGroup = 180F956F2A1B355F00C571FD;
+			packageReferences = (
+				185F81642A1CCA6A00C4D554 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				18D0154C2A1FBA45002DBF22 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 180F95792A1B355F00C571FD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -213,9 +332,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				180F95802A1B355F00C571FD /* ViewController.swift in Sources */,
+				18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */,
+				180247412A206B2400B7B221 /* AlertController.swift in Sources */,
+				180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */,
+				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,
+				180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */,
+				180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */,
+				18194A602A1F36E700C0541F /* Setting.swift in Sources */,
+				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
+				18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */,
+				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
+				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
+				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
+				180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */,
+				18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */,
+				18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */,
+				18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +569,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		185F81642A1CCA6A00C4D554 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.6.0;
+			};
+		};
+		18D0154C2A1FBA45002DBF22 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		185F81652A1CCA6A00C4D554 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 185F81642A1CCA6A00C4D554 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		18D0154D2A1FBA45002DBF22 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18D0154C2A1FBA45002DBF22 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		18D0154F2A1FBA45002DBF22 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18D0154C2A1FBA45002DBF22 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		18D015512A1FBA45002DBF22 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18D0154C2A1FBA45002DBF22 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 180F95702A1B355F00C571FD /* Project object */;
 }
