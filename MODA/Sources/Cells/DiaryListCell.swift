@@ -7,10 +7,6 @@
 import UIKit
 
 final class DiaryListCell: UICollectionViewCell {
-    static var identifier: String {
-        return String(describing: Self.self)
-    }
-    
     private let createdDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,14 +27,15 @@ final class DiaryListCell: UICollectionViewCell {
     private let dividerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .secondaryLabel
+        view.backgroundColor = .secondarySystemBackground
         return view
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 10
+        label.numberOfLines = 0
         label.textAlignment = .left
+        label.font = .systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -73,6 +70,7 @@ final class DiaryListCell: UICollectionViewCell {
     }
 }
 
+// MARK: - UI 구성 관련 코드
 private extension DiaryListCell {
     func configureUI() {
         configureHierarchy()
@@ -106,10 +104,10 @@ private extension DiaryListCell {
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(dividerView.snp.top).offset(8)
+            $0.top.equalTo(dividerView.snp.top)
             $0.bottom.lessThanOrEqualTo(dividerView.snp.bottom)
             $0.leading.equalTo(dividerView.snp.trailing).offset(12)
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-12)
             $0.width.equalToSuperview().multipliedBy(0.7)
         }
     }

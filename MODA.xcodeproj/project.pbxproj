@@ -15,6 +15,7 @@
 		180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177F2A25E1AF00DB9152 /* DiaryService.swift */; };
 		180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */; };
 		180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */; };
+		180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517872A25F77600DB9152 /* Reusable + Extensions.swift */; };
 		180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957B2A1B355F00C571FD /* AppDelegate.swift */; };
 		180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957D2A1B355F00C571FD /* SceneDelegate.swift */; };
 		180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* DiaryListViewController.swift */; };
@@ -46,6 +47,7 @@
 		1805177F2A25E1AF00DB9152 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
 		180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JsonDecoder + Extensions.swift"; sourceTree = "<group>"; };
 		180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extensions.swift"; sourceTree = "<group>"; };
+		180517872A25F77600DB9152 /* Reusable + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable + Extensions.swift"; sourceTree = "<group>"; };
 		180F95782A1B355F00C571FD /* MODA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MODA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		180F957B2A1B355F00C571FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		180F957D2A1B355F00C571FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				18A8E1072A1CE7C4007125FC /* Date + Extension.swift */,
 				180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */,
 				180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */,
+				180517872A25F77600DB9152 /* Reusable + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */,
 				18194A602A1F36E700C0541F /* Setting.swift in Sources */,
 				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
+				180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
 				18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */,
 				180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */,
