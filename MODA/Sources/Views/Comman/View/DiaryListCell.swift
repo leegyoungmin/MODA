@@ -99,7 +99,7 @@ private extension DiaryListCell {
         dividerView.snp.makeConstraints {
             $0.top.equalTo(createdDateLabel.snp.top)
             $0.leading.equalTo(createdDateLabel.snp.trailing).offset(12)
-            $0.bottom.equalTo(conditionLabel.snp.bottom).offset(-12)
+            $0.bottom.equalTo(conditionLabel.snp.bottom)
             $0.width.equalTo(1)
         }
         
