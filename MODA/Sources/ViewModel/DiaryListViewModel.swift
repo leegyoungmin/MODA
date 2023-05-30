@@ -4,16 +4,16 @@
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
+import Foundation
 import RxSwift
 
 protocol ViewModel: AnyObject {
     associatedtype Input
     associatedtype Output
     
-    var input: Input { get }
-    var output: Output { get }
+    var disposeBag: DisposeBag { get set }
     
-    init()
+    func transform(input: Input) -> Output
 }
 
 final class DiaryListViewModel: ViewModel {
@@ -25,11 +25,16 @@ final class DiaryListViewModel: ViewModel {
         var diaries: Observable<[Diary]>
     }
     
-    let input: Input
-    let output: Output
+    var disposeBag: DisposeBag = DisposeBag()
     
-    init() {
-        self.input = Input()
-        self.output = Output(diaries: .of(Diary.mockDatas))
+    func transform(input: Input) -> Output {
+        let diaries = self.loadDiary()
+        
+        return Output(diaries: diaries)
+    }
+    
+    func loadDiary() -> Observable<[Diary]> {
+        return DiaryService()
+            .loadDiaries(with: "r:e4fb8cd8e9dbd6136ca80b767aec45db")
     }
 }
