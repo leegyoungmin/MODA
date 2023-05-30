@@ -16,6 +16,8 @@
 		180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */; };
 		180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */; };
 		180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517872A25F77600DB9152 /* Reusable + Extensions.swift */; };
+		180517902A2604CF00DB9152 /* DefaultNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805178F2A2604CF00DB9152 /* DefaultNetworkService.swift */; };
+		180517932A263D4400DB9152 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517922A263D4400DB9152 /* NetworkError.swift */; };
 		180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957B2A1B355F00C571FD /* AppDelegate.swift */; };
 		180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957D2A1B355F00C571FD /* SceneDelegate.swift */; };
 		180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* DiaryListViewController.swift */; };
@@ -48,6 +50,8 @@
 		180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JsonDecoder + Extensions.swift"; sourceTree = "<group>"; };
 		180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extensions.swift"; sourceTree = "<group>"; };
 		180517872A25F77600DB9152 /* Reusable + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable + Extensions.swift"; sourceTree = "<group>"; };
+		1805178F2A2604CF00DB9152 /* DefaultNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkService.swift; sourceTree = "<group>"; };
+		180517922A263D4400DB9152 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		180F95782A1B355F00C571FD /* MODA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MODA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		180F957B2A1B355F00C571FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		180F957D2A1B355F00C571FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +190,15 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		1805178E2A2604BE00DB9152 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1805178F2A2604CF00DB9152 /* DefaultNetworkService.swift */,
+				180517922A263D4400DB9152 /* NetworkError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		180983EC2A1B676500F0E854 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +260,7 @@
 		180F95912A1B3C5600C571FD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1805178E2A2604BE00DB9152 /* Network */,
 				180983ED2A1B676A00F0E854 /* App */,
 				1805178D2A26044000DB9152 /* Domain */,
 				180517892A2603DF00DB9152 /* Utility */,
@@ -393,10 +407,12 @@
 				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
 				180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
+				180517902A2604CF00DB9152 /* DefaultNetworkService.swift in Sources */,
 				18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */,
 				180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */,
 				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
+				180517932A263D4400DB9152 /* NetworkError.swift in Sources */,
 				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
 				180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */,
 				18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */,
