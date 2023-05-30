@@ -67,7 +67,7 @@ final class DiaryListCell: UICollectionViewCell {
     }
     
     func setUpDatas(to diary: Diary) {
-        createdDateLabel.text = diary.meta.day
+        createdDateLabel.text = diary.createdDate.toString("dd일")
         conditionLabel.text = diary.condition.description
         contentLabel.text = diary.content
     }
@@ -106,8 +106,8 @@ private extension DiaryListCell {
         }
         
         contentLabel.snp.makeConstraints {
-            $0.top.equalTo(dividerView.snp.top)
-            $0.bottom.equalTo(dividerView.snp.bottom)
+            $0.top.equalTo(dividerView.snp.top).offset(8)
+            $0.bottom.lessThanOrEqualTo(dividerView.snp.bottom)
             $0.leading.equalTo(dividerView.snp.trailing).offset(12)
             $0.trailing.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.7)
