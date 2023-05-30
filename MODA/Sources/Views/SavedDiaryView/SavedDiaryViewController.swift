@@ -23,7 +23,7 @@ final class SavedDiaryViewController: UIViewController {
     }()
     
     
-    private let mockDatas: Observable<[Diary]> = Observable.of(Diary.mockDatas)
+    private let mockDatas: Observable<[Diary]> = Observable.of([])
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
