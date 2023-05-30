@@ -7,15 +7,6 @@
 import Foundation
 import RxSwift
 
-protocol ViewModel: AnyObject {
-    associatedtype Input
-    associatedtype Output
-    
-    var disposeBag: DisposeBag { get set }
-    
-    func transform(input: Input) -> Output
-}
-
 final class DiaryListViewModel: ViewModel {
     struct Input {
         
@@ -25,7 +16,13 @@ final class DiaryListViewModel: ViewModel {
         var diaries: Observable<[Diary]>
     }
     
+    private let diaryRepository: DiaryListRepository
+    
     var disposeBag: DisposeBag = DisposeBag()
+    
+    init(diaryRepository: DiaryListRepository) {
+        self.diaryRepository = diaryRepository
+    }
     
     func transform(input: Input) -> Output {
         let diaries = self.loadDiary()
@@ -34,7 +31,6 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func loadDiary() -> Observable<[Diary]> {
-        return DiaryService()
-            .loadDiaries(with: "r:e4fb8cd8e9dbd6136ca80b767aec45db")
+        return diaryRepository.fetchDiaries("r:9831913b6e42aa7a7cf46a49e9790da8")
     }
 }

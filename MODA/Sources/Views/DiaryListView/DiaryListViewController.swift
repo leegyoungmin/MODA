@@ -43,7 +43,11 @@ final class DiaryListViewController: UIViewController {
     }()
     
     // MARK: - Properties of Data
-    private let viewModel = DiaryListViewModel()
+    private let viewModel = DiaryListViewModel(
+        diaryRepository: DefaultDiaryListRepository(
+            diaryService: DiaryService()
+        )
+    )
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
