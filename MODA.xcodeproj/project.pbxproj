@@ -73,19 +73,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180983EC2A1B676500F0E854 /* Controllers */ = {
+		180517742A2592F400DB9152 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		180517752A2592F900DB9152 /* DiaryListView */ = {
 			isa = PBXGroup;
 			children = (
 				180F957F2A1B355F00C571FD /* DiaryListViewController.swift */,
+			);
+			path = DiaryListView;
+			sourceTree = "<group>";
+		};
+		180517762A25931E00DB9152 /* DiaryWriteView */ = {
+			isa = PBXGroup;
+			children = (
 				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
-				188423072A1DC5AD0047A946 /* TabViewController.swift */,
+			);
+			path = DiaryWriteView;
+			sourceTree = "<group>";
+		};
+		180517772A25932E00DB9152 /* SavedDiaryView */ = {
+			isa = PBXGroup;
+			children = (
 				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
+			);
+			path = SavedDiaryView;
+			sourceTree = "<group>";
+		};
+		180517782A25933900DB9152 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
 				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
-				180247402A206B2400B7B221 /* AlertController.swift */,
+			);
+			path = SettingView;
+			sourceTree = "<group>";
+		};
+		180517792A25934200DB9152 /* AuthView */ = {
+			isa = PBXGroup;
+			children = (
 				180247422A207B9F00B7B221 /* SignInViewController.swift */,
 				180247442A208CCE00B7B221 /* SignUpViewController.swift */,
 			);
-			path = Controllers;
+			path = AuthView;
+			sourceTree = "<group>";
+		};
+		1805177A2A2593A600DB9152 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */,
+				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
+				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		180983EC2A1B676500F0E854 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				180517792A25934200DB9152 /* AuthView */,
+				180517752A2592F900DB9152 /* DiaryListView */,
+				180517762A25931E00DB9152 /* DiaryWriteView */,
+				180517772A25932E00DB9152 /* SavedDiaryView */,
+				180517782A25933900DB9152 /* SettingView */,
+				188423072A1DC5AD0047A946 /* TabViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		180983ED2A1B676A00F0E854 /* App */ = {
@@ -135,11 +191,13 @@
 		180F95912A1B3C5600C571FD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				18A8E1062A1CE7BC007125FC /* Extensions */,
-				185F81672A1CCB6F00C4D554 /* Views */,
-				185F81602A1CC6C300C4D554 /* Model */,
 				180983ED2A1B676A00F0E854 /* App */,
-				180983EC2A1B676500F0E854 /* Controllers */,
+				1805177A2A2593A600DB9152 /* Cells */,
+				18A8E1062A1CE7BC007125FC /* Extensions */,
+				185F81602A1CC6C300C4D554 /* Model */,
+				185F81672A1CCB6F00C4D554 /* SubViews */,
+				180517742A2592F400DB9152 /* ViewModel */,
+				180983EC2A1B676500F0E854 /* Views */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -153,16 +211,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		185F81672A1CCB6F00C4D554 /* Views */ = {
+		185F81672A1CCB6F00C4D554 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
+				180247402A206B2400B7B221 /* AlertController.swift */,
 				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
-				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
-				18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */,
 				180247482A209F8F00B7B221 /* AuthFormStackView.swift */,
 			);
-			path = Views;
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		18A8E1062A1CE7BC007125FC /* Extensions */ = {
