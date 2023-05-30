@@ -9,27 +9,9 @@ import Foundation
 extension Date {
     static let formatter = DateFormatter()
     
-    func month() -> String {
+    func toString(_ format: String) -> String {
         let formatter = Self.formatter
-        formatter.dateFormat = "MM월"
+        formatter.dateFormat = format
         return formatter.string(from: self)
-    }
-    
-    func day() -> String {
-        let formatter = Self.formatter
-        formatter.dateFormat = "dd일"
-        return formatter.string(from: self)
-    }
-    
-    func year() -> String {
-        let formatter = Self.formatter
-        formatter.dateFormat = "yyyy년"
-        return formatter.string(from: self)
-    }
-    
-    static func nowDescription() -> String {
-        let formatter = Self.formatter
-        formatter.dateFormat = "yyyy년 MM월 dd일"
-        return formatter.string(from: Date())
     }
 }

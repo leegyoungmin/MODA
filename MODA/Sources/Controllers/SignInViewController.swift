@@ -77,7 +77,13 @@ private extension SignInViewController {
     func bindings() {
         signInButton.rx.tap
             .bind { _ in
-                print("Tapped Sign In Button")
+                // TODO: - Delegate 로그인 상태 변경에 따른 기능 외부로 위치 변경하기
+                guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
+                      let window = delegate.window else {
+                    return
+                }
+                
+                window.rootViewController = TabViewController()
             }
             .disposed(by: disposeBag)
         

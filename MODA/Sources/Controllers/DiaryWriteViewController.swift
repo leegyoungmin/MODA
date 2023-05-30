@@ -160,7 +160,7 @@ private extension DiaryWriteViewController {
             primaryAction: dismissAction
         )
         navigationItem.leftBarButtonItem = dismissButton
-        navigationItem.title = Date.nowDescription()
+        navigationItem.title = Date().toString("yy년 M월 dd일")
     }
     
     func makeConstraints() {

@@ -26,7 +26,7 @@ final class DiaryListViewController: UIViewController {
         label.textColor = UIColor(named: "AccentColor")
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 18)
-        label.text = Date().month()
+        label.text = Date().toString("MM월")
         return label
     }()
     

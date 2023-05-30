@@ -35,7 +35,7 @@ struct DiaryMeta {
     var isSaved: Bool = false
     
     var day: String {
-        return createdDate.day()
+        return createdDate.toString("dd일")
     }
 }
 
