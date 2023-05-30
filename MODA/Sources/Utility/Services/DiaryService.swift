@@ -8,26 +8,20 @@ import RxSwift
 import Foundation
 
 protocol DiaryServicing: AnyObject {
-    func loadDiaries(with token: String) -> Observable<[Diary]>
+    func loadDiaries(with token: String) -> Observable<Diaries>
 }
 
 final class DiaryService: DiaryServicing {
-    func loadDiaries(with token: String) -> Observable<[Diary]> {
-        guard let request = try? API.loadDiaries(token: token).generateRequest() else {
-            return Observable.error(URLError(.badURL))
-        }
-        
-        let decoder = JSONDecoder().ISODecoder()        
-        return URLSession.shared.rx.data(request: request)
-            .decode(type: Diaries.self, decoder: decoder)
-            .map { $0.results }
-            .catchAndReturn([])
+    func loadDiaries(with token: String) -> Observable<Diaries> {
+        let api = API.loadDiaries(token: token)
+        return DefaultNetworkService().request(to: api)
     }
 }
 
 protocol APIType {
     var baseURL: String { get }
     var method: String { get }
+    var path: String { get }
     var headers: [String: String] { get }
     
     func generateRequest() throws -> URLRequest
@@ -41,7 +35,14 @@ private extension DiaryService {
 
 extension DiaryService.API: APIType {
     var baseURL: String {
-        return "https://parseapi.back4app.com/classes/Diary"
+        return "https://parseapi.back4app.com" + path
+    }
+    
+    var path: String {
+        switch self {
+        case .loadDiaries:
+            return "/classes/Diary"
+        }
     }
     
     var method: String {
@@ -63,10 +64,7 @@ extension DiaryService.API: APIType {
     }
     
     func generateRequest() throws -> URLRequest {
-        guard let url = URL(string: baseURL) else {
-            throw URLError(.unsupportedURL)
-        }
-        
+        guard let url = URL(string: baseURL) else { throw NetworkError.unknownError }
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         request.httpMethod = method
