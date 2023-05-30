@@ -79,8 +79,10 @@ private extension DiaryListViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.output
-            .diaries
+        let input = DiaryListViewModel.Input()
+        
+        let output = viewModel.transform(input: input)
+        output.diaries
             .bind(
                 to: collectionView.rx.items(
                     cellIdentifier: DiaryListCell.identifier,
