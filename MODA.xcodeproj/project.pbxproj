@@ -11,6 +11,7 @@
 		180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247422A207B9F00B7B221 /* SignInViewController.swift */; };
 		180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247442A208CCE00B7B221 /* SignUpViewController.swift */; };
 		180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247482A209F8F00B7B221 /* AuthFormStackView.swift */; };
+		1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177B2A25954100DB9152 /* DiaryListViewModel.swift */; };
 		180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957B2A1B355F00C571FD /* AppDelegate.swift */; };
 		180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957D2A1B355F00C571FD /* SceneDelegate.swift */; };
 		180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F957F2A1B355F00C571FD /* DiaryListViewController.swift */; };
@@ -38,6 +39,7 @@
 		180247422A207B9F00B7B221 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		180247442A208CCE00B7B221 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		180247482A209F8F00B7B221 /* AuthFormStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFormStackView.swift; sourceTree = "<group>"; };
+		1805177B2A25954100DB9152 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		180F95782A1B355F00C571FD /* MODA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MODA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		180F957B2A1B355F00C571FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		180F957D2A1B355F00C571FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 		180517742A2592F400DB9152 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1805177B2A25954100DB9152 /* DiaryListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */,
 				180247412A206B2400B7B221 /* AlertController.swift in Sources */,
 				180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */,
+				1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */,
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,
 				180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */,

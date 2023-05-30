@@ -41,7 +41,7 @@ final class DiaryListViewController: UIViewController {
         return button
     }()
     
-    private let mockDatas: Observable<[Diary]> = Observable.of(Diary.mockDatas)
+    private let viewModel = DiaryListViewModel()
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -79,15 +79,17 @@ private extension DiaryListViewController {
             }
             .disposed(by: disposeBag)
         
-        self.mockDatas.bind(
-            to: collectionView.rx.items(
-                cellIdentifier: DiaryListCell.identifier,
-                cellType: DiaryListCell.self
-            )
-        ) { (_, model, cell) in
-            cell.setUpDatas(to: model)
-        }
-        .disposed(by: disposeBag)
+        viewModel.output
+            .diaries
+            .bind(
+                to: collectionView.rx.items(
+                    cellIdentifier: DiaryListCell.identifier,
+                    cellType: DiaryListCell.self
+                )
+            ) { (_, model, cell) in
+                cell.setUpDatas(to: model)
+            }
+            .disposed(by: disposeBag)
         
         collectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
