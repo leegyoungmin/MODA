@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class DiaryListViewController: UIViewController {
+    // MARK: - UI 구성 요소
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -41,20 +42,45 @@ final class DiaryListViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Properties of Data
     private let viewModel = DiaryListViewModel()
     private let disposeBag = DisposeBag()
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureNavigationBar()
         configureUI()
-        
-        binding()
+        bindings()
     }
 }
 
 private extension DiaryListViewController {
-    func binding() {
+    func bindings() {
+        bindingToViewModel()
+        bindingFromViewModel()
+    }
+    
+    /// - ViewModel 데이터 관련 바인딩
+    func bindingFromViewModel() {
+        let input = DiaryListViewModel.Input()
+        
+        let output = viewModel.transform(input: input)
+        output.diaries
+            .bind(
+                to: collectionView.rx.items(
+                    cellIdentifier: DiaryListCell.identifier,
+                    cellType: DiaryListCell.self
+                )
+            ) { (_, model, cell) in
+                cell.setUpDatas(to: model)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// - UI관련 바인딩
+    func bindingToViewModel() {
         monthButton.rx.tap
             .bind { [weak self] _ in
                 guard let self = self else { return }
@@ -79,25 +105,12 @@ private extension DiaryListViewController {
             }
             .disposed(by: disposeBag)
         
-        let input = DiaryListViewModel.Input()
-        
-        let output = viewModel.transform(input: input)
-        output.diaries
-            .bind(
-                to: collectionView.rx.items(
-                    cellIdentifier: DiaryListCell.identifier,
-                    cellType: DiaryListCell.self
-                )
-            ) { (_, model, cell) in
-                cell.setUpDatas(to: model)
-            }
-            .disposed(by: disposeBag)
-        
         collectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
 }
 
+// MARK: - CollectionView Delegate 메서드
 extension DiaryListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
@@ -109,35 +122,48 @@ extension DiaryListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - Navigation Bar UI 구성 코드
+private extension DiaryListViewController {
+    func configureNavigationBar() {
+        navigationItem.titleView = configureTitleStackView()
+        
+        let addButton = UIBarButtonItem(systemItem: .add)
+        addButton.tintColor = UIColor(named: "AccentColor")
+        navigationItem.rightBarButtonItem = addButton
+        
+        configureNavigationAppearance()
+    }
+    
+    func configureTitleStackView() -> UIStackView {
+        let titleStackView = UIStackView(arrangedSubviews: [titleLabel, monthButton])
+        titleStackView.axis = .horizontal
+        titleStackView.spacing = 6
+        titleStackView.frame.size.width = titleLabel.frame.width + monthButton.frame.width
+        titleStackView.frame.size.height = max(titleLabel.frame.height, monthButton.frame.height)
+        
+        return titleStackView
+    }
+    
+    func configureNavigationAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .white
+        
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
+    }
+}
+
+// MARK: - UI 구성 관련 코드
 private extension DiaryListViewController {
     func configureUI() {
-        configureNavigationBar()
         configureHierarchy()
         makeConstraints()
     }
     
     func configureHierarchy() {
         [collectionView].forEach(view.addSubview)
-    }
-    
-    func configureNavigationBar() {
-        let titleStackView = UIStackView(arrangedSubviews: [titleLabel, monthButton])
-        titleStackView.axis = .horizontal
-        titleStackView.spacing = 6
-        titleStackView.frame.size.width = titleLabel.frame.width + monthButton.frame.width
-        titleStackView.frame.size.height = max(titleLabel.frame.height, monthButton.frame.height)
-        navigationItem.titleView = titleStackView
-        
-        let addButton = UIBarButtonItem(systemItem: .add)
-        addButton.tintColor = UIColor(named: "AccentColor")
-        navigationItem.rightBarButtonItem = addButton
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .white
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
     }
     
     func makeConstraints() {
