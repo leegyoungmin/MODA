@@ -47,6 +47,8 @@ final class DiaryListViewController: UIViewController {
             diaryService: DiaryService()
         )
     )
+    
+    private var deleteItemTrigger = PublishSubject<Diary>()
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
@@ -67,7 +69,15 @@ private extension DiaryListViewController {
     
     /// - ViewModel 데이터 관련 바인딩
     func bindingFromViewModel() {
-        let input = DiaryListViewModel.Input()
+        
+        let viewWillAppear = self.rx.methodInvoked(#selector(viewWillAppear))
+            .map { _ in }
+            .asObservable()
+        
+        let input = DiaryListViewModel.Input(
+            viewWillAppear: viewWillAppear,
+            removeTargetItem: deleteItemTrigger
+        )
         
         let output = viewModel.transform(input: input)
         
@@ -77,13 +87,16 @@ private extension DiaryListViewController {
                     cellIdentifier: DiaryListCell.identifier,
                     cellType: DiaryListCell.self
                 )
-            ) { (index, model, cell) in
+            ) { (_, model, cell) in
                 cell.selectionStyle = .none
+                
                 cell.deleteButton.rx.tap
-                    .bind { _ in
-                        print(index)
+                    .subscribe { [weak self] _ in
+                        guard let self = self else { return }
+                        self.deleteItemTrigger.onNext(model)
                     }
                     .disposed(by: self.disposeBag)
+                
                 cell.setUpDatas(to: model)
             }
             .disposed(by: disposeBag)

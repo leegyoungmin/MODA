@@ -9,6 +9,7 @@ import RxSwift
 
 protocol NetworkService: AnyObject {
     func request<T: Decodable>(to api: APIType) -> Observable<T>
+    func request(to api: APIType) -> Observable<Void>
 }
 
 final class DefaultNetworkService: NetworkService {
@@ -53,4 +54,41 @@ final class DefaultNetworkService: NetworkService {
             return Disposables.create()
         }
     }
+    
+    func request(to api: APIType) -> Observable<Void> {
+        return Observable.create { emitter in
+            guard let request = try? api.generateRequest() else {
+                emitter.onError(NetworkError.invalidURLError)
+                return Disposables.create()
+            }
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    emitter.onError(error)
+                    return
+                }
+                
+                guard let response = response as? HTTPURLResponse else {
+                    emitter.onError(NetworkError.responseDecodingError)
+                    return
+                }
+                
+                guard (200...300) ~= response.statusCode else {
+                    let error = NetworkError(rawValue: response.statusCode) ?? .unknownError
+                    emitter.onError(error)
+                    return
+                }
+                
+                guard let _ = data else {
+                    emitter.onError(NetworkError.dataDecodingError)
+                    return
+                }
+                
+                emitter.onNext(())
+            }.resume()
+            
+            return Disposables.create()
+        }
+    }
+    
 }

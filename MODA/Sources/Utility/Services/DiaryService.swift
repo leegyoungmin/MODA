@@ -9,11 +9,24 @@ import Foundation
 
 protocol DiaryServicing: AnyObject {
     func loadDiaries(with token: String) -> Observable<Diaries>
+    
+    func deleteDiary(
+        with token: String,
+        to id: String
+    ) -> Observable<Void>
 }
 
 final class DiaryService: DiaryServicing {
     func loadDiaries(with token: String) -> Observable<Diaries> {
         let api = API.loadDiaries(token: token)
+        return DefaultNetworkService().request(to: api)
+    }
+    
+    func deleteDiary(
+        with token: String,
+        to id: String
+    ) -> Observable<Void> {
+        let api = API.removeDiary(token: token, id: id)
         return DefaultNetworkService().request(to: api)
     }
 }
@@ -30,6 +43,7 @@ protocol APIType {
 private extension DiaryService {
     enum API {
         case loadDiaries(token: String)
+        case removeDiary(token: String, id: String)
     }
 }
 
@@ -42,6 +56,9 @@ extension DiaryService.API: APIType {
         switch self {
         case .loadDiaries:
             return "/classes/Diary"
+            
+        case .removeDiary(_, let id):
+            return "/classes/Diary/\(id)"
         }
     }
     
@@ -49,12 +66,14 @@ extension DiaryService.API: APIType {
         switch self {
         case .loadDiaries:
             return "GET"
+        case .removeDiary:
+            return "DELETE"
         }
     }
     
     var headers: [String: String] {
         switch self {
-        case .loadDiaries(let token):
+        case .loadDiaries(let token), .removeDiary(let token, _):
             return [
                 "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
                 "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
