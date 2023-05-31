@@ -9,14 +9,25 @@ import UIKit
 final class MonthStackView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         self.axis = .vertical
         self.distribution = .fillEqually
-        configureUI()
+        self.spacing = 16
+        self.isLayoutMarginsRelativeArrangement = true
+        self.layoutMargins = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        self.layer.backgroundColor = UIColor(named: "SecondaryColor")?.cgColor
+        self.layer.cornerRadius = 12
+        
+        configureHierarchy()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        configureUI()
+        
+        self.axis = .vertical
+        self.distribution = .fillEqually
+        
+        configureHierarchy()
     }
     
     private func configureButtons() -> [[UIButton]] {
@@ -25,7 +36,9 @@ final class MonthStackView: UIStackView {
         for month in 0..<12 {
             let button = UIButton()
             button.setTitle("\(month + 1)월", for: .normal)
-            button.setTitleColor(.red, for: .normal)
+            button.setTitleColor(.secondaryLabel, for: .normal)
+            button.layer.cornerRadius = 12
+            
             buttons[month / 4].append(button)
         }
         
@@ -39,6 +52,8 @@ final class MonthStackView: UIStackView {
             let stackView = UIStackView()
             stackView.axis = .horizontal
             stackView.distribution = .fillEqually
+            stackView.spacing = 8
+            stackView.isLayoutMarginsRelativeArrangement = false
             
             stackViews.append(stackView)
         }
@@ -48,10 +63,6 @@ final class MonthStackView: UIStackView {
 }
 
 private extension MonthStackView {
-    func configureUI() {
-        configureHierarchy()
-    }
-    
     func configureHierarchy() {
         let stackViews = configureStackView()
         
