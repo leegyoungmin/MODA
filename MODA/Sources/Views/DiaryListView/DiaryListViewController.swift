@@ -48,6 +48,7 @@ final class DiaryListViewController: UIViewController {
         )
     )
     
+    private var deleteItemEvent = PublishSubject<Diary>()
     private var deleteItemTrigger = PublishSubject<Diary>()
     private let disposeBag = DisposeBag()
     
@@ -69,7 +70,6 @@ private extension DiaryListViewController {
     
     /// - ViewModel 데이터 관련 바인딩
     func bindingFromViewModel() {
-        
         let viewWillAppear = self.rx.methodInvoked(#selector(viewWillAppear))
             .map { _ in }
             .asObservable()
@@ -93,7 +93,7 @@ private extension DiaryListViewController {
                 cell.deleteButton.rx.tap
                     .subscribe { [weak self] _ in
                         guard let self = self else { return }
-                        self.deleteItemTrigger.onNext(model)
+                        self.deleteItemEvent.onNext(model)
                     }
                     .disposed(by: self.disposeBag)
                 
@@ -125,6 +125,28 @@ private extension DiaryListViewController {
                 let navigationController = UINavigationController(rootViewController: controller)
                 navigationController.modalPresentationStyle = .fullScreen
                 self.present(navigationController, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        deleteItemEvent
+            .bind { [weak self] diary in
+                let alertController = UIAlertController(
+                    title: "정말 삭제하시겠습니까?",
+                    message: nil,
+                    preferredStyle: .alert
+                )
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                
+                let deleteAction = UIAlertAction(
+                    title: "삭제",
+                    style: .destructive
+                ) { _ in
+                    self?.deleteItemTrigger.onNext(diary)
+                }
+                
+                [cancelAction, deleteAction].forEach(alertController.addAction)
+                self?.present(alertController, animated: true)
             }
             .disposed(by: disposeBag)
     }
