@@ -7,6 +7,13 @@
 import UIKit
 
 final class DiaryListCell: UITableViewCell {
+    private let diaryContentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "SecondaryColor")
+        view.layer.cornerRadius = 12
+        return view
+    }()
+    
     private let createdDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,11 +47,31 @@ final class DiaryListCell: UITableViewCell {
         return label
     }()
     
+    private(set) var starButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "star"), for: .normal)
+        return button
+    }()
+    
+    private(set) var deleteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        return button
+    }()
+    
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .trailing
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.layer.cornerRadius = 12
-        contentView.backgroundColor = UIColor(named: "SecondaryColor")
+        contentView.backgroundColor = .white
         
         configureUI()
     }
@@ -59,6 +86,10 @@ final class DiaryListCell: UITableViewCell {
         super.layoutSubviews()
         
         contentView.frame = contentView.frame.inset(
+            by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        )
+        
+        diaryContentView.frame = diaryContentView.frame.inset(
             by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         )
     }
@@ -79,18 +110,35 @@ private extension DiaryListCell {
     
     func configureHierarchy() {
         [createdDateLabel, conditionLabel, dividerView, contentLabel]
+            .forEach(diaryContentView.addSubview)
+        
+        [starButton, deleteButton].forEach(buttonStackView.addArrangedSubview)
+        
+        [buttonStackView, diaryContentView]
             .forEach(contentView.addSubview)
     }
     
     func makeConstraints() {
-        createdDateLabel.snp.makeConstraints {
+        buttonStackView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-12)
             $0.top.equalToSuperview().offset(12)
+        }
+        
+        diaryContentView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalTo(deleteButton.snp.bottom).offset(12)
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        createdDateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(8)
             $0.leading.equalToSuperview().offset(12)
             $0.height.equalTo(50).priority(.high)
         }
         
         conditionLabel.snp.makeConstraints {
-            $0.top.equalTo(createdDateLabel.snp.bottom)
+            $0.top.equalTo(createdDateLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(12)
             $0.trailing.equalTo(createdDateLabel.snp.trailing)
             $0.bottom.equalToSuperview().offset(-12)

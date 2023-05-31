@@ -77,8 +77,13 @@ private extension DiaryListViewController {
                     cellIdentifier: DiaryListCell.identifier,
                     cellType: DiaryListCell.self
                 )
-            ) { (_, model, cell) in
+            ) { (index, model, cell) in
                 cell.selectionStyle = .none
+                cell.deleteButton.rx.tap
+                    .bind { _ in
+                        print(index)
+                    }
+                    .disposed(by: self.disposeBag)
                 cell.setUpDatas(to: model)
             }
             .disposed(by: disposeBag)
