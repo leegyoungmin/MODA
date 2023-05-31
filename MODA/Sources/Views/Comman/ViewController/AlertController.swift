@@ -98,6 +98,10 @@ private extension AlertController {
         view.addSubview(containerView)
         
         [titleLabel, confirmButton].forEach(containerView.addSubview)
+        
+        if let contentView = contentView {
+            containerView.addSubview(contentView)
+        }
     }
     
     func makeConstraints() {
@@ -112,6 +116,14 @@ private extension AlertController {
             $0.leading.equalToSuperview().offset(16)
             $0.top.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
+        }
+        
+        if let contentView = contentView {
+            contentView.snp.makeConstraints {
+                $0.leading.equalToSuperview().offset(16)
+                $0.trailing.equalToSuperview().offset(-16)
+                $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            }
         }
         
         confirmButton.snp.makeConstraints {

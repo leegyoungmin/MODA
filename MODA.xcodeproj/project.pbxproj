@@ -38,6 +38,7 @@
 		18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */; };
 		18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */; };
 		18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */; };
+		18CCC0CD2A274C1100EFE885 /* MonthStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCC0CC2A274C1100EFE885 /* MonthStackView.swift */; };
 		18D0154E2A1FBA45002DBF22 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154D2A1FBA45002DBF22 /* RxCocoa */; };
 		18D015502A1FBA45002DBF22 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154F2A1FBA45002DBF22 /* RxRelay */; };
 		18D015522A1FBA45002DBF22 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D015512A1FBA45002DBF22 /* RxSwift */; };
@@ -76,6 +77,7 @@
 		18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryCell.swift; sourceTree = "<group>"; };
 		18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		18CCC0CC2A274C1100EFE885 /* MonthStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
 				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
 				180247482A209F8F00B7B221 /* AuthFormStackView.swift */,
+				18CCC0CC2A274C1100EFE885 /* MonthStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				1805179A2A2641B200DB9152 /* DefaultDiaryListRepository.swift in Sources */,
 				18194A602A1F36E700C0541F /* Setting.swift in Sources */,
 				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
+				18CCC0CD2A274C1100EFE885 /* MonthStackView.swift in Sources */,
 				180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
 				180517902A2604CF00DB9152 /* DefaultNetworkService.swift in Sources */,

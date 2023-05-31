@@ -108,9 +108,13 @@ private extension DiaryListViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let controller = AlertController(title: "보고 싶은 달을 선택해주세요.") {
-                    print("Tapped Dismiss Button")
+                let controller = AlertController(
+                    title: "보고 싶은 달을 선택해주세요",
+                    contentView: MonthStackView()
+                ) {
+                    print("Tapped Month Button")
                 }
+                
                 controller.modalTransitionStyle = .crossDissolve
                 controller.modalPresentationStyle = .overFullScreen
                 self.present(controller, animated: true)
