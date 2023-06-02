@@ -11,6 +11,7 @@ final class DiaryListViewModel: ViewModel {
     struct Input {
         var viewWillAppear: Observable<Void>
         var removeTargetItem: Observable<Diary>
+        var selectedMonth: Observable<Int>
     }
     
     struct Output {
@@ -35,6 +36,7 @@ final class DiaryListViewModel: ViewModel {
     
     func bindOutput(_ output: Output) {
         diaryRepository.diaries
+            .debug()
             .subscribe { diaries in
                 output.diaries.on(diaries)
             }
@@ -45,7 +47,7 @@ final class DiaryListViewModel: ViewModel {
         input.viewWillAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.diaryRepository.fetchDiaries("r:b8007cc20843c502703f13bc08d7e3da")
+                self.diaryRepository.fetchAllDiaries("r:b8007cc20843c502703f13bc08d7e3da")
             }
             .disposed(by: disposeBag)
         
@@ -55,6 +57,17 @@ final class DiaryListViewModel: ViewModel {
                 self.diaryRepository.removeDiaries(
                     objectId: diary.id,
                     token: "r:b8007cc20843c502703f13bc08d7e3da"
+                )
+            }
+            .disposed(by: disposeBag)
+        
+        input.selectedMonth
+            .subscribe { [weak self] month in
+                guard let self = self, let month = month.element else { return }
+                print(month + 1)
+                self.diaryRepository.fetchSearchDiaries(
+                    "r:73c87143778dd7a511da231909e85932",
+                    query: "{\"createdMonth\":{\"$lte\":\"\(month + 1)\",\"$gte\":\"\(month + 1)\"}}"
                 )
             }
             .disposed(by: disposeBag)
