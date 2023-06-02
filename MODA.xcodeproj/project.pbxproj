@@ -50,7 +50,6 @@
 		18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */; };
 		18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */; };
 		18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */; };
-		18E6322C2A2A4154009FD40D /* UIButton + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6322B2A2A4154009FD40D /* UIButton + Extensions.swift */; };
 		18E6322E2A2A4362009FD40D /* DisableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6322D2A2A4362009FD40D /* DisableButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +95,6 @@
 		18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewModel.swift; sourceTree = "<group>"; };
-		18E6322B2A2A4154009FD40D /* UIButton + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extensions.swift"; sourceTree = "<group>"; };
 		18E6322D2A2A4362009FD40D /* DisableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -400,7 +398,6 @@
 				180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */,
 				180517872A25F77600DB9152 /* Reusable + Extensions.swift */,
 				1805179B2A26433100DB9152 /* ViewModel.swift */,
-				18E6322B2A2A4154009FD40D /* UIButton + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,7 +548,6 @@
 				187CA9062A29B4B90018B8CB /* MonthCalendarViewModel.swift in Sources */,
 				180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */,
 				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
-				18E6322C2A2A4154009FD40D /* UIButton + Extensions.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
 				18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */,
 				180517932A263D4400DB9152 /* NetworkError.swift in Sources */,
