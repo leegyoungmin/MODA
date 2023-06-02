@@ -50,6 +50,7 @@ final class DiaryListViewController: UIViewController {
     
     private var deleteItemEvent = PublishSubject<Diary>()
     private var deleteItemTrigger = PublishSubject<Diary>()
+    private var selectedMonth = PublishSubject<Int>()
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
@@ -76,7 +77,8 @@ private extension DiaryListViewController {
         
         let input = DiaryListViewModel.Input(
             viewWillAppear: viewWillAppear,
-            removeTargetItem: deleteItemTrigger
+            removeTargetItem: deleteItemTrigger,
+            selectedMonth: selectedMonth.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -112,6 +114,8 @@ private extension DiaryListViewController {
                 let sheetController = BottomSheetViewController(
                     controller: childController
                 )
+                
+                childController.delegate = self
                 
                 sheetController.modalPresentationStyle = .overFullScreen
                 sheetController.modalTransitionStyle = .coverVertical
@@ -152,6 +156,16 @@ private extension DiaryListViewController {
                 self?.present(alertController, animated: true)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension DiaryListViewController: MonthCalendarViewControllerDelegate {
+    func monthCalendarViewController(
+        monthCalendarViewController: MonthCalendarViewController,
+        didTapConfirm month: Int
+    ) {
+        titleLabel.text = "\(month + 1)월"
+        selectedMonth.onNext(month)
     }
 }
 
