@@ -43,8 +43,10 @@ final class DiaryListViewController: UIViewController {
     
     // MARK: - Properties of Data
     private let viewModel = DiaryListViewModel(
-        diaryRepository: DefaultDiaryListRepository(
-            diaryService: DiaryService()
+        diaryListUseCase: DefaultDiaryListUseCase(
+            diaryListRepository: DefaultDiaryListRepository(
+                diaryService: DiaryService()
+            )
         )
     )
     
@@ -110,7 +112,8 @@ private extension DiaryListViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let childController = MonthCalendarViewController()
+                let viewModel = MonthCalendarViewModel()
+                let childController = MonthCalendarViewController(viewModel: viewModel)
                 let sheetController = BottomSheetViewController(
                     controller: childController
                 )
@@ -165,7 +168,7 @@ extension DiaryListViewController: MonthCalendarViewControllerDelegate {
         didTapConfirm month: Int
     ) {
         titleLabel.text = "\(month + 1)월"
-        selectedMonth.onNext(month)
+        selectedMonth.onNext(month + 1)
     }
 }
 
