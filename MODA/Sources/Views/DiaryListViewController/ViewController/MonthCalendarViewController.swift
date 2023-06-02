@@ -7,7 +7,16 @@
 import UIKit
 import RxSwift
 
+protocol MonthCalendarViewControllerDelegate: AnyObject {
+    func monthCalendarViewController(
+        monthCalendarViewController: MonthCalendarViewController,
+        didTapConfirm month: Int
+    )
+}
+
 final class MonthCalendarViewController: UIViewController {
+    weak var delegate: MonthCalendarViewControllerDelegate?
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 24)
@@ -23,6 +32,7 @@ final class MonthCalendarViewController: UIViewController {
     
     private let yearStackView = YearControl()
     private let monthStackView = MonthControl()
+    
     
     private let confirmButton: UIButton = {
         let button = UIButton()
@@ -67,6 +77,19 @@ final class MonthCalendarViewController: UIViewController {
             .compactMap { $0 }
             .observe(on: MainScheduler.instance)
             .bind(to: monthStackView.selectedMonth)
+            .disposed(by: disposeBag)
+        
+        confirmButton.rx.tap
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                
+                delegate?.monthCalendarViewController(
+                    monthCalendarViewController: self,
+                    didTapConfirm: viewModel.selectedMonth
+                )
+                
+                self.parent?.dismiss(animated: true)
+            }
             .disposed(by: disposeBag)
     }
 }
