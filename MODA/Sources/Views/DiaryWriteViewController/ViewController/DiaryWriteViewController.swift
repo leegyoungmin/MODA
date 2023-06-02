@@ -100,17 +100,10 @@ extension DiaryWriteViewController {
             }
             .disposed(by: disposeBag)
         
-        saveButton.rx.tap
-            .bind { [weak self] _ in
-                guard let self = self else { return }
-                print("Save Success")
-                self.dismiss(animated: true)
-            }
-            .disposed(by: disposeBag)
-        
         let input = DiaryWriteViewModel.Input(
             selectedCondition: selectedCondition.asObservable(),
-            descriptionInput: contentTextView.rx.text.orEmpty.asObservable()
+            descriptionInput: contentTextView.rx.text.orEmpty.asObservable(),
+            saveButtonTap: saveButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)

@@ -10,14 +10,17 @@ final class DiaryWriteViewModel: ViewModel {
     struct Input {
         var selectedCondition: Observable<Int>
         var descriptionInput: Observable<String>
+        var saveButtonTap: Observable<Void>
     }
     
     struct Output {
         var disableConfirmButton: Observable<Bool>
+        var dismissView: Observable<Bool>
     }
     
     private var selectedCondition = PublishSubject<Diary.Condition>()
     private var description = PublishSubject<String>()
+    private var dismissView = BehaviorSubject(value: false)
     
     private var conditionValid = BehaviorSubject(value: false)
     private var descriptionValid = BehaviorSubject(value: false)
@@ -46,9 +49,18 @@ final class DiaryWriteViewModel: ViewModel {
             .bind(to: descriptionValid)
             .disposed(by: disposeBag)
         
+        input.saveButtonTap
+            .subscribe { [weak self] _ in
+                self?.dismissView.onNext(true)
+            }
+            .disposed(by: disposeBag)
+        
         let disableButton = Observable.combineLatest(conditionValid, descriptionValid)
             .map { $0 && $1 }
         
-        return Output(disableConfirmButton: disableButton)
+        return Output(
+            disableConfirmButton: disableButton,
+            dismissView: dismissView
+        )
     }
 }
