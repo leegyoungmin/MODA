@@ -8,10 +8,10 @@ import UIKit
 import RxSwift
 
 protocol MonthControlDelegate: AnyObject {
-    func monthControl(control: MonthSelectControl, didTapMonth month: Int)
+    func monthControl(control: MonthControl, didTapMonth month: Int)
 }
 
-final class MonthSelectControl: UIStackView {
+final class MonthControl: UIStackView {
     weak var delegate: MonthControlDelegate?
     
     /// UI Property
@@ -63,7 +63,7 @@ final class MonthSelectControl: UIStackView {
 }
 
 // MARK: UI 설정 관련 메서드
-private extension MonthSelectControl {
+private extension MonthControl {
     private func configureAppearance() {
         self.axis = .vertical
         self.distribution = .fillEqually
@@ -74,17 +74,25 @@ private extension MonthSelectControl {
     }
     
     private func setButtonsBackgroundColor(_ row: Int, _ col: Int) {
+        let targetButton = buttons[row][col]
+        
         for rowIndex in 0..<buttons.count {
             let count = buttons[row].count
             
             for colIndex in 0..<count {
                 if colIndex != col || rowIndex != row {
-                    self.buttons[rowIndex][colIndex].backgroundColor = UIColor(named: "SecondaryColor")
+                    let button = self.buttons[rowIndex][colIndex]
+                    button.backgroundColor = UIColor(named: "SecondaryColor")
+                    button.setTitleColor(.secondaryLabel, for: .normal)
+                    button.titleLabel?.font = .systemFont(ofSize: 16)
                 }
             }
         }
         
-        buttons[row][col].backgroundColor = UIColor(named: "AccentColor")
+        
+        targetButton.backgroundColor = UIColor(named: "AccentColor")
+        targetButton.setTitleColor(UIColor.white, for: .normal)
+        targetButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
     }
     
     private func configureButtons() {
@@ -92,7 +100,7 @@ private extension MonthSelectControl {
             let button = UIButton()
             button.setTitle("\(month + 1)", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
-            button.titleLabel?.font = .systemFont(ofSize: 24)
+            button.titleLabel?.font = .systemFont(ofSize: 16)
             button.layer.backgroundColor = UIColor(named: "SecondaryColor")?.cgColor
             button.layer.cornerRadius = 8
             button.tag = month
