@@ -12,10 +12,10 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
     var selectedYear = BehaviorSubject<Int>(value: Date().toInt(.year))
     var selectedMonth = BehaviorSubject<Int>(value: Date().toInt(.month))
     
-    private let diaryListRepository: DiaryListRepository
+    private let diaryListRepository: DiaryRepository
     private let disposeBag = DisposeBag()
     
-    init(diaryListRepository: DiaryListRepository) {
+    init(diaryListRepository: DiaryRepository) {
         self.diaryListRepository = diaryListRepository
     }
     
