@@ -49,6 +49,7 @@
 		18D015522A1FBA45002DBF22 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D015512A1FBA45002DBF22 /* RxSwift */; };
 		18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */; };
 		18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */; };
+		18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDiaryWriteUseCase.swift; sourceTree = "<group>"; };
+		18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				187CA9042A29B4A90018B8CB /* MonthCalebdar */,
 				1805177B2A25954100DB9152 /* DiaryListViewModel.swift */,
+				18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */,
 				1805179C2A26433100DB9152 /* ViewModel.swift in Sources */,
 				186EEABF2A2A197000F16646 /* DefaultDiaryUseCase.swift in Sources */,
+				18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */,
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
 				187CA8FE2A29B2580018B8CB /* MonthControl.swift in Sources */,
 				180517972A26413900DB9152 /* DiaryRepository.swift in Sources */,
