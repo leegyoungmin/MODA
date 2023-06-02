@@ -37,7 +37,6 @@ final class SavedDiaryCell: UICollectionViewCell {
     }()
     
     func setUpData(to diary: Diary) {
-        self.dateLabel.text = diary.meta.day
         self.conditionLabel.text = diary.condition.description
         self.contentLabel.text = diary.content
     }

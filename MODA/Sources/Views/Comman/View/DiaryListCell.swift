@@ -6,10 +6,13 @@
 
 import UIKit
 
-final class DiaryListCell: UICollectionViewCell {
-    static var identifier: String {
-        return String(describing: Self.self)
-    }
+final class DiaryListCell: UITableViewCell {
+    private let diaryContentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "SecondaryColor")
+        view.layer.cornerRadius = 12
+        return view
+    }()
     
     private let createdDateLabel: UILabel = {
         let label = UILabel()
@@ -31,23 +34,44 @@ final class DiaryListCell: UICollectionViewCell {
     private let dividerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .secondaryLabel
+        view.backgroundColor = .secondarySystemBackground
         return view
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 10
+        label.numberOfLines = 5
         label.textAlignment = .left
+        label.font = .systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    private(set) var starButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "star"), for: .normal)
+        return button
+    }()
+    
+    private(set) var deleteButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        return button
+    }()
+    
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .trailing
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.layer.cornerRadius = 12
-        contentView.backgroundColor = UIColor(named: "SecondaryColor")
+        contentView.backgroundColor = .white
         
         configureUI()
     }
@@ -62,17 +86,22 @@ final class DiaryListCell: UICollectionViewCell {
         super.layoutSubviews()
         
         contentView.frame = contentView.frame.inset(
-            by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+            by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        )
+        
+        diaryContentView.frame = diaryContentView.frame.inset(
+            by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         )
     }
     
     func setUpDatas(to diary: Diary) {
-        createdDateLabel.text = diary.meta.day
+        createdDateLabel.text = diary.createdDate.toString("dd일")
         conditionLabel.text = diary.condition.description
         contentLabel.text = diary.content
     }
 }
 
+// MARK: - UI 구성 관련 코드
 private extension DiaryListCell {
     func configureUI() {
         configureHierarchy()
@@ -81,35 +110,52 @@ private extension DiaryListCell {
     
     func configureHierarchy() {
         [createdDateLabel, conditionLabel, dividerView, contentLabel]
+            .forEach(diaryContentView.addSubview)
+        
+        [starButton, deleteButton].forEach(buttonStackView.addArrangedSubview)
+        
+        [buttonStackView, diaryContentView]
             .forEach(contentView.addSubview)
     }
     
     func makeConstraints() {
-        createdDateLabel.snp.makeConstraints {
+        buttonStackView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().offset(-12)
             $0.top.equalToSuperview().offset(12)
+        }
+        
+        diaryContentView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalTo(deleteButton.snp.bottom).offset(12)
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        createdDateLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(8)
             $0.leading.equalToSuperview().offset(12)
             $0.height.equalTo(50).priority(.high)
         }
         
         conditionLabel.snp.makeConstraints {
-            $0.top.equalTo(createdDateLabel.snp.bottom)
+            $0.top.equalTo(createdDateLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(12)
             $0.trailing.equalTo(createdDateLabel.snp.trailing)
-            $0.bottom.equalTo(contentView.snp.centerY)
+            $0.bottom.equalToSuperview().offset(-12)
         }
         
         dividerView.snp.makeConstraints {
             $0.top.equalTo(createdDateLabel.snp.top)
             $0.leading.equalTo(createdDateLabel.snp.trailing).offset(12)
-            $0.bottom.equalToSuperview().offset(-12)
+            $0.bottom.equalTo(conditionLabel.snp.bottom)
             $0.width.equalTo(1)
         }
         
         contentLabel.snp.makeConstraints {
             $0.top.equalTo(dividerView.snp.top)
-            $0.bottom.equalTo(dividerView.snp.bottom)
+            $0.bottom.lessThanOrEqualTo(dividerView.snp.bottom)
             $0.leading.equalTo(dividerView.snp.trailing).offset(12)
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-12)
             $0.width.equalToSuperview().multipliedBy(0.7)
         }
     }

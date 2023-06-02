@@ -73,17 +73,80 @@ final class SignInViewController: UIViewController {
     }
 }
 
+// MARK: - 로그인 임시 코드
+private extension SignInViewController {
+    func logIn(completion: @escaping (Bool) -> Void) {
+        guard let url = URL(string: "https://parseapi.back4app.com/parse/login") else {
+            return
+        }
+
+        var request = URLRequest(url: url)
+
+        request.httpMethod = "POST"
+
+        let header: [String: String] = [
+            "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
+            "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
+            "X-Parse-Revocable-Session": "10",
+            "Content-Type": "application/json"
+        ]
+
+        header.forEach {
+            request.addValue($0.value, forHTTPHeaderField: $0.key)
+        }
+
+        let body: [String: Any] = ["username": "cow970814", "password": "km**970814"]
+
+        guard let jsonBody = try? JSONSerialization.data(withJSONObject: body) else {
+            return
+        }
+
+        request.httpBody = jsonBody
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                debugPrint(error)
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse,
+                  (200...300) ~= response.statusCode else {
+                return
+            }
+
+            guard let data = data else {
+                return
+            }
+            guard let stringValue = String(data: data, encoding: .utf8) else {
+                return
+            }
+
+            completion(true)
+        }
+        .resume()
+    }
+    
+    func presentMainViewController() {
+        DispatchQueue.main.async {
+            guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
+                  let window = delegate.window else {
+                return
+            }
+            
+            window.rootViewController = TabViewController()
+        }
+    }
+}
+
 private extension SignInViewController {
     func bindings() {
         signInButton.rx.tap
-            .bind { _ in
-                // TODO: - Delegate 로그인 상태 변경에 따른 기능 외부로 위치 변경하기
-                guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
-                      let window = delegate.window else {
-                    return
-                }
+            .bind { [weak self] _ in
+                guard let self = self else { return }
                 
-                window.rootViewController = TabViewController()
+                self.logIn {
+                    if $0 { self.presentMainViewController() }
+                }
             }
             .disposed(by: disposeBag)
         

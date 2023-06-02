@@ -14,4 +14,8 @@ extension Date {
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
+    
+    func toInt(_ component: Calendar.Component) -> Int {
+        return Calendar.current.component(component, from: self)
+    }
 }
