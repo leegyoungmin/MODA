@@ -79,48 +79,48 @@ private extension SignInViewController {
         guard let url = URL(string: "https://parseapi.back4app.com/parse/login") else {
             return
         }
-        
+
         var request = URLRequest(url: url)
-        
+
         request.httpMethod = "POST"
-        
+
         let header: [String: String] = [
             "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
             "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
             "X-Parse-Revocable-Session": "10",
             "Content-Type": "application/json"
         ]
-        
+
         header.forEach {
             request.addValue($0.value, forHTTPHeaderField: $0.key)
         }
-        
+
         let body: [String: Any] = ["username": "cow970814", "password": "km**970814"]
-        
+
         guard let jsonBody = try? JSONSerialization.data(withJSONObject: body) else {
             return
         }
-        
+
         request.httpBody = jsonBody
-        
+
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 debugPrint(error)
                 return
             }
-            
+
             guard let response = response as? HTTPURLResponse,
                   (200...300) ~= response.statusCode else {
                 return
             }
-            
+
             guard let data = data else {
                 return
             }
             guard let stringValue = String(data: data, encoding: .utf8) else {
                 return
             }
-            
+
             completion(true)
         }
         .resume()
