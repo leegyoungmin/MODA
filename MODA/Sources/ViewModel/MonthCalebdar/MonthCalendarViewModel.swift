@@ -27,6 +27,8 @@ final class MonthCalendarViewModel: ViewModel {
         if let month = month {
             selectedMonth.onNext(month)
         }
+        
+        print(Date().toInt(.year))
     }
     
     func transform(input: Input) -> Output {
@@ -35,7 +37,7 @@ final class MonthCalendarViewModel: ViewModel {
                 guard let self = self else { return }
                 
                 let plusValue = (isUp ? 1 : -1)
-                try? selectedYear.onNext(selectedMonth.value() + plusValue)
+                try? selectedYear.onNext(selectedYear.value() + plusValue)
             }
             .disposed(by: disposeBag)
         

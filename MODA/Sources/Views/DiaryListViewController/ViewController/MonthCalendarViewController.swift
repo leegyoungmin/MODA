@@ -10,7 +10,7 @@ import RxSwift
 protocol MonthCalendarViewControllerDelegate: AnyObject {
     func monthCalendarViewController(
         monthCalendarViewController: MonthCalendarViewController,
-        didTapConfirm month: Int
+        didTapConfirm selectedDate: (year: Int, month: Int)
     )
 }
 
@@ -92,13 +92,14 @@ final class MonthCalendarViewController: UIViewController {
         confirmButton.rx.tap
             .subscribe { [weak self] _ in
                 guard let self = self,
+                      let year = try? viewModel.selectedYear.value(),
                       let month = try? viewModel.selectedMonth.value() else {
                     return
                 }
                 
                 delegate?.monthCalendarViewController(
                     monthCalendarViewController: self,
-                    didTapConfirm: month
+                    didTapConfirm: (year, month)
                 )
                 
                 self.parent?.dismiss(animated: true)
