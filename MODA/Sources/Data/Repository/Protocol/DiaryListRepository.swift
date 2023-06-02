@@ -9,6 +9,7 @@ import RxSwift
 protocol DiaryListRepository {
     var diaries: BehaviorSubject<[Diary]> { get }
     
-    func fetchDiaries(_ token: String)
+    func fetchAllDiaries(_ token: String)
+    func fetchSearchDiaries(_ token: String, query: String)
     func removeDiaries(objectId: String, token: String)
 }

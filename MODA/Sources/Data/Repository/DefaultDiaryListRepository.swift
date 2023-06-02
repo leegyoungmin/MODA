@@ -15,8 +15,18 @@ final class DefaultDiaryListRepository: DiaryListRepository {
         self.diaryService = diaryService
     }
     
-    func fetchDiaries(_ token: String) {
+    func fetchAllDiaries(_ token: String) {
         diaryService.loadDiaries(with: token)
+            .map { $0.results }
+            .subscribe { [weak self] diaries in
+                guard let self = self else { return }
+                self.diaries.onNext(diaries)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func fetchSearchDiaries(_ token: String, query: String) {
+        diaryService.searchDiaries(with: token, query: query)
             .map { $0.results }
             .subscribe { [weak self] diaries in
                 guard let self = self else { return }
@@ -28,7 +38,7 @@ final class DefaultDiaryListRepository: DiaryListRepository {
     func removeDiaries(objectId: String, token: String) {
         diaryService.deleteDiary(with: token, to: objectId)
             .subscribe { [weak self] _ in
-                self?.fetchDiaries(token)
+                self?.fetchAllDiaries(token)
             }
             .disposed(by: disposeBag)
     }

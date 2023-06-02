@@ -9,6 +9,7 @@ import Foundation
 
 protocol DiaryServicing: AnyObject {
     func loadDiaries(with token: String) -> Observable<Diaries>
+    func searchDiaries(with token: String, query: String) -> Observable<Diaries>
     
     func deleteDiary(
         with token: String,
@@ -19,6 +20,11 @@ protocol DiaryServicing: AnyObject {
 final class DiaryService: DiaryServicing {
     func loadDiaries(with token: String) -> Observable<Diaries> {
         let api = API.loadDiaries(token: token)
+        return DefaultNetworkService().request(to: api)
+    }
+    
+    func searchDiaries(with token: String, query: String) -> Observable<Diaries> {
+        let api = API.searchDiaries(token: token, query: query)
         return DefaultNetworkService().request(to: api)
     }
     
@@ -35,6 +41,7 @@ protocol APIType {
     var baseURL: String { get }
     var method: String { get }
     var path: String { get }
+    var params: [String: String] { get }
     var headers: [String: String] { get }
     
     func generateRequest() throws -> URLRequest
@@ -43,6 +50,7 @@ protocol APIType {
 private extension DiaryService {
     enum API {
         case loadDiaries(token: String)
+        case searchDiaries(token: String, query: String)
         case removeDiary(token: String, id: String)
     }
 }
@@ -54,7 +62,7 @@ extension DiaryService.API: APIType {
     
     var path: String {
         switch self {
-        case .loadDiaries:
+        case .loadDiaries, .searchDiaries:
             return "/classes/Diary"
             
         case .removeDiary(_, let id):
@@ -64,7 +72,7 @@ extension DiaryService.API: APIType {
     
     var method: String {
         switch self {
-        case .loadDiaries:
+        case .loadDiaries, .searchDiaries:
             return "GET"
         case .removeDiary:
             return "DELETE"
@@ -73,7 +81,7 @@ extension DiaryService.API: APIType {
     
     var headers: [String: String] {
         switch self {
-        case .loadDiaries(let token), .removeDiary(let token, _):
+        case .loadDiaries(let token), .removeDiary(let token, _), .searchDiaries(let token, _):
             return [
                 "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
                 "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
@@ -82,8 +90,27 @@ extension DiaryService.API: APIType {
         }
     }
     
+    var params: [String: String] {
+        switch self {
+        case .searchDiaries(_, let query):
+            return ["where": query]
+        default:
+            return [:]
+        }
+    }
+    
     func generateRequest() throws -> URLRequest {
-        guard let url = URL(string: baseURL) else { throw NetworkError.unknownError }
+        guard var urlComponent = URLComponents(string: baseURL) else { throw NetworkError.unknownError }
+        let parameters = params.map {
+            return URLQueryItem(name: $0.key, value: $0.value)
+        }
+        
+        urlComponent.queryItems = parameters
+        
+        guard let url = urlComponent.url else {
+            throw NetworkError.unknownError
+        }
+        
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         request.httpMethod = method
