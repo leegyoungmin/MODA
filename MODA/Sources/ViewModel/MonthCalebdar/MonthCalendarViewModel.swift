@@ -39,19 +39,20 @@ final class MonthCalendarViewModel: ViewModel {
 
     func transform(input: Input) -> Output {
         let currentYear = input.didTapYearButton
+            .debug()
             .compactMap { [weak self] increase in
                 guard let self = self else { return 0 }
                 
-                print(increase)
                 let increaseValue = (increase ? 1 : -1)
                 self.selectedYear += increaseValue
                 return self.selectedYear
             }
         
         let currentMonth = input.changeMonth
+            .debug()
             .compactMap { [weak self] selectedValue in
                 guard let self = self else { return 0 }
-                print(selectedValue)
+                
                 self.selectedMonth = selectedValue
                 return self.selectedMonth
             }

@@ -22,7 +22,7 @@ final class MonthCalendarViewController: UIViewController {
     }()
     
     private let yearStackView = YearControl()
-    private let monthStackView = MonthSelectControl()
+    private let monthStackView = MonthControl()
     
     private let confirmButton: UIButton = {
         let button = UIButton()
@@ -72,7 +72,7 @@ final class MonthCalendarViewController: UIViewController {
 }
 
 extension MonthCalendarViewController: MonthControlDelegate {
-    func monthControl(control: MonthSelectControl, didTapMonth month: Int) {
+    func monthControl(control: MonthControl, didTapMonth month: Int) {
         didTapMonthButton.onNext(month)
     }
 }
@@ -135,4 +135,3 @@ private extension MonthCalendarViewController {
         }
     }
 }
-
