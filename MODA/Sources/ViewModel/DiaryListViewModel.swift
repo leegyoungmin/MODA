@@ -11,6 +11,7 @@ final class DiaryListViewModel: ViewModel {
     struct Input {
         var viewWillAppear: Observable<Void>
         var removeTargetItem: Observable<Diary>
+        var selectedYear: Observable<Int>
         var selectedMonth: Observable<Int>
     }
     
@@ -62,7 +63,12 @@ final class DiaryListViewModel: ViewModel {
             .bind(to: diaryListUseCase.selectedMonth)
             .disposed(by: disposeBag)
         
-        diaryListUseCase.selectedMonth
+        input.selectedYear
+            .bind(to: diaryListUseCase.selectedYear)
+            .disposed(by: disposeBag)
+        
+        Observable.of(diaryListUseCase.selectedYear, diaryListUseCase.selectedMonth)
+            .merge()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 

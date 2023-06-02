@@ -52,6 +52,7 @@ final class DiaryListViewController: UIViewController {
     
     private var deleteItemEvent = PublishSubject<Diary>()
     private var deleteItemTrigger = PublishSubject<Diary>()
+    private var selectedYear = PublishSubject<Int>()
     private var selectedMonth = PublishSubject<Int>()
     private let disposeBag = DisposeBag()
     
@@ -80,6 +81,7 @@ private extension DiaryListViewController {
         let input = DiaryListViewModel.Input(
             viewWillAppear: viewWillAppear,
             removeTargetItem: deleteItemTrigger,
+            selectedYear: selectedYear.asObservable(),
             selectedMonth: selectedMonth.asObservable()
         )
         
@@ -165,10 +167,12 @@ private extension DiaryListViewController {
 extension DiaryListViewController: MonthCalendarViewControllerDelegate {
     func monthCalendarViewController(
         monthCalendarViewController: MonthCalendarViewController,
-        didTapConfirm month: Int
+        didTapConfirm selectedDate: (year: Int, month: Int)
     ) {
-        titleLabel.text = "\(month + 1)월"
-        selectedMonth.onNext(month + 1)
+        titleLabel.text = "\(selectedDate.month + 1)월"
+        selectedMonth.onNext(selectedDate.month + 1)
+        print(selectedDate)
+        selectedYear.onNext(selectedDate.year)
     }
 }
 
