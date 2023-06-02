@@ -48,18 +48,31 @@ final class DiaryWriteViewController: UIViewController {
         return textView
     }()
     
-    private let saveButton: UIButton = {
-        let button = UIButton()
+    private let saveButton: DisableButton = {
+        let button = DisableButton()
         button.setTitle("저장하기", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 22, weight: .bold)
         button.setTitleColor(.white, for: .normal)
-        button.layer.backgroundColor = UIColor(named: "AccentColor")?.cgColor
         button.layer.cornerRadius = 12
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        button.selectedColor = UIColor(named: "AccentColor")
+        button.disabledColor = UIColor.secondarySystemBackground
         return button
     }()
     
+    private var selectedCondition = PublishSubject<Int>()
+    private let viewModel: DiaryWriteViewModel
     private let disposeBag = DisposeBag()
+    
+    init(viewModel: DiaryWriteViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = DiaryWriteViewModel()
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +107,20 @@ extension DiaryWriteViewController {
                 self.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
+        
+        let input = DiaryWriteViewModel.Input(
+            selectedCondition: selectedCondition.asObservable(),
+            descriptionInput: contentTextView.rx.text.orEmpty.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.disableConfirmButton
+            .debug()
+            .bind(to: saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        print(saveButton.state)
     }
 }
 
@@ -106,12 +133,12 @@ extension DiaryWriteViewController: ConditionButtonDelegate {
         let stackSubviews = conditionStackView.arrangedSubviews
         guard let conditionButtons = stackSubviews as? [ConditionButton] else { return }
         
+        self.selectedCondition.onNext(condition.rawValue)
+        
         conditionButtons.forEach { button in
             UIView.animate(withDuration: 0.4) {
-                if button.condition == condition {
-                    button.layer.backgroundColor = UIColor(named: "BackgroundColor")?.cgColor
-                } else {
-                    button.layer.backgroundColor = UIColor(named: "SecondaryColor")?.cgColor
+                if button.isSelected == true && button.condition != condition {
+                    button.isSelected = false
                 }
             }
         }
