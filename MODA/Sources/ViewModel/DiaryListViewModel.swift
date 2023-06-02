@@ -17,14 +17,15 @@ final class DiaryListViewModel: ViewModel {
     struct Output {
         var diaries = BehaviorSubject<[Diary]>(value: [])
         var removed: Observable<Void> = .of(())
+        var currentMonth = PublishSubject<Int>()
     }
     
-    private let diaryRepository: DiaryListRepository
+    private let diaryListUseCase: DiaryListUseCase
     
     var disposeBag: DisposeBag = DisposeBag()
     
-    init(diaryRepository: DiaryListRepository) {
-        self.diaryRepository = diaryRepository
+    init(diaryListUseCase: DiaryListUseCase) {
+        self.diaryListUseCase = diaryListUseCase
     }
     
     func transform(input: Input) -> Output {
@@ -35,10 +36,16 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindOutput(_ output: Output) {
-        diaryRepository.diaries
+        diaryListUseCase.diaries
             .debug()
             .subscribe { diaries in
                 output.diaries.on(diaries)
+            }
+            .disposed(by: disposeBag)
+        
+        diaryListUseCase.selectedMonth
+            .subscribe { month in
+                output.currentMonth.onNext(month)
             }
             .disposed(by: disposeBag)
     }
@@ -47,28 +54,19 @@ final class DiaryListViewModel: ViewModel {
         input.viewWillAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.diaryRepository.fetchAllDiaries("r:b8007cc20843c502703f13bc08d7e3da")
-            }
-            .disposed(by: disposeBag)
-        
-        input.removeTargetItem
-            .subscribe { [weak self] diary in
-                guard let self = self else { return }
-                self.diaryRepository.removeDiaries(
-                    objectId: diary.id,
-                    token: "r:b8007cc20843c502703f13bc08d7e3da"
-                )
+                self.diaryListUseCase.loadAllDiaries("r:73c87143778dd7a511da231909e85932")
             }
             .disposed(by: disposeBag)
         
         input.selectedMonth
-            .subscribe { [weak self] month in
-                guard let self = self, let month = month.element else { return }
-                print(month + 1)
-                self.diaryRepository.fetchSearchDiaries(
-                    "r:73c87143778dd7a511da231909e85932",
-                    query: "{\"createdMonth\":{\"$lte\":\"\(month + 1)\",\"$gte\":\"\(month + 1)\"}}"
-                )
+            .bind(to: diaryListUseCase.selectedMonth)
+            .disposed(by: disposeBag)
+        
+        diaryListUseCase.selectedMonth
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.diaryListUseCase.loadAllDiaries("r:73c87143778dd7a511da231909e85932")
             }
             .disposed(by: disposeBag)
     }
