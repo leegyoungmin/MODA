@@ -18,46 +18,38 @@ final class MonthCalendarViewModel: ViewModel {
         var month: Observable<Int>
     }
     
-    var selectedYear = 0
-    var selectedMonth = 0
+    var selectedYear = BehaviorSubject<Int>(value: Date().toInt(.year))
+    var selectedMonth = BehaviorSubject<Int>(value: Date().toInt(.month) - 1)
     
     var disposeBag: DisposeBag = DisposeBag()
     
-    init() {
-        let current = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month], from: current)
-        
-        if let year = components.year {
-            self.selectedYear = year
-        }
-        
-        if let month = components.month {
-            self.selectedMonth = month
+    init(month: Int? = nil) {
+        if let month = month {
+            selectedMonth.onNext(month)
         }
     }
-
+    
     func transform(input: Input) -> Output {
-        let currentYear = input.didTapYearButton
-            .compactMap { [weak self] increase in
-                guard let self = self else { return 0 }
+        input.didTapYearButton
+            .subscribe { [weak self] isUp in
+                guard let self = self else { return }
                 
-                let increaseValue = (increase ? 1 : -1)
-                self.selectedYear += increaseValue
-                return self.selectedYear
+                let plusValue = (isUp ? 1 : -1)
+                try? selectedYear.onNext(selectedMonth.value() + plusValue)
             }
+            .disposed(by: disposeBag)
         
-        let currentMonth = input.changeMonth
-            .compactMap { [weak self] selectedValue in
-                guard let self = self else { return 0 }
+        input.changeMonth
+            .subscribe { [weak self] selectedValue in
+                guard let self = self else { return }
                 
-                self.selectedMonth = selectedValue
-                return self.selectedMonth
+                self.selectedMonth.onNext(selectedValue)
             }
+            .disposed(by: disposeBag)
         
         let output = Output(
-            year: currentYear.asObservable(),
-            month: currentMonth.asObservable()
+            year: self.selectedYear.asObservable(),
+            month: self.selectedMonth.asObservable()
         )
         return output
     }

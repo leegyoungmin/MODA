@@ -46,7 +46,17 @@ final class MonthCalendarViewController: UIViewController {
     private var didTapYearButton = PublishSubject<Bool>()
     private var didTapMonthButton = PublishSubject<Int>()
     private var disposeBag = DisposeBag()
-    private let viewModel = MonthCalendarViewModel()
+    private let viewModel: MonthCalendarViewModel
+    
+    init(viewModel: MonthCalendarViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = MonthCalendarViewModel()
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,11 +91,14 @@ final class MonthCalendarViewController: UIViewController {
         
         confirmButton.rx.tap
             .subscribe { [weak self] _ in
-                guard let self = self else { return }
+                guard let self = self,
+                      let month = try? viewModel.selectedMonth.value() else {
+                    return
+                }
                 
                 delegate?.monthCalendarViewController(
                     monthCalendarViewController: self,
-                    didTapConfirm: viewModel.selectedMonth
+                    didTapConfirm: month
                 )
                 
                 self.parent?.dismiss(animated: true)

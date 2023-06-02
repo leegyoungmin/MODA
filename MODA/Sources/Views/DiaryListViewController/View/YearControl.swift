@@ -83,4 +83,3 @@ final class YearControl: UIStackView {
             .disposed(by: disposeBag)
     }
 }
-
