@@ -50,6 +50,8 @@
 		18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */; };
 		18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */; };
 		18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */; };
+		18E6322C2A2A4154009FD40D /* UIButton + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6322B2A2A4154009FD40D /* UIButton + Extensions.swift */; };
+		18E6322E2A2A4362009FD40D /* DisableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6322D2A2A4362009FD40D /* DisableButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +96,8 @@
 		18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewModel.swift; sourceTree = "<group>"; };
+		18E6322B2A2A4154009FD40D /* UIButton + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Extensions.swift"; sourceTree = "<group>"; };
+		18E6322D2A2A4362009FD40D /* DisableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,12 +135,13 @@
 			path = DiaryListViewController;
 			sourceTree = "<group>";
 		};
-		180517762A25931E00DB9152 /* DiaryWriteView */ = {
+		180517762A25931E00DB9152 /* DiaryWriteViewController */ = {
 			isa = PBXGroup;
 			children = (
-				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
+				18E632292A2A37BD009FD40D /* View */,
+				18E632282A2A37B5009FD40D /* ViewController */,
 			);
-			path = DiaryWriteView;
+			path = DiaryWriteViewController;
 			sourceTree = "<group>";
 		};
 		180517772A25932E00DB9152 /* SavedDiaryView */ = {
@@ -198,6 +203,7 @@
 				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
 				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
 				180247482A209F8F00B7B221 /* AuthFormStackView.swift */,
+				18E6322D2A2A4362009FD40D /* DisableButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,7 +265,7 @@
 				1805178A2A2603F900DB9152 /* Comman */,
 				180517792A25934200DB9152 /* AuthView */,
 				180517752A2592F900DB9152 /* DiaryListViewController */,
-				180517762A25931E00DB9152 /* DiaryWriteView */,
+				180517762A25931E00DB9152 /* DiaryWriteViewController */,
 				180517772A25932E00DB9152 /* SavedDiaryView */,
 				180517782A25933900DB9152 /* SettingView */,
 				188423072A1DC5AD0047A946 /* TabViewController.swift */,
@@ -394,8 +400,24 @@
 				180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */,
 				180517872A25F77600DB9152 /* Reusable + Extensions.swift */,
 				1805179B2A26433100DB9152 /* ViewModel.swift */,
+				18E6322B2A2A4154009FD40D /* UIButton + Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		18E632282A2A37B5009FD40D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		18E632292A2A37BD009FD40D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,6 +529,7 @@
 				18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */,
 				180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */,
 				180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */,
+				18E6322E2A2A4362009FD40D /* DisableButton.swift in Sources */,
 				1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */,
 				1805179C2A26433100DB9152 /* ViewModel.swift in Sources */,
 				186EEABF2A2A197000F16646 /* DefaultDiaryUseCase.swift in Sources */,
@@ -528,6 +551,7 @@
 				187CA9062A29B4B90018B8CB /* MonthCalendarViewModel.swift in Sources */,
 				180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */,
 				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
+				18E6322C2A2A4154009FD40D /* UIButton + Extensions.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
 				18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */,
 				180517932A263D4400DB9152 /* NetworkError.swift in Sources */,
