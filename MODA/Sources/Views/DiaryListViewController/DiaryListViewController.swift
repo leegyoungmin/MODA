@@ -108,25 +108,15 @@ private extension DiaryListViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let titleView = UILabel()
-                titleView.text = "보고 싶은 달을 선택해주세요."
-                
-                let confirmButton = UIButton()
-                confirmButton.setTitle("확인", for: .normal)
-                
-                let contentView = MonthStackView()
-                
-                let controller = AlertController(
-                    alertType: .onlyConfirm(confirmMessage: "확인"),
-                    titleType: .text(title: "날짜를 고르게"),
-                    contentType: .custom,
-                    titleView: nil,
-                    contentView: contentView
+                let childController = MonthCalendarViewController()
+                let sheetController = BottomSheetViewController(
+                    controller: childController
                 )
                 
-                controller.modalTransitionStyle = .crossDissolve
-                controller.modalPresentationStyle = .overFullScreen
-                self.present(controller, animated: true)
+                sheetController.modalPresentationStyle = .overFullScreen
+                sheetController.modalTransitionStyle = .coverVertical
+                
+                self.present(sheetController, animated: true)
             }
             .disposed(by: disposeBag)
         
