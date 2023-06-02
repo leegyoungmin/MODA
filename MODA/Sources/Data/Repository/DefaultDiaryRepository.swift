@@ -7,7 +7,7 @@
 import Foundation
 import RxSwift
 
-final class DefaultDiaryListRepository: DiaryListRepository {
+final class DefaultDiaryRepository: DiaryRepository {
     private(set) var diaries = BehaviorSubject<[Diary]>(value: [])
     private(set) var selectedMonth: BehaviorSubject<Int>
     

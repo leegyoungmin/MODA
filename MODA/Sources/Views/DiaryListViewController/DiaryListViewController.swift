@@ -44,7 +44,7 @@ final class DiaryListViewController: UIViewController {
     // MARK: - Properties of Data
     private let viewModel = DiaryListViewModel(
         diaryListUseCase: DefaultDiaryListUseCase(
-            diaryListRepository: DefaultDiaryListRepository(
+            diaryListRepository: DefaultDiaryRepository(
                 diaryService: DiaryService()
             )
         )
