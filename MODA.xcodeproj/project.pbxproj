@@ -47,6 +47,8 @@
 		18D0154E2A1FBA45002DBF22 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154D2A1FBA45002DBF22 /* RxCocoa */; };
 		18D015502A1FBA45002DBF22 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154F2A1FBA45002DBF22 /* RxRelay */; };
 		18D015522A1FBA45002DBF22 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D015512A1FBA45002DBF22 /* RxSwift */; };
+		18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */; };
+		18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,8 @@
 		18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryCell.swift; sourceTree = "<group>"; };
 		18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteUseCase.swift; sourceTree = "<group>"; };
+		18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDiaryWriteUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +344,7 @@
 			children = (
 				186EEABB2A2A192100F16646 /* Protocol */,
 				186EEABE2A2A197000F16646 /* DefaultDiaryUseCase.swift */,
+				18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */,
 			);
 			path = Diaries;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				186EEABC2A2A192B00F16646 /* DiaryListUseCase.swift */,
+				18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -495,6 +501,7 @@
 				18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */,
 				180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */,
 				180247412A206B2400B7B221 /* BottomSheetViewController.swift in Sources */,
+				18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */,
 				180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */,
 				180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */,
 				1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */,
@@ -518,6 +525,7 @@
 				180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */,
 				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
+				18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */,
 				180517932A263D4400DB9152 /* NetworkError.swift in Sources */,
 				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
 				180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */,
