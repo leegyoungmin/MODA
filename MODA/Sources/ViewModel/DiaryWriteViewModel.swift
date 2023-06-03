@@ -11,6 +11,7 @@ final class DiaryWriteViewModel: ViewModel {
         var selectedCondition: Observable<Int>
         var descriptionInput: Observable<String>
         var saveButtonTap: Observable<Void>
+        var cancelButtonTap: Observable<Void>?
     }
     
     struct Output {
@@ -28,6 +29,19 @@ final class DiaryWriteViewModel: ViewModel {
     var disposeBag = DisposeBag()
     
     func transform(input: Input) -> Output {
+        
+        bindingInput(input)
+        
+        let disableButton = Observable.combineLatest(conditionValid, descriptionValid)
+            .map { $0 && $1 }
+        
+        return Output(
+            disableConfirmButton: disableButton,
+            dismissView: dismissView
+        )
+    }
+    
+    func bindingInput(_ input: Input) {
         input.selectedCondition
             .compactMap { Diary.Condition(rawValue: $0) }
             .debug()
@@ -55,12 +69,10 @@ final class DiaryWriteViewModel: ViewModel {
             }
             .disposed(by: disposeBag)
         
-        let disableButton = Observable.combineLatest(conditionValid, descriptionValid)
-            .map { $0 && $1 }
-        
-        return Output(
-            disableConfirmButton: disableButton,
-            dismissView: dismissView
-        )
+        input.cancelButtonTap?
+            .subscribe { [weak self] _ in
+                self?.dismissView.onNext(true)
+            }
+            .disposed(by: disposeBag)
     }
 }
