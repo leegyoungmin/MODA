@@ -13,6 +13,7 @@ final class DiaryWriteViewController: UIViewController {
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.keyboardDismissMode = .interactive
         return scrollView
     }()
     
