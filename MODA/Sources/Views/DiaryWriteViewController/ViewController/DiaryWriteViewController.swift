@@ -119,7 +119,8 @@ extension DiaryWriteViewController {
         let input = DiaryWriteViewModel.Input(
             selectedCondition: selectedCondition.asObservable(),
             descriptionInput: contentTextView.rx.text.orEmpty.asObservable(),
-            saveButtonTap: saveButton.rx.tap.asObservable()
+            saveButtonTap: saveButton.rx.tap.asObservable(),
+            cancelButtonTap: navigationItem.leftBarButtonItem?.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -127,6 +128,14 @@ extension DiaryWriteViewController {
         output.disableConfirmButton
             .debug()
             .bind(to: saveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        output.dismissView.asObservable()
+            .filter { $0 }
+            .subscribe { [weak self] isDismiss in
+                guard let self = self else { return }
+                self.dismiss(animated: isDismiss)
+            }
             .disposed(by: disposeBag)
     }
 }
@@ -198,7 +207,7 @@ private extension DiaryWriteViewController {
             primaryAction: dismissAction
         )
         navigationItem.leftBarButtonItem = dismissButton
-        navigationItem.title = Date().toString("yy년 M월 dd일")
+        navigationItem.title = Date().toString("yy년 MM월 dd일")
     }
     
     func makeConstraints() {
