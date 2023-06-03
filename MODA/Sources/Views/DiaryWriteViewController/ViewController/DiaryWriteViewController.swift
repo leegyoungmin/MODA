@@ -10,6 +10,18 @@ import RxSwift
 import RxCocoa
 
 final class DiaryWriteViewController: UIViewController {
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let scrollViewContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let conditionTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -21,6 +33,7 @@ final class DiaryWriteViewController: UIViewController {
     private let contentTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "오늘을 기억할 수 있는 말을 적어보세요."
         return label
     }()
@@ -45,6 +58,8 @@ final class DiaryWriteViewController: UIViewController {
         textView.font = .systemFont(ofSize: 20)
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         textView.layer.cornerRadius = 14
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isScrollEnabled = false
         return textView
     }()
     
@@ -57,6 +72,7 @@ final class DiaryWriteViewController: UIViewController {
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         button.selectedColor = UIColor(named: "AccentColor")
         button.disabledColor = UIColor.secondarySystemBackground
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -94,9 +110,8 @@ extension DiaryWriteViewController {
             .subscribe { [weak self] height in
                 guard let self = self else { return }
                 
-                self.navigationController?.isNavigationBarHidden = (height == 0 ? false : true)
-                let moveHeight = height == 0 ? 0 : (-height + (saveButton.frame.height + 32))
-                self.view.frame.origin.y = moveHeight
+                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+                scrollView.contentInset = contentInset
             }
             .disposed(by: disposeBag)
         
@@ -112,8 +127,6 @@ extension DiaryWriteViewController {
             .debug()
             .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
-        
-        print(saveButton.state)
     }
 }
 
@@ -165,10 +178,14 @@ private extension DiaryWriteViewController {
     }
     
     func configureHierarchy() {
+        view.addSubview(scrollView)
+        view.addSubview(saveButton)
+        scrollView.addSubview(scrollViewContentView)
+        
         [badConditionButton, normalConditionButton, goodConditionButton]
             .forEach(conditionStackView.addArrangedSubview)
-        [conditionTitleLabel, contentTitleLabel, contentTextView, conditionStackView, saveButton]
-            .forEach(view.addSubview)
+        [conditionTitleLabel, contentTitleLabel, contentTextView, conditionStackView]
+            .forEach(scrollViewContentView.addSubview)
     }
     
     func configureNavigationBar() {
@@ -184,36 +201,46 @@ private extension DiaryWriteViewController {
     }
     
     func makeConstraints() {
+        saveButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-20)
+        }
+        
+        scrollView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(saveButton.snp.top).offset(-20)
+        }
+        
+        scrollViewContentView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+        }
+        
         conditionTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(12)
-            $0.leading.equalToSuperview().offset(22)
-            $0.trailing.equalToSuperview().offset(-22)
+            $0.top.equalTo(scrollViewContentView.snp.top).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         
         conditionStackView.snp.makeConstraints {
-            $0.top.equalTo(conditionTitleLabel.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().offset(22)
-            $0.trailing.equalToSuperview().offset(-22)
+            $0.top.equalTo(conditionTitleLabel.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         
         contentTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(conditionStackView.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(22)
-            $0.trailing.equalToSuperview().offset(-22)
+            $0.top.equalTo(conditionStackView.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
         }
         
         contentTextView.snp.makeConstraints {
-            $0.top.equalTo(contentTitleLabel.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().offset(22)
-            $0.trailing.equalToSuperview().offset(-22)
-            $0.height.equalTo(view.snp.height).multipliedBy(0.5)
-        }
-        
-        saveButton.snp.makeConstraints {
-            $0.top.equalTo(contentTextView.snp.bottom).offset(28)
-            $0.leading.equalTo(view.snp.leading).offset(22)
-            $0.trailing.equalTo(view.snp.trailing).offset(-22)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-12)
+            $0.top.equalTo(contentTitleLabel.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalTo(scrollViewContentView.snp.bottom).offset(-20)
+            $0.height.greaterThanOrEqualTo(view.snp.height).multipliedBy(0.5)
         }
     }
 }
