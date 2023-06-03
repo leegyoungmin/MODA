@@ -95,7 +95,7 @@ final class DiaryListCell: UITableViewCell {
     }
     
     func setUpDatas(to diary: Diary) {
-        createdDateLabel.text = diary.createdDate.toString("dd일")
+        createdDateLabel.text = "\(diary.createdDay) 일"
         conditionLabel.text = diary.condition.description
         contentLabel.text = diary.content
     }

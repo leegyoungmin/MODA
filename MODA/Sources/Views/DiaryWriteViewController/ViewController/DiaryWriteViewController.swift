@@ -214,7 +214,7 @@ private extension DiaryWriteViewController {
         saveButton.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
-            $0.bottom.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-28)
         }
         
         scrollView.snp.makeConstraints {

@@ -34,7 +34,9 @@ struct Diary: Codable {
     let user: User
     let createdDate: Date
     let issuedDate: Date
+    let createdYear: Int
     let createdMonth: Int
+    let createdDay: Int
     
     enum CodingKeys: String, CodingKey {
         case id = "objectId"
@@ -43,7 +45,7 @@ struct Diary: Codable {
         case user = "createdUser"
         case createdDate = "createdAt"
         case issuedDate = "updatedAt"
-        case createdMonth
+        case createdYear, createdMonth, createdDay
     }
 }
 
