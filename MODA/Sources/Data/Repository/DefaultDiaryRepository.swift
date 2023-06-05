@@ -39,11 +39,17 @@ final class DefaultDiaryRepository: DiaryRepository {
             .map { $0.results }
     }
     
-    func removeDiaries(objectId: String, token: String) {
-        diaryService.deleteDiary(with: token, to: objectId)
-            .subscribe { [weak self] _ in
-                self?.fetchAllDiaries(token)
-            }
-            .disposed(by: disposeBag)
+    func createNewDiary(_ token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>> {
+        return diaryService.createNewDiary(with: token, diary: diary)
+            .asObservable()
     }
+    
+    func removeDiaries(objectId: String, token: String) { }
+//    func removeDiaries(objectId: String, token: String) {
+//        diaryService.deleteDiary(with: token, to: objectId)
+//            .subscribe { [weak self] _ in
+//                self?.fetchAllDiaries(token)
+//            }
+//            .disposed(by: disposeBag)
+//    }
 }
