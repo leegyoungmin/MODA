@@ -7,5 +7,9 @@
 import RxSwift
 
 protocol DiaryWriteUseCase: AnyObject {
+    var content: BehaviorSubject<String> { get set }
+    var condition: BehaviorSubject<Int> { get set }
+    var saveState: BehaviorSubject<Bool> { get set }
     
+    func createNewDiary(token: String, with userId: String) -> Observable<Result<Void, Error>>
 }
