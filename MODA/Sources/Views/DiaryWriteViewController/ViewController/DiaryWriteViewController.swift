@@ -110,17 +110,10 @@ final class DiaryWriteViewController: UIViewController {
     }
 }
 
+// MARK: - Binding Methods
 extension DiaryWriteViewController {
     func bindings() {
-        keyboardHeight()
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] height in
-                guard let self = self else { return }
-                
-                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
-                scrollView.contentInset = contentInset
-            }
-            .disposed(by: disposeBag)
+        bindingInput()
         
         let input = DiaryWriteViewModel.Input(
             selectedCondition: selectedCondition.asObservable(),
@@ -131,8 +124,23 @@ extension DiaryWriteViewController {
         
         let output = viewModel.transform(input: input)
         
+        bindingOutput(output)
+    }
+    
+    func bindingInput() {
+        keyboardHeight()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] height in
+                guard let self = self else { return }
+                
+                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+                scrollView.contentInset = contentInset
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func bindingOutput(_ output: DiaryWriteViewModel.Output) {
         output.disableConfirmButton
-            .debug()
             .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
@@ -168,6 +176,7 @@ extension DiaryWriteViewController: ConditionButtonDelegate {
     }
 }
 
+// MARK: - KeyBoard Observable 관련 메서드
 private extension DiaryWriteViewController {
     func keyboardHeight() -> Observable<CGFloat> {
         return Observable
@@ -186,6 +195,7 @@ private extension DiaryWriteViewController {
     }
 }
 
+// MARK: - UI 구성 관련 메서드
 private extension DiaryWriteViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
