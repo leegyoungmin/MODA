@@ -28,7 +28,7 @@ struct Diary: Codable {
         }
     }
     
-    let id: String
+    let id: String?
     let content: String
     let condition: Condition
     let user: User
@@ -49,10 +49,28 @@ struct Diary: Codable {
     }
 }
 
+struct DiaryRequestDTO: Codable {
+    let content: String
+    let condition: Int
+    let createdUser: User
+    let createdYear: Int
+    let createdMonth: Int
+    let createdDay: Int
+    
+    init(content: String, condition: Int, userId: String) {
+        self.content = content
+        self.condition = condition
+        self.createdUser = User(id: userId)
+        self.createdYear = Date().toInt(.year)
+        self.createdMonth = Date().toInt(.month)
+        self.createdDay = Date().toInt(.day)
+    }
+}
+
 struct User: Codable {
     let id: String
-    let type: String
-    let className: String
+    let type: String = "Pointer"
+    let className: String = "_User"
     
     enum CodingKeys: String, CodingKey {
         case id = "objectId"
