@@ -87,7 +87,13 @@ final class DiaryWriteViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = DiaryWriteViewModel()
+        self.viewModel = DiaryWriteViewModel(
+            diaryWriteUseCase: DefaultDiaryWriteUseCase(
+                diaryRepository: DefaultDiaryRepository(
+                    diaryService: DiaryService()
+                )
+            )
+        )
         super.init(coder: coder)
     }
     
@@ -131,6 +137,7 @@ extension DiaryWriteViewController {
             .disposed(by: disposeBag)
         
         output.dismissView.asObservable()
+            .observe(on: MainScheduler.instance)
             .filter { $0 }
             .subscribe { [weak self] isDismiss in
                 guard let self = self else { return }

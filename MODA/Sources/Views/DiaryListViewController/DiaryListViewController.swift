@@ -44,7 +44,7 @@ final class DiaryListViewController: UIViewController {
     // MARK: - Properties of Data
     private let viewModel = DiaryListViewModel(
         diaryListUseCase: DefaultDiaryListUseCase(
-            diaryListRepository: DefaultDiaryRepository(
+            diaryRepository: DefaultDiaryRepository(
                 diaryService: DiaryService()
             )
         )
@@ -133,7 +133,13 @@ private extension DiaryListViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let viewModel = DiaryWriteViewModel()
+                let viewModel = DiaryWriteViewModel(
+                    diaryWriteUseCase: DefaultDiaryWriteUseCase(
+                        diaryRepository: DefaultDiaryRepository(
+                            diaryService: DiaryService()
+                        )
+                    )
+                )
                 let controller = DiaryWriteViewController(viewModel: viewModel)
                 let navigationController = UINavigationController(rootViewController: controller)
                 navigationController.modalPresentationStyle = .fullScreen
