@@ -10,11 +10,12 @@ import Foundation
 protocol DiaryServicing: AnyObject {
     func loadDiaries(with token: String) -> Observable<Diaries>
     func searchDiaries(with token: String, query: String) -> Observable<Diaries>
+    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>>
     
-    func deleteDiary(
-        with token: String,
-        to id: String
-    ) -> Observable<Void>
+//    func deleteDiary(
+//        with token: String,
+//        to id: String
+//    ) -> Observable<Void>
 }
 
 final class DiaryService: DiaryServicing {
@@ -28,13 +29,18 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func deleteDiary(
-        with token: String,
-        to id: String
-    ) -> Observable<Void> {
-        let api = API.removeDiary(token: token, id: id)
+    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>> {
+        let api = API.createDiary(token: token, diary: diary)
         return DefaultNetworkService().request(to: api)
     }
+    
+//    func deleteDiary(
+//        with token: String,
+//        to id: String
+//    ) -> Observable<Void> {
+//        let api = API.removeDiary(token: token, id: id)
+//        return DefaultNetworkService().request(to: api)
+//    }
 }
 
 protocol APIType {
@@ -42,6 +48,7 @@ protocol APIType {
     var method: String { get }
     var path: String { get }
     var params: [String: String] { get }
+    var body: [String: Any]? { get }
     var headers: [String: String] { get }
     
     func generateRequest() throws -> URLRequest
@@ -51,6 +58,7 @@ private extension DiaryService {
     enum API {
         case loadDiaries(token: String)
         case searchDiaries(token: String, query: String)
+        case createDiary(token: String, diary: [String: Any]?)
         case removeDiary(token: String, id: String)
     }
 }
@@ -65,6 +73,9 @@ extension DiaryService.API: APIType {
         case .loadDiaries, .searchDiaries:
             return "/classes/Diary"
             
+        case .createDiary:
+            return "/parse/classes/Diary"
+            
         case .removeDiary(_, let id):
             return "/classes/Diary/\(id)"
         }
@@ -74,6 +85,8 @@ extension DiaryService.API: APIType {
         switch self {
         case .loadDiaries, .searchDiaries:
             return "GET"
+        case .createDiary:
+            return "POST"
         case .removeDiary:
             return "DELETE"
         }
@@ -87,6 +100,22 @@ extension DiaryService.API: APIType {
                 "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
                 "X-Parse-Session-Token": token
             ]
+            
+        case .createDiary(let token, _):
+            return [
+                "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
+                "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
+                "X-Parse-Session-Token": token,
+                "Content-Type": "application/json"
+            ]
+        }
+    }
+    
+    var body: [String: Any]? {
+        switch self {
+        case .createDiary(_, let diary):
+            return diary
+        default: return nil
         }
     }
     
@@ -114,6 +143,12 @@ extension DiaryService.API: APIType {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         request.httpMethod = method
+        
+        if let body = body {
+            let jsonData = try? JSONSerialization.data(withJSONObject: body)
+            print(String(data: jsonData!, encoding: .utf8))
+            request.httpBody = jsonData
+        }
         
         return request
     }
