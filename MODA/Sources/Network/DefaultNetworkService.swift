@@ -9,7 +9,7 @@ import RxSwift
 
 protocol NetworkService: AnyObject {
     func request<T: Decodable>(to api: APIType) -> Observable<T>
-    func request(to api: APIType) -> Observable<Void>
+    func request(to api: APIType) -> Observable<Result<Void, Error>>
 }
 
 final class DefaultNetworkService: NetworkService {
@@ -55,7 +55,8 @@ final class DefaultNetworkService: NetworkService {
         }
     }
     
-    func request(to api: APIType) -> Observable<Void> {
+    func request(to api: APIType) -> Observable<Result<Void, Error>> {
+        
         return Observable.create { emitter in
             guard let request = try? api.generateRequest() else {
                 emitter.onError(NetworkError.invalidURLError)
@@ -64,27 +65,27 @@ final class DefaultNetworkService: NetworkService {
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    emitter.onError(error)
+                    emitter.onNext(.failure(error))
                     return
                 }
                 
                 guard let response = response as? HTTPURLResponse else {
-                    emitter.onError(NetworkError.responseDecodingError)
+                    emitter.onNext(.failure(NetworkError.responseDecodingError))
                     return
                 }
                 
                 guard (200...300) ~= response.statusCode else {
                     let error = NetworkError(rawValue: response.statusCode) ?? .unknownError
-                    emitter.onError(error)
+                    emitter.onNext(.failure(error))
                     return
                 }
                 
                 guard let _ = data else {
-                    emitter.onError(NetworkError.dataDecodingError)
+                    emitter.onNext(.failure(NetworkError.dataDecodingError))
                     return
                 }
                 
-                emitter.onNext(())
+                emitter.onNext(.success(()))
             }.resume()
             
             return Disposables.create()
