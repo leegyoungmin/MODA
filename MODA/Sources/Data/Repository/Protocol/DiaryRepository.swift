@@ -9,6 +9,6 @@ import RxSwift
 protocol DiaryRepository {
     func fetchAllDiaries(_ token: String)
     func fetchSearchDiaries(_ token: String, query: String) -> Observable<[Diary]>
-    func createNewDiary(_ token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>>
+    func createNewDiary(_ token: String, diary: [String: Any]?) -> Observable<Void>
     func removeDiaries(objectId: String, token: String)
 }

@@ -18,7 +18,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         self.diaryRepository = diaryRepository
     }
     
-    func createNewDiary(token: String, with userId: String) -> Observable<Result<Void, Error>> {
+    func createNewDiary(token: String, with userId: String) -> Observable<Void> {
         guard let content = try? content.value(),
               let condition = try? condition.value() else {
             return Observable.error(NetworkError.unknownError)

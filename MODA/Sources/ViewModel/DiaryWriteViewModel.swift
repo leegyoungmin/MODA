@@ -11,7 +11,7 @@ final class DiaryWriteViewModel: ViewModel {
         var selectedCondition: Observable<Int>
         var descriptionInput: Observable<String>
         var saveButtonTap: Observable<Void>
-        var cancelButtonTap: Observable<Void>?
+        var cancelButtonTap: Observable<Void>
     }
     
     struct Output {
@@ -22,11 +22,7 @@ final class DiaryWriteViewModel: ViewModel {
     private let diaryWriteUseCase: DiaryWriteUseCase
     
     private var selectedCondition = PublishSubject<Diary.Condition>()
-    private var description = PublishSubject<String>()
     private var dismissView = BehaviorSubject(value: false)
-    
-    private var conditionValid = BehaviorSubject(value: false)
-    private var descriptionValid = BehaviorSubject(value: false)
     
     var disposeBag = DisposeBag()
     
@@ -59,8 +55,8 @@ final class DiaryWriteViewModel: ViewModel {
             .bind(to: diaryWriteUseCase.content)
             .disposed(by: disposeBag)
         
-        input.saveButtonTap.asObservable()
-            .flatMapLatest { [weak self] _ -> Observable<Result<Void, Error>> in
+        let saveSuccess = input.saveButtonTap.asObservable()
+            .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else { throw NetworkError.unknownError }
                 
                 return self.diaryWriteUseCase.createNewDiary(
@@ -68,19 +64,13 @@ final class DiaryWriteViewModel: ViewModel {
                     with: "Vz9lsMuuKd"
                 )
             }
-            .subscribe { [weak self] result in
-                switch result {
-                case .success:
-                    self?.dismissView.onNext(true)
-                case .failure:
-                    return
-                }
-            }
-            .disposed(by: disposeBag)
         
-        input.cancelButtonTap?
+        Observable.of(saveSuccess, input.cancelButtonTap)
+            .merge()
             .subscribe { [weak self] _ in
-                self?.dismissView.onNext(true)
+                guard let self = self else { return }
+                
+                self.dismissView.onNext(true)
             }
             .disposed(by: disposeBag)
     }

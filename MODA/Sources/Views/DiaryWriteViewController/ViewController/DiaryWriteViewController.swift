@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 
 final class DiaryWriteViewController: UIViewController {
+    private let dismissButton: UIBarButtonItem = {
+        return UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"))
+    }()
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -119,7 +123,7 @@ extension DiaryWriteViewController {
             selectedCondition: selectedCondition.asObservable(),
             descriptionInput: contentTextView.rx.text.orEmpty.asObservable(),
             saveButtonTap: saveButton.rx.tap.asObservable(),
-            cancelButtonTap: navigationItem.leftBarButtonItem?.rx.tap.asObservable()
+            cancelButtonTap: dismissButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -216,13 +220,6 @@ private extension DiaryWriteViewController {
     }
     
     func configureNavigationBar() {
-        let dismissAction = UIAction { [weak self] _ in
-            self?.dismiss(animated: true)
-        }
-        let dismissButton = UIBarButtonItem(
-            image: UIImage(systemName: "xmark.circle.fill"),
-            primaryAction: dismissAction
-        )
         navigationItem.leftBarButtonItem = dismissButton
         navigationItem.title = Date().toString("yy년 MM월 dd일")
     }

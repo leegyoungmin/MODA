@@ -39,9 +39,8 @@ final class DefaultDiaryRepository: DiaryRepository {
             .map { $0.results }
     }
     
-    func createNewDiary(_ token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>> {
+    func createNewDiary(_ token: String, diary: [String: Any]?) -> Observable<Void> {
         return diaryService.createNewDiary(with: token, diary: diary)
-            .asObservable()
     }
     
     func removeDiaries(objectId: String, token: String) { }

@@ -10,7 +10,7 @@ import Foundation
 protocol DiaryServicing: AnyObject {
     func loadDiaries(with token: String) -> Observable<Diaries>
     func searchDiaries(with token: String, query: String) -> Observable<Diaries>
-    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>>
+    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Void>
     
 //    func deleteDiary(
 //        with token: String,
@@ -29,7 +29,7 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Result<Void, Error>> {
+    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Void> {
         let api = API.createDiary(token: token, diary: diary)
         return DefaultNetworkService().request(to: api)
     }
