@@ -50,31 +50,41 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
     func createNewDiary(token: String, with userId: String) -> Observable<Void> {
         guard let content = try? content.value(),
               let condition = try? condition.value(),
-              let isFirstWrite = try? isFirstWrite.value() else {
+              let isFirstWrite = try? isFirstWrite.value(),
+              let id = try? id.value() else {
             return Observable.error(NetworkError.unknownError)
         }
         
-        if isFirstWrite {
-            let diaryRequestData = DiaryRequestDTO(
-                content: content,
-                condition: condition,
-                userId: userId
-            ).toDictionary
-            
-            return diaryRepository.createNewDiary(token, diary: diaryRequestData)
-        } else {
-            guard let id = try? id.value() else { return Observable.error(NetworkError.unknownError) }
-            
-            let updateRequestData = DiaryUpdateDTO(
-                content: content,
-                condition: condition
-            ).toDictionary
-            
-            return diaryRepository.updateDiary(
-                "r:71be8a7f09796ced27e1242288a142b6",
-                id: id,
-                diary: updateRequestData
-            )
-        }
+        return isFirstWrite ? createNewDiary(
+            token: token,
+            userId: "Vz9lsMuuKd",
+            content: content,
+            condition: condition
+        ) : updateExistDiary(
+            token: token,
+            diaryId: id,
+            content: content,
+            condition: condition
+        )
+    }
+    
+    private func createNewDiary(
+        token: String,
+        userId: String,
+        content: String,
+        condition: Int
+    ) -> Observable<Void> {
+        let requestData = DiaryRequestDTO(content: content, condition: condition, userId: userId)
+        return diaryRepository.createNewDiary(token, diary: requestData.toDictionary)
+    }
+    
+    private func updateExistDiary(
+        token: String,
+        diaryId: String,
+        content: String,
+        condition: Int
+    ) -> Observable<Void> {
+        let requestData = DiaryUpdateDTO(content: content, condition: condition)
+        return diaryRepository.updateDiary(token, id: diaryId, diary: requestData.toDictionary)
     }
 }
