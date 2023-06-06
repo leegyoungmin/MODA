@@ -19,6 +19,7 @@ final class DiaryWriteViewModel: ViewModel {
         var description: Observable<String>
         var selectedCondition: Observable<Int>
         var disableConfirmButton: Observable<Bool>
+        var saveState: Observable<SaveState>
         var dismissView: Observable<Bool>
     }
     
@@ -46,6 +47,7 @@ final class DiaryWriteViewModel: ViewModel {
             description: diaryWriteUseCase.content.asObservable(),
             selectedCondition: diaryWriteUseCase.condition.asObservable(),
             disableConfirmButton: disableButton,
+            saveState: diaryWriteUseCase.saveState.asObservable(),
             dismissView: dismissView
         )
     }
@@ -85,5 +87,14 @@ final class DiaryWriteViewModel: ViewModel {
                 self.dismissView.onNext(true)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension DiaryWriteViewModel {
+    enum SaveState {
+        case none
+        case loading
+        case success
+        case failure
     }
 }

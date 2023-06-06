@@ -81,6 +81,11 @@ final class DiaryWriteViewController: UIViewController {
         return button
     }()
     
+    private let loadingView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        return view
+    }()
+    
     private var selectedCondition = PublishSubject<Int>()
     private let viewModel: DiaryWriteViewModel
     private let disposeBag = DisposeBag()
@@ -183,6 +188,38 @@ extension DiaryWriteViewController {
                 self.dismiss(animated: isDismiss)
             }
             .disposed(by: disposeBag)
+        
+        output.saveState
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] state in
+                guard let self = self else { return }
+                
+                switch state {
+                case .success:
+                    self.loadingView.stopAnimating()
+                case .loading:
+                    self.loadingView.startAnimating()
+                case .failure:
+                    self.presentErrorAlert()
+                default:
+                    self.loadingView.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+private extension DiaryWriteViewController {
+    func presentErrorAlert() {
+        let controller = UIAlertController(
+            title: "예기치못한 에러가 발생하였습니다.",
+            message: "잠시후 다시 시도해주세요.",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            self.loadingView.stopAnimating()
+        }))
+        self.present(controller, animated: true)
     }
 }
 
@@ -234,13 +271,13 @@ private extension DiaryWriteViewController {
     }
     
     func configureHierarchy() {
-        view.addSubview(scrollView)
-        view.addSubview(saveButton)
+        [scrollView, saveButton].forEach(view.addSubview)
+        
         scrollView.addSubview(scrollViewContentView)
         
         [badConditionButton, normalConditionButton, goodConditionButton]
             .forEach(conditionStackView.addArrangedSubview)
-        [conditionTitleLabel, contentTitleLabel, contentTextView, conditionStackView]
+        [conditionTitleLabel, contentTitleLabel, contentTextView, conditionStackView, loadingView]
             .forEach(scrollViewContentView.addSubview)
     }
     
@@ -290,6 +327,10 @@ private extension DiaryWriteViewController {
             $0.trailing.equalToSuperview().offset(-20)
             $0.bottom.equalTo(scrollViewContentView.snp.bottom).offset(-20)
             $0.height.greaterThanOrEqualTo(view.snp.height).multipliedBy(0.5)
+        }
+        
+        loadingView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
         }
     }
 }

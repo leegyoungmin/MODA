@@ -14,7 +14,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
     var id = BehaviorSubject<String>(value: "")
     var content = BehaviorSubject<String>(value: "")
     var condition = BehaviorSubject<Int>(value: -1)
-    var saveState = BehaviorSubject<Bool>(value: false)
+    var saveState = BehaviorSubject<DiaryWriteViewModel.SaveState>(value: .none)
     var isFirstWrite = BehaviorSubject<Bool>(value: true)
     
     init(diaryRepository: DiaryRepository) {
@@ -29,7 +29,15 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
 \"createdDay\":\(date.toInt(.day))
 }
 """
+        self.saveState.onNext(.loading)
+        
         diaryRepository.fetchSearchDiaries(token, query: query)
+            .catch { [weak self] _ in
+                guard let self = self else { return .just([]) }
+                
+                self.saveState.onNext(.failure)
+                return .just([])
+            }
             .map(\.first)
             .subscribe { [weak self] diary in
                 guard let self = self,
@@ -43,6 +51,8 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
                 } else {
                     isFirstWrite.onNext(true)
                 }
+                
+                self.saveState.onNext(.success)
             }
             .disposed(by: disposeBag)
     }
