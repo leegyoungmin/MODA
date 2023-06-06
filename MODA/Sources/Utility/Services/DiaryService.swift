@@ -35,7 +35,7 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func updateDiary(with token: String, to id: String, diary: [String : Any]?) -> Observable<Void> {
+    func updateDiary(with token: String, to id: String, diary: [String: Any]?) -> Observable<Void> {
         let api = API.updateDiary(token: token, id: id, diary: diary)
         return DefaultNetworkService().request(to: api)
     }

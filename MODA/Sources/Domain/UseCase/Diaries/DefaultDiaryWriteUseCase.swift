@@ -47,7 +47,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
             .disposed(by: disposeBag)
     }
     
-    func createNewDiary(token: String, with userId: String) -> Observable<Void> {
+    func postDiary(token: String, with userId: String) -> Observable<Void> {
         guard let content = try? content.value(),
               let condition = try? condition.value(),
               let isFirstWrite = try? isFirstWrite.value(),

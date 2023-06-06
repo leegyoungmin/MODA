@@ -71,7 +71,7 @@ final class DiaryWriteViewModel: ViewModel {
             .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else { throw NetworkError.unknownError }
                 
-                return self.diaryWriteUseCase.createNewDiary(
+                return self.diaryWriteUseCase.postDiary(
                     token: "r:71be8a7f09796ced27e1242288a142b6",
                     with: "Vz9lsMuuKd"
                 )
