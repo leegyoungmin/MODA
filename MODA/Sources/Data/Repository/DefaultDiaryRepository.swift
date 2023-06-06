@@ -43,6 +43,10 @@ final class DefaultDiaryRepository: DiaryRepository {
         return diaryService.createNewDiary(with: token, diary: diary)
     }
     
+    func updateDiary(_ token: String, id: String, diary: [String: Any]?) -> Observable<Void> {
+        return diaryService.updateDiary(with: token, to: id, diary: diary)
+    }
+    
     func removeDiaries(objectId: String, token: String) { }
 //    func removeDiaries(objectId: String, token: String) {
 //        diaryService.deleteDiary(with: token, to: objectId)

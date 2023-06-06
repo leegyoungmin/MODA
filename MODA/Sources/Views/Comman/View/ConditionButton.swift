@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import UIKit
+import RxSwift
 
 protocol ConditionButtonDelegate: AnyObject {
     func conditionButton(_ button: ConditionButton, didTapButton condition: Diary.Condition)
@@ -28,6 +29,7 @@ final class ConditionButton: UIButton {
     
     init(symbol: Diary.Condition) {
         self.condition = symbol
+        
         super.init(frame: .zero)
         
         self.titleLabel?.font = .systemFont(ofSize: 48)
@@ -45,8 +47,11 @@ final class ConditionButton: UIButton {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
+        selectItem()
+    }
+    
+    func selectItem() {
         self.isSelected = true
-        
         delegate?.conditionButton(self, didTapButton: condition)
     }
 }

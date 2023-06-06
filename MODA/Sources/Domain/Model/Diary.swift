@@ -28,7 +28,7 @@ struct Diary: Codable {
         }
     }
     
-    let id: String?
+    let id: String
     let content: String
     let condition: Condition
     let user: User
@@ -65,6 +65,11 @@ struct DiaryRequestDTO: Codable {
         self.createdMonth = Date().toInt(.month)
         self.createdDay = Date().toInt(.day)
     }
+}
+
+struct DiaryUpdateDTO: Codable {
+    let content: String
+    let condition: Int
 }
 
 struct User: Codable {

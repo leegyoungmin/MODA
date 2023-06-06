@@ -38,7 +38,6 @@ final class DiaryListViewModel: ViewModel {
     
     func bindOutput(_ output: Output) {
         diaryListUseCase.diaries
-            .debug()
             .subscribe { diaries in
                 output.diaries.on(diaries)
             }

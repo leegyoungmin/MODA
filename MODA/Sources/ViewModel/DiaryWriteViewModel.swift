@@ -8,6 +8,7 @@ import RxSwift
 
 final class DiaryWriteViewModel: ViewModel {
     struct Input {
+        var viewWillAppear: Observable<Void>
         var selectedCondition: Observable<Int>
         var descriptionInput: Observable<String>
         var saveButtonTap: Observable<Void>
@@ -15,13 +16,14 @@ final class DiaryWriteViewModel: ViewModel {
     }
     
     struct Output {
+        var description: Observable<String>
+        var selectedCondition: Observable<Int>
         var disableConfirmButton: Observable<Bool>
         var dismissView: Observable<Bool>
     }
     
     private let diaryWriteUseCase: DiaryWriteUseCase
     
-    private var selectedCondition = PublishSubject<Diary.Condition>()
     private var dismissView = BehaviorSubject(value: false)
     
     var disposeBag = DisposeBag()
@@ -41,13 +43,23 @@ final class DiaryWriteViewModel: ViewModel {
         )
         
         return Output(
+            description: diaryWriteUseCase.content.asObservable(),
+            selectedCondition: diaryWriteUseCase.condition.asObservable(),
             disableConfirmButton: disableButton,
             dismissView: dismissView
         )
     }
     
     func bindingInput(_ input: Input) {
+        input.viewWillAppear
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.diaryWriteUseCase.loadTodayDiary("r:71be8a7f09796ced27e1242288a142b6")
+            }
+            .disposed(by: disposeBag)
+        
         input.selectedCondition
+            .debug()
             .bind(to: diaryWriteUseCase.condition)
             .disposed(by: disposeBag)
         

@@ -119,8 +119,15 @@ extension DiaryWriteViewController {
     func bindings() {
         bindingInput()
         
+        let conditionSelected = Observable.of(
+            goodConditionButton.rx.tap.map { Diary.Condition.good.rawValue },
+            normalConditionButton.rx.tap.map { Diary.Condition.normal.rawValue },
+            badConditionButton.rx.tap.map { Diary.Condition.bad.rawValue }
+        ).merge()
+        
         let input = DiaryWriteViewModel.Input(
-            selectedCondition: selectedCondition.asObservable(),
+            viewWillAppear: self.rx.methodInvoked(#selector(viewWillAppear)).map { _ in }.asObservable(),
+            selectedCondition: conditionSelected.asObservable(),
             descriptionInput: contentTextView.rx.text.orEmpty.asObservable(),
             saveButtonTap: saveButton.rx.tap.asObservable(),
             cancelButtonTap: dismissButton.rx.tap.asObservable()
@@ -144,6 +151,26 @@ extension DiaryWriteViewController {
     }
     
     func bindingOutput(_ output: DiaryWriteViewModel.Output) {
+        
+        output.description
+            .bind(to: contentTextView.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.selectedCondition
+            .observe(on: MainScheduler.instance)
+            .compactMap { Diary.Condition(rawValue: $0) }
+            .subscribe(onNext: { condition in
+                switch condition {
+                case .good:
+                    self.goodConditionButton.selectItem()
+                case .normal:
+                    self.normalConditionButton.selectItem()
+                case .bad:
+                    self.badConditionButton.selectItem()
+                }
+            })
+            .disposed(by: disposeBag)
+        
         output.disableConfirmButton
             .bind(to: saveButton.rx.isEnabled)
             .disposed(by: disposeBag)
@@ -167,8 +194,6 @@ extension DiaryWriteViewController: ConditionButtonDelegate {
     ) {
         let stackSubviews = conditionStackView.arrangedSubviews
         guard let conditionButtons = stackSubviews as? [ConditionButton] else { return }
-        
-        self.selectedCondition.onNext(condition.rawValue)
         
         conditionButtons.forEach { button in
             UIView.animate(withDuration: 0.4) {
