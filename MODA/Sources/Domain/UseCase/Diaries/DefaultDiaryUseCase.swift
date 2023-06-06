@@ -12,20 +12,20 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
     var selectedYear = BehaviorSubject<Int>(value: Date().toInt(.year))
     var selectedMonth = BehaviorSubject<Int>(value: Date().toInt(.month))
     
-    private let diaryListRepository: DiaryRepository
+    private let diaryRepository: DiaryRepository
     private let disposeBag = DisposeBag()
     
-    init(diaryListRepository: DiaryRepository) {
-        self.diaryListRepository = diaryListRepository
+    init(diaryRepository: DiaryRepository) {
+        self.diaryRepository = diaryRepository
     }
     
     func loadAllDiaries(_ token: String) {
         guard let month = try? selectedMonth.value(),
               let year = try? selectedYear.value() else { return }
-        print(year, month)
+        
         let query = "{\"createdMonth\":\(month),\"createdYear\":\(year)}"
         
-        self.diaryListRepository.fetchSearchDiaries(token, query: query)
+        self.diaryRepository.fetchSearchDiaries(token, query: query)
             .subscribe { [weak self] diaries in
                 self?.diaries.on(.next(diaries))
             }

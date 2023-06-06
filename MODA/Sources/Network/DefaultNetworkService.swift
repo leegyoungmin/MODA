@@ -56,6 +56,7 @@ final class DefaultNetworkService: NetworkService {
     }
     
     func request(to api: APIType) -> Observable<Void> {
+        
         return Observable.create { emitter in
             guard let request = try? api.generateRequest() else {
                 emitter.onError(NetworkError.invalidURLError)
@@ -75,12 +76,12 @@ final class DefaultNetworkService: NetworkService {
                 
                 guard (200...300) ~= response.statusCode else {
                     let error = NetworkError(rawValue: response.statusCode) ?? .unknownError
-                    emitter.onError(error)
+                    emitter.onError(NetworkError.invalidRequest)
                     return
                 }
                 
                 guard let _ = data else {
-                    emitter.onError(NetworkError.dataDecodingError)
+                    emitter.onError(NetworkError.typeDecodingError)
                     return
                 }
                 
