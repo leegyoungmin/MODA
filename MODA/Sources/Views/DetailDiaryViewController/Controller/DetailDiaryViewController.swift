@@ -42,6 +42,7 @@ final class DetailDiaryViewController: UIViewController {
     private let editButton: RoundRectangleButton = {
         let button = RoundRectangleButton()
         button.setImage(UIImage(systemName: "pencil"), for: .normal)
+        button.setImage(UIImage(systemName: "arrow.up"), for: .selected)
         return button
     }()
     
@@ -60,7 +61,8 @@ final class DetailDiaryViewController: UIViewController {
         return stackView
     }()
     
-    private let viewModel: DetailDiaryViewModel
+    private let viewModel: DetailDiaryViewModel?
+    private let editMode = PublishSubject<Bool>()
     private let disposeBag = DisposeBag()
     
     init(viewModel: DetailDiaryViewModel) {
@@ -69,7 +71,7 @@ final class DetailDiaryViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = DetailDiaryViewModel()
+        self.viewModel = nil
         super.init(coder: coder)
     }
     
@@ -86,48 +88,58 @@ final class DetailDiaryViewController: UIViewController {
     }
     
     func bindings() {
-        let input = DetailDiaryViewModel.Input()
+        let input = DetailDiaryViewModel.Input(
+            viewWillAppear: rx.methodInvoked(#selector(viewWillAppear)).map { _ in }.asObservable(),
+            didTapSaveButton: editButton.rx.tap.asObservable(),
+            isEditMode: editMode.asObservable(),
+            editedContent: contentTextView.rx.text.changed.asObservable(),
+            didTapDeleteButton: removeButton.rx.tap.asObservable()
+        )
         
-        let output = viewModel.transform(input: input)
+        let output = viewModel?.transform(input: input)
         
-        output.createdDate
+        output?.createdDate
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.condition
+        output?.condition
             .compactMap { $0?.description }
             .bind(to: conditionLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output.content
+        output?.content
             .bind(to: contentTextView.rx.text)
             .disposed(by: disposeBag)
         
-        output.isEditable
+        output?.isEditable
             .debug()
             .bind(to: editButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        output?.didSuccessRemove
+            .observe(on: MainScheduler.instance)
+            .debug()
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+            
     }
     
     func viewBinding() {
         editButton.rx.tap
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                
-                let viewModel = DiaryWriteViewModel(
-                    diaryWriteUseCase: DefaultDiaryWriteUseCase(
-                        diaryRepository: DefaultDiaryRepository(
-                            diaryService: DiaryService()
-                        )
-                    )
-                )
-                
-                let controller = DiaryWriteViewController(viewModel: viewModel)
-                let navigationController = UINavigationController(rootViewController: controller)
-                navigationController.modalPresentationStyle = .overFullScreen
-                self.present(navigationController, animated: true)
-            }
+            .map { self.editButton.isSelected }
+            .bind(to: editMode)
             .disposed(by: disposeBag)
+        
+        editMode.subscribe { [weak self] in
+            guard let self = self else { return }
+            
+            self.contentTextView.isEditable = !$0
+            self.editButton.isSelected = !$0
+        }
+        .disposed(by: disposeBag)
     }
 }
 
