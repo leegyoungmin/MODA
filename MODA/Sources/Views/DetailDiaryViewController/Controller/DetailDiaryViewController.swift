@@ -6,7 +6,6 @@
 
 import UIKit
 
-
 final class DetailDiaryViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
