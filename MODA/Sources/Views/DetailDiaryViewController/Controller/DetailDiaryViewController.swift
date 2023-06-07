@@ -93,7 +93,8 @@ final class DetailDiaryViewController: UIViewController {
             didTapSaveButton: editButton.rx.tap.asObservable(),
             isEditMode: editMode.asObservable(),
             editedContent: contentTextView.rx.text.changed.asObservable(),
-            didTapDeleteButton: removeButton.rx.tap.asObservable()
+            didTapDeleteButton: removeButton.rx.tap.asObservable(),
+            viewWillDisappear: rx.methodInvoked(#selector(viewWillDisappear)).map { _ in }.asObservable()
         )
         
         let output = viewModel?.transform(input: input)

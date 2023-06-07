@@ -14,6 +14,7 @@ final class DetailDiaryViewModel: ViewModel {
         var isEditMode: Observable<Bool>
         var editedContent: Observable<String?>
         var didTapDeleteButton: Observable<Void>
+        var viewWillDisappear: Observable<Void>
     }
     
     struct Output {
@@ -40,19 +41,17 @@ final class DetailDiaryViewModel: ViewModel {
             }
             .disposed(by: disposeBag)
         
-        Observable.combineLatest(
+        let didTapSaveButton = Observable.combineLatest(
             input.didTapSaveButton,
             input.isEditMode
-        )
-        .debug()
-        .subscribe { [weak self] values in
-            guard let self = self else { return }
-            
-            if values.1 {
+        ).map { return $0.1 }
+        
+        Observable.of(didTapSaveButton.asObservable(), input.viewWillDisappear.map { true }).merge()
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
                 self.useCase.updateCurrentDiary("r:c8f161b6407a0799d377bc0425e48e12")
             }
-        }
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
         
         input.editedContent
             .bind(to: useCase.diaryContent)
