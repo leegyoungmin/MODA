@@ -149,23 +149,7 @@ private extension DiaryListViewController {
         
         deleteItemEvent
             .bind { [weak self] diary in
-                let alertController = UIAlertController(
-                    title: "정말 삭제하시겠습니까?",
-                    message: nil,
-                    preferredStyle: .alert
-                )
-                
-                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-                
-                let deleteAction = UIAlertAction(
-                    title: "삭제",
-                    style: .destructive
-                ) { _ in
-                    self?.deleteItemTrigger.onNext(diary)
-                }
-                
-                [cancelAction, deleteAction].forEach(alertController.addAction)
-                self?.present(alertController, animated: true)
+                self?.presentDeleteAlert(with: diary)
             }
             .disposed(by: disposeBag)
         
@@ -173,20 +157,44 @@ private extension DiaryListViewController {
             .subscribe { [weak self] element in
                 guard let self = self, let value = element.element else { return }
                 
-                let viewModel = DetailDiaryViewModel(
-                    useCase: DefaultDetailDiaryUseCase(
-                        id: value.id,
-                        repository: DefaultDiaryRepository(
-                            diaryService: DiaryService()
-                        )
-                    )
-                )
-                let controller = DetailDiaryViewController(viewModel: viewModel)
-                
-                controller.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(controller, animated: true)
+                self.presentDetailView(with: value.id)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func presentDeleteAlert(with item: Diary) {
+        let alertController = UIAlertController(
+            title: "정말 삭제하시겠습니까?",
+            message: nil,
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        let deleteAction = UIAlertAction(
+            title: "삭제",
+            style: .destructive
+        ) { _ in
+            self.deleteItemTrigger.onNext(item)
+        }
+        
+        [cancelAction, deleteAction].forEach(alertController.addAction)
+        self.present(alertController, animated: true)
+    }
+    
+    func presentDetailView(with id: String) {
+        let viewModel = DetailDiaryViewModel(
+            useCase: DefaultDetailDiaryUseCase(
+                id: id,
+                repository: DefaultDiaryRepository(
+                    diaryService: DiaryService()
+                )
+            )
+        )
+        let controller = DetailDiaryViewController(viewModel: viewModel)
+        
+        controller.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
