@@ -39,6 +39,7 @@
 		187CA9032A29B4860018B8CB /* MonthCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */; };
 		187CA9062A29B4B90018B8CB /* MonthCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CA9052A29B4B90018B8CB /* MonthCalendarViewModel.swift */; };
 		188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423072A1DC5AD0047A946 /* TabViewController.swift */; };
+		1888132B2A3058D80095899D /* DetailDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */; };
 		18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1072A1CE7C4007125FC /* Date + Extension.swift */; };
 		18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */; };
 		18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E10B2A1CF824007125FC /* ConditionButton.swift */; };
@@ -90,6 +91,7 @@
 		187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewController.swift; sourceTree = "<group>"; };
 		187CA9052A29B4B90018B8CB /* MonthCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewModel.swift; sourceTree = "<group>"; };
 		188423072A1DC5AD0047A946 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryViewModel.swift; sourceTree = "<group>"; };
 		18A8E1072A1CE7C4007125FC /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewController.swift; sourceTree = "<group>"; };
 		18A8E10B2A1CF824007125FC /* ConditionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionButton.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				187CA9042A29B4A90018B8CB /* MonthCalebdar */,
 				1805177B2A25954100DB9152 /* DiaryListViewModel.swift */,
 				18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */,
+				1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */,
+				1888132B2A3058D80095899D /* DetailDiaryViewModel.swift in Sources */,
 				180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */,
 				180247412A206B2400B7B221 /* BottomSheetViewController.swift in Sources */,
 				18E600702A2B20180056A879 /* Encodable + Extensions.swift in Sources */,
