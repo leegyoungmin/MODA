@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import RxSwift
+import Foundation
 
 final class DetailDiaryViewModel: ViewModel {
     struct Input {
@@ -15,6 +16,7 @@ final class DetailDiaryViewModel: ViewModel {
         var createdDate: Observable<String?>
         var content: Observable<String?>
         var condition: Observable<Diary.Condition?>
+        var isEditable: Observable<Bool>
     }
     private var currentDiary: Diary?
     
@@ -28,7 +30,8 @@ final class DetailDiaryViewModel: ViewModel {
         return Output(
             createdDate: Observable.of(currentDiary?.createdDate.toString("yyyy년 MM월 dd일")),
             content: Observable.of(currentDiary?.content),
-            condition: Observable.of(currentDiary?.condition)
+            condition: Observable.of(currentDiary?.condition),
+            isEditable: Observable.of(currentDiary?.createdDate.isEqual(rhs: Date()) ?? false)
         )
     }
 }

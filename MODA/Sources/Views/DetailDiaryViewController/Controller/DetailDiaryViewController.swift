@@ -28,24 +28,26 @@ final class DetailDiaryViewController: UIViewController {
         textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         textView.font = .systemFont(ofSize: 18)
         textView.showsVerticalScrollIndicator = false
+        textView.isEditable = false
+        textView.isSelectable = false
         return textView
     }()
     
     private let likeButton: RoundRectangleButton = {
         let button = RoundRectangleButton()
-        button.setSystemImage(imageName: "heart")
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
         return button
     }()
     
     private let editButton: RoundRectangleButton = {
         let button = RoundRectangleButton()
-        button.setSystemImage(imageName: "pencil")
+        button.setImage(UIImage(systemName: "pencil"), for: .normal)
         return button
     }()
     
     private let removeButton: RoundRectangleButton = {
         let button = RoundRectangleButton()
-        button.setSystemImage(imageName: "trash")
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
         return button
     }()
     
@@ -99,6 +101,15 @@ final class DetailDiaryViewController: UIViewController {
         output.content
             .bind(to: contentTextView.rx.text)
             .disposed(by: disposeBag)
+        
+        output.isEditable
+            .debug()
+            .bind(to: editButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+    }
+    
+    func viewBinding() {
+        
     }
 }
 
