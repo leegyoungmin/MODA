@@ -78,16 +78,13 @@ final class DetailDiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        navigationItem.largeTitleDisplayMode = .never
-        
         configureUI()
         
-        bindings()
-        viewBinding()
+        bindingFromViewModel()
+        bindingUI()
     }
     
-    func bindings() {
+    func bindingFromViewModel() {
         let input = DetailDiaryViewModel.Input(
             viewWillAppear: rx.methodInvoked(#selector(viewWillAppear)).map { _ in }.asObservable(),
             didTapSaveButton: editButton.rx.tap.asObservable(),
@@ -128,7 +125,7 @@ final class DetailDiaryViewController: UIViewController {
             
     }
     
-    func viewBinding() {
+    func bindingUI() {
         editButton.rx.tap
             .map { self.editButton.isSelected }
             .bind(to: editMode)
@@ -146,8 +143,14 @@ final class DetailDiaryViewController: UIViewController {
 
 private extension DetailDiaryViewController {
     func configureUI() {
+        configureNavigationBar()
         configureHierarchy()
         makeConstraints()
+    }
+    
+    func configureNavigationBar() {
+        view.backgroundColor = .white
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     func configureHierarchy() {
