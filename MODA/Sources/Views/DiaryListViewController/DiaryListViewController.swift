@@ -168,6 +168,17 @@ private extension DiaryListViewController {
                 self?.present(alertController, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        diaryListTableView.rx.modelSelected(Diary.self)
+            .subscribe { [weak self] element in
+                print(element)
+                guard let self = self else { return }
+                let controller = DetailDiaryViewController()
+                
+                controller.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
