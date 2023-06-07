@@ -25,6 +25,8 @@ final class DetailDiaryViewController: UIViewController {
         let textView = UITextView()
         textView.layer.cornerRadius = 8
         textView.backgroundColor = UIColor(named: "SecondaryColor")
+        textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
+        textView.font = .systemFont(ofSize: 18)
         return textView
     }()
     
