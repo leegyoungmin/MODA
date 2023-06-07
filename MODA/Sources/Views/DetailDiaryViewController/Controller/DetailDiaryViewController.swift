@@ -6,36 +6,6 @@
 
 import UIKit
 
-final class RoundRectangleButton: UIButton {
-    private let symbolImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
-    
-    init() {
-        super.init(frame: .zero)
-        configureUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        configureUI()
-    }
-    
-    func setSystemImage(imageName: String) {
-        let image = UIImage(systemName: imageName)
-        self.symbolImageView.image = image
-    }
-    
-    func configureUI() {
-        addSubview(symbolImageView)
-        
-        symbolImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(16)
-        }
-    }
-}
 
 final class DetailDiaryViewController: UIViewController {
     private let titleLabel: UILabel = {
@@ -66,6 +36,27 @@ final class DetailDiaryViewController: UIViewController {
         return button
     }()
     
+    private let editButton: RoundRectangleButton = {
+        let button = RoundRectangleButton()
+        button.setSystemImage(imageName: "pencil")
+        return button
+    }()
+    
+    private let removeButton: RoundRectangleButton = {
+        let button = RoundRectangleButton()
+        button.setSystemImage(imageName: "trash")
+        return button
+    }()
+    
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        stackView.distribution = .equalCentering
+        return stackView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,7 +74,8 @@ private extension DetailDiaryViewController {
     }
     
     func configureHierarchy() {
-        [titleLabel, conditionLabel, contentTextView, likeButton].forEach(view.addSubview)
+        [likeButton, editButton, removeButton].forEach(buttonStackView.addArrangedSubview)
+        [titleLabel, conditionLabel, contentTextView, buttonStackView].forEach(view.addSubview)
     }
     
     func makeConstraints() {
@@ -106,11 +98,11 @@ private extension DetailDiaryViewController {
             $0.height.lessThanOrEqualTo(view.snp.height).priority(.low)
         }
         
-        likeButton.snp.makeConstraints {
+        buttonStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(16)
             $0.bottom.equalToSuperview().offset(-16)
             $0.top.equalTo(contentTextView.snp.bottom).offset(16)
-            $0.width.equalTo(likeButton.snp.height).multipliedBy(1)
+            $0.trailing.equalToSuperview().offset(-16)
         }
     }
 }
