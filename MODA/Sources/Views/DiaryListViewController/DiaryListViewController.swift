@@ -171,9 +171,16 @@ private extension DiaryListViewController {
         
         diaryListTableView.rx.modelSelected(Diary.self)
             .subscribe { [weak self] element in
-                guard let self = self else { return }
+                guard let self = self, let value = element.element else { return }
                 
-                let viewModel = DetailDiaryViewModel(currentDiary: element)
+                let viewModel = DetailDiaryViewModel(
+                    useCase: DefaultDetailDiaryUseCase(
+                        id: value.id,
+                        repository: DefaultDiaryRepository(
+                            diaryService: DiaryService()
+                        )
+                    )
+                )
                 let controller = DetailDiaryViewController(viewModel: viewModel)
                 
                 controller.hidesBottomBarWhenPushed = true
