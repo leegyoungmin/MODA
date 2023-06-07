@@ -74,12 +74,12 @@ private extension DiaryListViewController {
     
     /// - ViewModel 데이터 관련 바인딩
     func bindingFromViewModel() {
-        let viewWillAppear = self.rx.methodInvoked(#selector(viewWillAppear))
+        let viewDidAppear = self.rx.methodInvoked(#selector(viewDidAppear))
             .map { _ in }
             .asObservable()
         
         let input = DiaryListViewModel.Input(
-            viewWillAppear: viewWillAppear,
+            viewDidAppear: viewDidAppear,
             removeTargetItem: deleteItemTrigger,
             selectedYear: selectedYear.asObservable(),
             selectedMonth: selectedMonth.asObservable()
