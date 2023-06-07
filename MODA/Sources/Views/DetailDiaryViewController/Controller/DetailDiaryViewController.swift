@@ -27,6 +27,7 @@ final class DetailDiaryViewController: UIViewController {
         textView.backgroundColor = UIColor(named: "SecondaryColor")
         textView.contentInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         textView.font = .systemFont(ofSize: 18)
+        textView.showsVerticalScrollIndicator = false
         return textView
     }()
     
