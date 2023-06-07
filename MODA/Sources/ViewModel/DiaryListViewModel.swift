@@ -9,7 +9,7 @@ import RxSwift
 
 final class DiaryListViewModel: ViewModel {
     struct Input {
-        var viewWillAppear: Observable<Void>
+        var viewDidAppear: Observable<Void>
         var removeTargetItem: Observable<Diary>
         var selectedYear: Observable<Int>
         var selectedMonth: Observable<Int>
@@ -51,7 +51,7 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindInput(_ input: Input) {
-        input.viewWillAppear
+        input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 self.diaryListUseCase.loadAllDiaries("r:73c87143778dd7a511da231909e85932")

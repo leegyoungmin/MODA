@@ -105,7 +105,6 @@ private extension SignInViewController {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                debugPrint(error)
                 return
             }
 

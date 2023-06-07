@@ -61,7 +61,6 @@ final class DiaryWriteViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         input.selectedCondition
-            .debug()
             .bind(to: diaryWriteUseCase.condition)
             .disposed(by: disposeBag)
         
