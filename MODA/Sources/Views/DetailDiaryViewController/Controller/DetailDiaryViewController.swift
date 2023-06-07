@@ -5,20 +5,19 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import UIKit
+import RxSwift
 
 final class DetailDiaryViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.text = Date().toString("yyyy년 MM월 dd일")
         return label
     }()
     
     private let conditionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 48, weight: .semibold)
-        label.text = Diary.Condition.good.description
         return label
     }()
     
@@ -56,6 +55,19 @@ final class DetailDiaryViewController: UIViewController {
         return stackView
     }()
     
+    private let viewModel: DetailDiaryViewModel
+    private let disposeBag = DisposeBag()
+    
+    init(viewModel: DetailDiaryViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = DetailDiaryViewModel()
+        super.init(coder: coder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,6 +75,27 @@ final class DetailDiaryViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         configureUI()
+        
+        bindings()
+    }
+    
+    func bindings() {
+        let input = DetailDiaryViewModel.Input()
+        
+        let output = viewModel.transform(input: input)
+        
+        output.createdDate
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.condition
+            .compactMap { $0?.description }
+            .bind(to: conditionLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.content
+            .bind(to: contentTextView.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -93,7 +126,7 @@ private extension DetailDiaryViewController {
         contentTextView.snp.makeConstraints {
             $0.leading.equalTo(titleLabel.snp.leading)
             $0.trailing.equalTo(conditionLabel.snp.trailing)
-            $0.top.equalTo(conditionLabel.snp.bottom).offset(32)
+            $0.top.equalTo(conditionLabel.snp.bottom).offset(16)
             $0.height.lessThanOrEqualTo(view.snp.height).priority(.low)
         }
         
