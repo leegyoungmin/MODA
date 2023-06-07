@@ -33,6 +33,12 @@ final class DetailDiaryViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
+        bindingInput(input)
+        let output = bindingOutput(input)
+        return output
+    }
+    
+    func bindingInput(_ input: Input) {
         input.viewWillAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
@@ -65,7 +71,9 @@ final class DetailDiaryViewModel: ViewModel {
                 self.useCase.deleteCurrentDiary("r:c8f161b6407a0799d377bc0425e48e12")
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    func bindingOutput(_ input: Input) -> Output {
         let createdDate = useCase.diaryDate
             .compactMap { $0?.toString("yyyy년 MM월 dd일") }
             .asObservable()
@@ -74,14 +82,12 @@ final class DetailDiaryViewModel: ViewModel {
             .compactMap { $0?.isEqual(rhs: Date()) }
             .asObservable()
         
-        let output = Output(
+        return Output(
             createdDate: createdDate,
             content: useCase.diaryContent.asObservable(),
             condition: useCase.diaryCondition.asObservable(),
             isEditable: isEditable,
             didSuccessRemove: useCase.removeDiary.asObservable()
         )
-        
-        return output
     }
 }
