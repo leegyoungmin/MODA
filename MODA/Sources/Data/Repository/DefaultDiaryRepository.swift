@@ -47,12 +47,7 @@ final class DefaultDiaryRepository: DiaryRepository {
         return diaryService.updateDiary(with: token, to: id, diary: diary)
     }
     
-    func removeDiaries(objectId: String, token: String) { }
-//    func removeDiaries(objectId: String, token: String) {
-//        diaryService.deleteDiary(with: token, to: objectId)
-//            .subscribe { [weak self] _ in
-//                self?.fetchAllDiaries(token)
-//            }
-//            .disposed(by: disposeBag)
-//    }
+    func removeDiary(_ token: String, id: String) -> Observable<Void> {
+        return diaryService.removeDiary(with: token, id: id)
+    }
 }

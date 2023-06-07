@@ -12,11 +12,7 @@ protocol DiaryServicing: AnyObject {
     func searchDiaries(with token: String, query: String) -> Observable<Diaries>
     func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Void>
     func updateDiary(with token: String, to id: String, diary: [String: Any]?) -> Observable<Void>
-    
-//    func deleteDiary(
-//        with token: String,
-//        to id: String
-//    ) -> Observable<Void>
+    func removeDiary(with token: String, id: String) -> Observable<Void>
 }
 
 final class DiaryService: DiaryServicing {
@@ -40,13 +36,10 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-//    func deleteDiary(
-//        with token: String,
-//        to id: String
-//    ) -> Observable<Void> {
-//        let api = API.removeDiary(token: token, id: id)
-//        return DefaultNetworkService().request(to: api)
-//    }
+    func removeDiary(with token: String, id: String) -> Observable<Void> {
+        let api = API.removeDiary(token: token, id: id)
+        return DefaultNetworkService().request(to: api)
+    }
 }
 
 protocol APIType {
