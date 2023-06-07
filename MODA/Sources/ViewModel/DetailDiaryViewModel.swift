@@ -64,7 +64,6 @@ final class DetailDiaryViewModel: ViewModel {
             .disposed(by: disposeBag)
         
         input.didTapDeleteButton
-            .debug()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 

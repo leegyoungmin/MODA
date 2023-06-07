@@ -110,13 +110,11 @@ final class DetailDiaryViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output?.isEditable
-            .debug()
             .bind(to: editButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
         output?.didSuccessRemove
             .observe(on: MainScheduler.instance)
-            .debug()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 self.navigationController?.popViewController(animated: true)
