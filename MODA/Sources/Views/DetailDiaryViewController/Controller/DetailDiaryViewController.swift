@@ -82,6 +82,7 @@ final class DetailDiaryViewController: UIViewController {
         configureUI()
         
         bindings()
+        viewBinding()
     }
     
     func bindings() {
@@ -109,7 +110,24 @@ final class DetailDiaryViewController: UIViewController {
     }
     
     func viewBinding() {
-        
+        editButton.rx.tap
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                
+                let viewModel = DiaryWriteViewModel(
+                    diaryWriteUseCase: DefaultDiaryWriteUseCase(
+                        diaryRepository: DefaultDiaryRepository(
+                            diaryService: DiaryService()
+                        )
+                    )
+                )
+                
+                let controller = DiaryWriteViewController(viewModel: viewModel)
+                let navigationController = UINavigationController(rootViewController: controller)
+                navigationController.modalPresentationStyle = .overFullScreen
+                self.present(navigationController, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
