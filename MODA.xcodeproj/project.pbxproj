@@ -38,8 +38,11 @@
 		187CA9012A29B44A0018B8CB /* YearControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CA9002A29B44A0018B8CB /* YearControl.swift */; };
 		187CA9032A29B4860018B8CB /* MonthCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */; };
 		187CA9062A29B4B90018B8CB /* MonthCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187CA9052A29B4B90018B8CB /* MonthCalendarViewModel.swift */; };
+		188150832A31D28A00314200 /* UITimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188150822A31D28A00314200 /* UITimePicker.swift */; };
 		188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423072A1DC5AD0047A946 /* TabViewController.swift */; };
 		1888132B2A3058D80095899D /* DetailDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */; };
+		189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */; };
+		189BE2612A31C116006B6374 /* Int + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BE2602A31C116006B6374 /* Int + Extensions.swift */; };
 		18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1072A1CE7C4007125FC /* Date + Extension.swift */; };
 		18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */; };
 		18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E10B2A1CF824007125FC /* ConditionButton.swift */; };
@@ -92,9 +95,12 @@
 		187CA9002A29B44A0018B8CB /* YearControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearControl.swift; sourceTree = "<group>"; };
 		187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewController.swift; sourceTree = "<group>"; };
 		187CA9052A29B4B90018B8CB /* MonthCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCalendarViewModel.swift; sourceTree = "<group>"; };
+		188150822A31D28A00314200 /* UITimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITimePicker.swift; sourceTree = "<group>"; };
 		188423072A1DC5AD0047A946 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryViewModel.swift; sourceTree = "<group>"; };
 		189BE2572A319343006B6374 /* MODA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MODA.entitlements; sourceTree = "<group>"; };
+		189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeSettingViewController.swift; sourceTree = "<group>"; };
+		189BE2602A31C116006B6374 /* Int + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Extensions.swift"; sourceTree = "<group>"; };
 		18A8E1072A1CE7C4007125FC /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewController.swift; sourceTree = "<group>"; };
 		18A8E10B2A1CF824007125FC /* ConditionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionButton.swift; sourceTree = "<group>"; };
@@ -142,7 +148,6 @@
 			children = (
 				187CA8FC2A29B24A0018B8CB /* ViewController */,
 				187CA8FB2A29B2440018B8CB /* View */,
-				180F957F2A1B355F00C571FD /* DiaryListViewController.swift */,
 			);
 			path = DiaryListViewController;
 			sourceTree = "<group>";
@@ -164,12 +169,13 @@
 			path = SavedDiaryView;
 			sourceTree = "<group>";
 		};
-		180517782A25933900DB9152 /* SettingView */ = {
+		180517782A25933900DB9152 /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
+				189BE25D2A31B51F006B6374 /* ViewController */,
+				189BE25C2A31B51D006B6374 /* View */,
 			);
-			path = SettingView;
+			path = SettingViewController;
 			sourceTree = "<group>";
 		};
 		180517792A25934200DB9152 /* AuthView */ = {
@@ -280,7 +286,7 @@
 				180517752A2592F900DB9152 /* DiaryListViewController */,
 				180517762A25931E00DB9152 /* DiaryWriteViewController */,
 				180517772A25932E00DB9152 /* SavedDiaryView */,
-				180517782A25933900DB9152 /* SettingView */,
+				180517782A25933900DB9152 /* SettingViewController */,
 				188423072A1DC5AD0047A946 /* TabViewController.swift */,
 			);
 			path = Views;
@@ -420,6 +426,7 @@
 		187CA8FC2A29B24A0018B8CB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				180F957F2A1B355F00C571FD /* DiaryListViewController.swift */,
 				187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */,
 			);
 			path = ViewController;
@@ -433,6 +440,23 @@
 			path = MonthCalebdar;
 			sourceTree = "<group>";
 		};
+		189BE25C2A31B51D006B6374 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				188150822A31D28A00314200 /* UITimePicker.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		189BE25D2A31B51F006B6374 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
+				189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		18A8E1062A1CE7BC007125FC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +466,7 @@
 				180517872A25F77600DB9152 /* Reusable + Extensions.swift */,
 				1805179B2A26433100DB9152 /* ViewModel.swift */,
 				18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */,
+				189BE2602A31C116006B6374 /* Int + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -566,7 +591,9 @@
 			files = (
 				18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */,
 				1888132B2A3058D80095899D /* DetailDiaryViewModel.swift in Sources */,
+				188150832A31D28A00314200 /* UITimePicker.swift in Sources */,
 				180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */,
+				189BE2612A31C116006B6374 /* Int + Extensions.swift in Sources */,
 				180247412A206B2400B7B221 /* BottomSheetViewController.swift in Sources */,
 				18E600702A2B20180056A879 /* Encodable + Extensions.swift in Sources */,
 				18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */,
@@ -579,6 +606,7 @@
 				186EEABF2A2A197000F16646 /* DefaultDiaryUseCase.swift in Sources */,
 				18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */,
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
+				189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
 				187CA8FE2A29B2580018B8CB /* MonthControl.swift in Sources */,
 				180517972A26413900DB9152 /* DiaryRepository.swift in Sources */,
