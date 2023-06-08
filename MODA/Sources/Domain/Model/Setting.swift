@@ -11,7 +11,7 @@ struct SettingSection {
 
 struct SettingOption {
     let title: String
-    let content: String
+    var content: String
 }
 
 extension SettingSection {

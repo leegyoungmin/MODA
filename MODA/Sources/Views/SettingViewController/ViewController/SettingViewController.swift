@@ -103,7 +103,16 @@ extension SettingViewController: NoticeSettingDelegate {
         controller: NoticeSettingViewController,
         didTapSave time: (hour: Int, minute: Int)
     ) {
-        print(time)
+        guard let cell = settingTableView.cellForRow(
+            at: IndexPath(row: 0, section: 0)
+        ) as? SettingCell else {
+            return
+        }
+        
+        var setting = settingSections[0].options[0]
+        setting.content = time.hour.dateDescription + ":" + time.minute.dateDescription
+        
+        cell.setUpData(to: setting)
     }
 }
 
