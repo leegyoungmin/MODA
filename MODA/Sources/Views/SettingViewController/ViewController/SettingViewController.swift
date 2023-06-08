@@ -7,7 +7,6 @@
 import UIKit
 
 final class SettingViewController: UIViewController {
-    
     private let settingTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
@@ -88,7 +87,23 @@ extension SettingViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
+        if indexPath.section == .zero && indexPath.row == .zero {
+            let noticeController = NoticeSettingViewController()
+            noticeController.delegate = self
+            let controller = BottomSheetViewController(controller: noticeController)
+            controller.modalPresentationStyle = .overFullScreen
+            self.present(controller, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension SettingViewController: NoticeSettingDelegate {
+    func noticeSettingView(
+        controller: NoticeSettingViewController,
+        didTapSave time: (hour: Int, minute: Int)
+    ) {
+        print(time)
     }
 }
 
