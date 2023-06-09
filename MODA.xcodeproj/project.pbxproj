@@ -15,6 +15,7 @@
 		1804BB492A32C5CA00D96F7D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB482A32C5CA00D96F7D /* UserRepository.swift */; };
 		1804BB4B2A32C5FA00D96F7D /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */; };
 		1804BB502A32CB6200D96F7D /* APIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB4F2A32CB6200D96F7D /* APIType.swift */; };
+		1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB512A32CC8400D96F7D /* UNNotification + Extensions.swift */; };
 		1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177B2A25954100DB9152 /* DiaryListViewModel.swift */; };
 		180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177F2A25E1AF00DB9152 /* DiaryService.swift */; };
 		180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */; };
@@ -75,6 +76,7 @@
 		1804BB482A32C5CA00D96F7D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
 		1804BB4F2A32CB6200D96F7D /* APIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIType.swift; sourceTree = "<group>"; };
+		1804BB512A32CC8400D96F7D /* UNNotification + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotification + Extensions.swift"; sourceTree = "<group>"; };
 		1805177B2A25954100DB9152 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		1805177F2A25E1AF00DB9152 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
 		180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JsonDecoder + Extensions.swift"; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				1805179B2A26433100DB9152 /* ViewModel.swift */,
 				18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */,
 				189BE2602A31C116006B6374 /* Int + Extensions.swift */,
+				1804BB512A32CC8400D96F7D /* UNNotification + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -628,6 +631,7 @@
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
 				189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
+				1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */,
 				187CA8FE2A29B2580018B8CB /* MonthControl.swift in Sources */,
 				180517972A26413900DB9152 /* DiaryRepository.swift in Sources */,
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,

@@ -45,7 +45,7 @@ final class NoticeSettingViewController: UIViewController {
     
     private var selectedHour: Int = 0
     private var selectedMinute: Int = 0
-
+    
     weak var delegate: NoticeSettingDelegate?
     private var disposeBag = DisposeBag()
     
@@ -72,11 +72,10 @@ final class NoticeSettingViewController: UIViewController {
 
 extension NoticeSettingViewController: TimePickerDelegate {
     func timePicker(picker: UITimePicker, didSelectedTime time: (hour: Int, minute: Int)) {
-        self.selectedHour = time.hour
-        self.selectedMinute = time.minute
+        selectedHour = time.hour
+        selectedMinute = time.minute
     }
 }
-
 
 private extension NoticeSettingViewController {
     func configureUI() {

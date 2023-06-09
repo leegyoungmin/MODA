@@ -109,10 +109,41 @@ extension SettingViewController: NoticeSettingDelegate {
             return
         }
         
-        var setting = settingSections[0].options[0]
-        setting.content = time.hour.dateDescription + ":" + time.minute.dateDescription
+        cell.updateContent(time.hour.dateDescription + ":" + time.minute.dateDescription)
         
-        cell.setUpData(to: setting)
+        removeAllNotification(identifier: [UNNotification.diaryIdentifier])
+        requestNotification(hour: time.hour, minute: time.minute)
+    }
+}
+
+private extension SettingViewController {
+    func removeAllNotification(identifier: [String]) {
+        UNUserNotificationCenter.current().removeDeliveredNotifications(
+            withIdentifiers: identifier
+        )
+    }
+    
+    func requestNotification(hour: Int, minute: Int) {
+        let content = UNMutableNotificationContent()
+        content.title = "MODA"
+        content.body = "아침에 일기를 쓰고, 기분 좋은 하루를 보내보세요."
+        content.sound = .default
+        
+        var dateComponent = DateComponents()
+        dateComponent.hour = 12
+        dateComponent.minute = 5
+        
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: dateComponent,
+            repeats: true
+        )
+        let alertRequest = UNNotificationRequest(
+            identifier: UNNotification.diaryIdentifier,
+            content: content,
+            trigger: trigger
+        )
+        UNUserNotificationCenter.current().add(alertRequest)
+        print("request Success")
     }
 }
 

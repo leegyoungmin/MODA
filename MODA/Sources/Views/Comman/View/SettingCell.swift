@@ -46,6 +46,10 @@ final class SettingCell: UITableViewCell {
             self.contentActionButton.backgroundColor = UIColor.white
         }
     }
+    
+    func updateContent(_ value: String) {
+        contentActionButton.setTitle(value, for: .normal)
+    }
 }
 
 private extension SettingCell {
