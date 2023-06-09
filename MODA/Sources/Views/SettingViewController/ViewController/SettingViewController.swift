@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import UIKit
+import MessageUI
 
 final class SettingViewController: UIViewController {
     private let settingTableView: UITableView = {
@@ -93,7 +94,12 @@ extension SettingViewController: UITableViewDelegate {
             let controller = BottomSheetViewController(controller: noticeController)
             controller.modalPresentationStyle = .overFullScreen
             self.present(controller, animated: true)
+        } else if indexPath.section == 1 {
+            if indexPath.row == .zero {
+                self.presentMail()
+            }
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -113,6 +119,21 @@ extension SettingViewController: NoticeSettingDelegate {
         
         removeAllNotification(identifier: [UNNotification.diaryIdentifier])
         requestNotification(hour: time.hour, minute: time.minute)
+    }
+}
+
+extension SettingViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?
+    ) {
+        switch result {
+        case .failed:
+            presentMailSendFailAlert()
+        default:
+            controller.dismiss(animated: true)
+        }
     }
 }
 
@@ -144,6 +165,31 @@ private extension SettingViewController {
         )
         UNUserNotificationCenter.current().add(alertRequest)
         print("request Success")
+    }
+}
+
+private extension SettingViewController {
+    func presentMail() {
+        if MFMailComposeViewController.canSendMail() {
+            let controller = MFMailComposeViewController()
+            controller.mailComposeDelegate = self
+            
+            controller.setToRecipients(["cow970814@kakao.com"])
+            controller.setSubject("MODA 문의 및 의견")
+            self.present(controller, animated: true)
+        }
+    }
+    
+    func presentMailSendFailAlert() {
+        let controller = UIAlertController(
+            title: "",
+            message: "메일을 발송하는데 문제가 발생하였습니다. 잠시후 다시 시도해주세요.",
+            preferredStyle: .alert
+        )
+        
+        controller.addAction(UIAlertAction(title: "확인", style: .default))
+        
+        present(controller, animated: true)
     }
 }
 
