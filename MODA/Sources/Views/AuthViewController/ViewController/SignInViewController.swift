@@ -81,6 +81,7 @@ final class SignInViewController: UIViewController {
         
         configureUI()
         bindings()
+        bindingToViewModel()
     }
 }
 
@@ -100,11 +101,15 @@ private extension SignInViewController {
 }
 
 private extension SignInViewController {
+    func bindingToViewModel() {
+        let input = SignInViewModel.Input(
+            didTapLoginButton: signInButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+    }
+    
     func bindings() {
-        signInButton.rx.tap
-            .bind { [weak self] _ in
-            }
-            .disposed(by: disposeBag)
         
         signUpButton.rx.tap
             .bind { [weak self] _ in
