@@ -115,7 +115,8 @@ private extension SignInViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let controller = SignUpViewController()
+                let viewModel = SignUpViewModel()
+                let controller = SignUpViewController(viewModel: viewModel)
                 self.present(controller, animated: true)
             }
             .disposed(by: disposeBag)
