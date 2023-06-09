@@ -11,6 +11,9 @@
 		180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247422A207B9F00B7B221 /* SignInViewController.swift */; };
 		180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247442A208CCE00B7B221 /* SignUpViewController.swift */; };
 		180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180247482A209F8F00B7B221 /* AuthFormStackView.swift */; };
+		1804BB472A32C44100D96F7D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB462A32C44100D96F7D /* UserService.swift */; };
+		1804BB492A32C5CA00D96F7D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB482A32C5CA00D96F7D /* UserRepository.swift */; };
+		1804BB4B2A32C5FA00D96F7D /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */; };
 		1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177B2A25954100DB9152 /* DiaryListViewModel.swift */; };
 		180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177F2A25E1AF00DB9152 /* DiaryService.swift */; };
 		180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */; };
@@ -67,6 +70,9 @@
 		180247422A207B9F00B7B221 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		180247442A208CCE00B7B221 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		180247482A209F8F00B7B221 /* AuthFormStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFormStackView.swift; sourceTree = "<group>"; };
+		1804BB462A32C44100D96F7D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		1804BB482A32C5CA00D96F7D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
 		1805177B2A25954100DB9152 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		1805177F2A25E1AF00DB9152 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
 		180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JsonDecoder + Extensions.swift"; sourceTree = "<group>"; };
@@ -191,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				1805177F2A25E1AF00DB9152 /* DiaryService.swift */,
+				1804BB462A32C44100D96F7D /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -265,6 +272,7 @@
 			children = (
 				180517982A26419F00DB9152 /* Protocol */,
 				180517992A2641B200DB9152 /* DefaultDiaryRepository.swift */,
+				1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -273,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				180517962A26413900DB9152 /* DiaryRepository.swift */,
+				1804BB482A32C5CA00D96F7D /* UserRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -613,6 +622,7 @@
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,
 				18C9A3182A307382002F7B81 /* DetailDiaryUseCase.swift in Sources */,
 				18C9A31A2A3073CB002F7B81 /* DefaultDetailDiaryUseCase.swift in Sources */,
+				1804BB4B2A32C5FA00D96F7D /* DefaultUserRepository.swift in Sources */,
 				180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */,
 				180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */,
 				1805179A2A2641B200DB9152 /* DefaultDiaryRepository.swift in Sources */,
@@ -620,6 +630,7 @@
 				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
 				187CA9032A29B4860018B8CB /* MonthCalendarViewController.swift in Sources */,
 				180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */,
+				1804BB492A32C5CA00D96F7D /* UserRepository.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
 				180517902A2604CF00DB9152 /* DefaultNetworkService.swift in Sources */,
 				18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */,
@@ -633,6 +644,7 @@
 				180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */,
 				18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */,
 				18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */,
+				1804BB472A32C44100D96F7D /* UserService.swift in Sources */,
 				18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */,
 				186EEABD2A2A192B00F16646 /* DiaryListUseCase.swift in Sources */,
 				187CA9012A29B44A0018B8CB /* YearControl.swift in Sources */,
