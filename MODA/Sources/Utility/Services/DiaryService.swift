@@ -42,16 +42,6 @@ final class DiaryService: DiaryServicing {
     }
 }
 
-protocol APIType {
-    var baseURL: String { get }
-    var method: String { get }
-    var path: String { get }
-    var params: [String: String] { get }
-    var body: [String: Any]? { get }
-    var headers: [String: String] { get }
-    
-    func generateRequest() throws -> URLRequest
-}
 
 private extension DiaryService {
     enum API {
@@ -65,7 +55,7 @@ private extension DiaryService {
 
 extension DiaryService.API: APIType {
     var baseURL: String {
-        return "https://parseapi.back4app.com" + path
+        return "https://parseapi.back4app.com"
     }
     
     var path: String {
@@ -129,30 +119,4 @@ extension DiaryService.API: APIType {
             return [:]
         }
     }
-    
-    func generateRequest() throws -> URLRequest {
-        guard var urlComponent = URLComponents(string: baseURL) else { throw NetworkError.unknownError }
-        let parameters = params.map {
-            return URLQueryItem(name: $0.key, value: $0.value)
-        }
-        
-        urlComponent.queryItems = parameters
-        
-        guard let url = urlComponent.url else {
-            throw NetworkError.unknownError
-        }
-        
-        var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = headers
-        request.httpMethod = method
-        
-        if let body = body {
-            let jsonData = try? JSONSerialization.data(withJSONObject: body)
-            print(String(data: jsonData!, encoding: .utf8))
-            request.httpBody = jsonData
-        }
-        
-        return request
-    }
-    
 }

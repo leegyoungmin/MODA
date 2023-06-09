@@ -19,7 +19,7 @@ final class SettingCell: UITableViewCell {
         return label
     }()
     
-    private let contentActionButton: UIButton = {
+    let contentActionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor(named: "BackgroundColor"), for: .normal)
@@ -28,16 +28,9 @@ final class SettingCell: UITableViewCell {
         return button
     }()
     
-    private var action: (() -> Void)?
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentActionButton.addTarget(
-            self,
-            action: #selector(didTapContentButton),
-            for: .touchUpInside
-        )
         configureUI()
     }
     
@@ -52,18 +45,10 @@ final class SettingCell: UITableViewCell {
             self.contentActionButton.setTitle(setting.content, for: .normal)
             self.contentActionButton.backgroundColor = UIColor.white
         }
-        
-        self.action = setting.handler
     }
     
-    func addAction(_ action: (() -> Void)?) {
-        self.action = action
-    }
-}
-
-private extension SettingCell {
-    @objc func didTapContentButton() {
-        self.action?()
+    func updateContent(_ value: String) {
+        contentActionButton.setTitle(value, for: .normal)
     }
 }
 
