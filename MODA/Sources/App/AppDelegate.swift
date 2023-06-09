@@ -8,6 +8,8 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    private let repository = DefaultUserRepository(service: UserService())
+    
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -27,21 +29,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }
     
-// Notification 작동 위한 토큰 값 출력
-//    func application(
-//        _ application: UIApplication,
-//        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-//    ) {
-//        let token = deviceToken.map { String(format: "%02x", $0) }.joined()
-//        print(token)
-//    }
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        let token = deviceToken.map { String(format: "%02x", $0) }.joined()
+        
+        guard let identifier = Bundle.main.bundleIdentifier else { return }
+        
+        let body: [String: Any] = generateInstallationBody(token: token, bundleIdentifier: identifier)
+        
+        repository.saveInstallation(body)
+    }
 }
 
 private extension AppDelegate {
+    func generateInstallationBody(token: String, bundleIdentifier: String) -> [String: Any] {
+        return [
+            "deviceToken": token,
+            "localeIdentifier": Constants.localIdentifier,
+            "parseVersion": Constants.parseVersion,
+            "appIdentifier": bundleIdentifier,
+            "appName": Constants.appName,
+            "deviceType": Constants.deviceType,
+            "channels": Constants.channels,
+            "installationId": Constants.installationId,
+            "appVersion": Constants.appVersion,
+            "timeZone": Constants.timeZone
+        ]
+    }
+    
     func registerRemoteNotifications() {
         let center = UNUserNotificationCenter.current()
         center.delegate = self
+        
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        
         center.requestAuthorization(options: options) { granted, _ in
             guard granted else { return }
             
@@ -67,5 +90,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         completionHandler()
+    }
+}
+
+private extension AppDelegate {
+    enum Constants {
+        static let localIdentifier = Locale.current.identifier
+        static let parseVersion = "2.2.0"
+        static let appName = "MODA"
+        static let deviceType = "ios"
+        static let channels: [String] = ["diary"]
+        static let installationId = UUID().uuidString
+        static let appVersion = UIApplication.version().description
+        static let timeZone = TimeZone.current.identifier
     }
 }
