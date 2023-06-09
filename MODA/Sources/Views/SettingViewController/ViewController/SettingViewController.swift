@@ -6,6 +6,7 @@
 
 import UIKit
 import MessageUI
+import WebKit
 
 final class SettingViewController: UIViewController {
     private let settingTableView: UITableView = {
@@ -97,6 +98,8 @@ extension SettingViewController: UITableViewDelegate {
         } else if indexPath.section == 1 {
             if indexPath.row == .zero {
                 self.presentMail()
+            } else if indexPath.row == 2 {
+                self.presentPolicyView()
             }
         }
         
@@ -190,6 +193,18 @@ private extension SettingViewController {
         controller.addAction(UIAlertAction(title: "확인", style: .default))
         
         present(controller, animated: true)
+    }
+}
+
+private extension SettingViewController {
+    func presentPolicyView() {
+        guard let url = URL(
+            string: "https://modacorp.notion.site/MODA-3249cb6456644ebeab9cdcbb3f5f2076?pvs=4"
+        ) else {
+            return
+        }
+        
+        UIApplication.shared.open(url)
     }
 }
 
