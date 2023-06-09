@@ -14,6 +14,7 @@
 		1804BB472A32C44100D96F7D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB462A32C44100D96F7D /* UserService.swift */; };
 		1804BB492A32C5CA00D96F7D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB482A32C5CA00D96F7D /* UserRepository.swift */; };
 		1804BB4B2A32C5FA00D96F7D /* DefaultUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */; };
+		1804BB502A32CB6200D96F7D /* APIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804BB4F2A32CB6200D96F7D /* APIType.swift */; };
 		1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177B2A25954100DB9152 /* DiaryListViewModel.swift */; };
 		180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1805177F2A25E1AF00DB9152 /* DiaryService.swift */; };
 		180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */; };
@@ -73,6 +74,7 @@
 		1804BB462A32C44100D96F7D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		1804BB482A32C5CA00D96F7D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUserRepository.swift; sourceTree = "<group>"; };
+		1804BB4F2A32CB6200D96F7D /* APIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIType.swift; sourceTree = "<group>"; };
 		1805177B2A25954100DB9152 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		1805177F2A25E1AF00DB9152 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
 		180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JsonDecoder + Extensions.swift"; sourceTree = "<group>"; };
@@ -138,6 +140,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1804BB4E2A32CB5800D96F7D /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				1804BB4F2A32CB6200D96F7D /* APIType.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		180517742A2592F400DB9152 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +263,7 @@
 		1805178E2A2604BE00DB9152 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1804BB4E2A32CB5800D96F7D /* Protocol */,
 				1805178F2A2604CF00DB9152 /* DefaultNetworkService.swift */,
 				180517922A263D4400DB9152 /* NetworkError.swift */,
 			);
@@ -629,6 +640,7 @@
 				18194A602A1F36E700C0541F /* Setting.swift in Sources */,
 				18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */,
 				187CA9032A29B4860018B8CB /* MonthCalendarViewController.swift in Sources */,
+				1804BB502A32CB6200D96F7D /* APIType.swift in Sources */,
 				180517882A25F77600DB9152 /* Reusable + Extensions.swift in Sources */,
 				1804BB492A32C5CA00D96F7D /* UserRepository.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
