@@ -33,6 +33,7 @@
 		180F95882A1B356000C571FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180F95862A1B356000C571FD /* LaunchScreen.storyboard */; };
 		18194A602A1F36E700C0541F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18194A5F2A1F36E700C0541F /* Setting.swift */; };
 		182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */; };
+		184680872A3311CA0052BC5C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184680862A3311CA0052BC5C /* SignInViewModel.swift */; };
 		185F81622A1CC6F000C4D554 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81612A1CC6F000C4D554 /* Diary.swift */; };
 		185F81662A1CCA6A00C4D554 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 185F81652A1CCA6A00C4D554 /* SnapKit */; };
 		185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81682A1CCB7700C4D554 /* DiaryListCell.swift */; };
@@ -96,6 +97,7 @@
 		180F95892A1B356000C571FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18194A5F2A1F36E700C0541F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryViewController.swift; sourceTree = "<group>"; };
+		184680862A3311CA0052BC5C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		185F81612A1CC6F000C4D554 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		185F81682A1CCB7700C4D554 /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
 		186EEABC2A2A192B00F16646 /* DiaryListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListUseCase.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				1805177B2A25954100DB9152 /* DiaryListViewModel.swift */,
 				18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */,
 				1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */,
+				184680862A3311CA0052BC5C /* SignInViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -196,13 +199,13 @@
 			path = SettingViewController;
 			sourceTree = "<group>";
 		};
-		180517792A25934200DB9152 /* AuthView */ = {
+		180517792A25934200DB9152 /* AuthViewController */ = {
 			isa = PBXGroup;
 			children = (
-				180247422A207B9F00B7B221 /* SignInViewController.swift */,
-				180247442A208CCE00B7B221 /* SignUpViewController.swift */,
+				184680852A3311A10052BC5C /* ViewController */,
+				184680842A33119F0052BC5C /* View */,
 			);
-			path = AuthView;
+			path = AuthViewController;
 			sourceTree = "<group>";
 		};
 		1805177E2A25E1A600DB9152 /* Services */ = {
@@ -304,7 +307,7 @@
 			children = (
 				1821623C2A2F2A9400A27374 /* DetailDiaryViewController */,
 				1805178A2A2603F900DB9152 /* Comman */,
-				180517792A25934200DB9152 /* AuthView */,
+				180517792A25934200DB9152 /* AuthViewController */,
 				180517752A2592F900DB9152 /* DiaryListViewController */,
 				180517762A25931E00DB9152 /* DiaryWriteViewController */,
 				180517772A25932E00DB9152 /* SavedDiaryView */,
@@ -396,6 +399,22 @@
 				1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		184680842A33119F0052BC5C /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		184680852A3311A10052BC5C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180247422A207B9F00B7B221 /* SignInViewController.swift */,
+				180247442A208CCE00B7B221 /* SignUpViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		185F81602A1CC6C300C4D554 /* Model */ = {
@@ -629,6 +648,7 @@
 				186EEABF2A2A197000F16646 /* DefaultDiaryUseCase.swift in Sources */,
 				18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */,
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
+				184680872A3311CA0052BC5C /* SignInViewModel.swift in Sources */,
 				189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
 				1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */,
