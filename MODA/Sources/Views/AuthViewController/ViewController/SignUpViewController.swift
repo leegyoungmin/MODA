@@ -73,6 +73,19 @@ final class SignUpViewController: UIViewController {
 }
 
 private extension SignUpViewController {
+    func bindingToViewModel() {
+        let input = SignUpViewModel.Input(
+            id: idFormView.textField.rx.text.orEmpty.asObservable(),
+            email: emailFormView.textField.rx.text.orEmpty.asObservable(),
+            password: passwordFormView.textField.rx.text.orEmpty.asObservable(),
+            passwordConfirm: passwordConfirmView.textField.rx.text.orEmpty.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+    }
+}
+
+private extension SignUpViewController {
     func configureUI() {
         view.backgroundColor = .white
         configureHierarchy()
