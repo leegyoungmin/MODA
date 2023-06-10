@@ -52,7 +52,7 @@ struct Diary: Codable {
 struct DiaryRequestDTO: Codable {
     let content: String
     let condition: Int
-    let createdUser: User
+    let createdUser: UserPointer
     let createdYear: Int
     let createdMonth: Int
     let createdDay: Int
@@ -60,7 +60,7 @@ struct DiaryRequestDTO: Codable {
     init(content: String, condition: Int, userId: String) {
         self.content = content
         self.condition = condition
-        self.createdUser = User(id: userId)
+        self.createdUser = UserPointer(id: userId)
         self.createdYear = Date().toInt(.year)
         self.createdMonth = Date().toInt(.month)
         self.createdDay = Date().toInt(.day)
@@ -72,7 +72,7 @@ struct DiaryUpdateDTO: Codable {
     let condition: Int
 }
 
-struct User: Codable {
+struct UserPointer: Codable {
     let id: String
     let type: String = "Pointer"
     let className: String = "_User"

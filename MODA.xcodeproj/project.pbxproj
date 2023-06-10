@@ -52,6 +52,7 @@
 		188150832A31D28A00314200 /* UITimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188150822A31D28A00314200 /* UITimePicker.swift */; };
 		188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188423072A1DC5AD0047A946 /* TabViewController.swift */; };
 		1888132B2A3058D80095899D /* DetailDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */; };
+		1892155B2A344876002C3A4C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892155A2A344876002C3A4C /* User.swift */; };
 		189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */; };
 		189BE2612A31C116006B6374 /* Int + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BE2602A31C116006B6374 /* Int + Extensions.swift */; };
 		18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1072A1CE7C4007125FC /* Date + Extension.swift */; };
@@ -120,6 +121,7 @@
 		188150822A31D28A00314200 /* UITimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITimePicker.swift; sourceTree = "<group>"; };
 		188423072A1DC5AD0047A946 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryViewModel.swift; sourceTree = "<group>"; };
+		1892155A2A344876002C3A4C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		189BE2572A319343006B6374 /* MODA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MODA.entitlements; sourceTree = "<group>"; };
 		189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeSettingViewController.swift; sourceTree = "<group>"; };
 		189BE2602A31C116006B6374 /* Int + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int + Extensions.swift"; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 			children = (
 				185F81612A1CC6F000C4D554 /* Diary.swift */,
 				18194A5F2A1F36E700C0541F /* Setting.swift */,
+				1892155A2A344876002C3A4C /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
 				1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */,
+				1892155B2A344876002C3A4C /* User.swift in Sources */,
 				1846808F2A3314320052BC5C /* SignInUseCase.swift in Sources */,
 				187CA8FE2A29B2580018B8CB /* MonthControl.swift in Sources */,
 				180517972A26413900DB9152 /* DiaryRepository.swift in Sources */,
