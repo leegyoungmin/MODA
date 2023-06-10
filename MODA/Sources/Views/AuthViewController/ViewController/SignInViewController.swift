@@ -168,7 +168,7 @@ private extension SignInViewController {
 }
 
 class PaddingTextField: UITextField {
-    var textPadding = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 10)
+    var textPadding = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.textRect(forBounds: bounds)

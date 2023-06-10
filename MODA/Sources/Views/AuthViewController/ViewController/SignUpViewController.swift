@@ -41,16 +41,21 @@ final class SignUpViewController: UIViewController {
     }()
     
     private let passwordConfirmView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "비밀번호 확인")
+        let formView = AuthFormStackView(
+            title: "비밀번호 확인",
+            warning: "비밀번호가 일치하지 않습니다."
+        )
         return formView
     }()
     
-    private let signUpButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "AccentColor")
+    private let signUpButton: DisableButton = {
+        let button = DisableButton()
+        button.disabledColor = UIColor.secondarySystemBackground
+        button.selectedColor = UIColor(named: "AccentColor")
         button.setTitle("회원가입하기", for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         button.layer.cornerRadius = 8
+        button.isEnabled = false
         return button
     }()
     
@@ -77,7 +82,6 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
         bindingToViewModel()
     }
 }
@@ -98,9 +102,12 @@ private extension SignUpViewController {
     
     func bindingFromViewModel(_ output: SignUpViewModel.Output) {
         output.passwordValid
-            .subscribe { isSuccess in
-//                print(isSuccess)
-            }
+            .bind(to: passwordConfirmView.warningLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.signUpValid
+            .debug()
+            .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
 }
@@ -132,25 +139,25 @@ private extension SignUpViewController {
         
         idFormView.snp.makeConstraints {
             $0.leading.equalTo(titleLabel.snp.leading)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.trailing.equalTo(titleLabel.snp.trailing)
         }
         
         emailFormView.snp.makeConstraints {
             $0.leading.equalTo(idFormView.snp.leading)
-            $0.top.equalTo(idFormView.snp.bottom).offset(16)
+            $0.top.equalTo(idFormView.snp.bottom).offset(12)
             $0.trailing.equalTo(idFormView.snp.trailing)
         }
         
         passwordFormView.snp.makeConstraints {
             $0.leading.equalTo(emailFormView.snp.leading)
-            $0.top.equalTo(emailFormView.snp.bottom).offset(16)
+            $0.top.equalTo(emailFormView.snp.bottom).offset(12)
             $0.trailing.equalTo(emailFormView.snp.trailing)
         }
         
         passwordConfirmView.snp.makeConstraints {
             $0.leading.equalTo(passwordFormView.snp.leading)
-            $0.top.equalTo(passwordFormView.snp.bottom).offset(16)
+            $0.top.equalTo(passwordFormView.snp.bottom).offset(12)
             $0.trailing.equalTo(passwordFormView.snp.trailing)
         }
         

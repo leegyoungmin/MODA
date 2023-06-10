@@ -16,6 +16,7 @@ final class SignUpViewModel: ViewModel {
     
     struct Output {
         var passwordValid: Observable<Bool>
+        var signUpValid: Observable<Bool>
     }
     
     private var useCase: SignUpUseCase
@@ -41,8 +42,20 @@ final class SignUpViewModel: ViewModel {
         let passwordValid = Observable.combineLatest(input.password, input.passwordConfirm)
             .filter { ($0.0.isEmpty == false) && ($0.1.isEmpty == false) }
             .map { $0 == $1 }
-            .debug()
         
-        return Output(passwordValid: passwordValid)
+        let idValid = useCase.id.map { $0.isEmpty == false }
+        let emailValid = useCase.email.map { $0.isEmpty == false }
+        
+        let signUpEnable = Observable.combineLatest(
+            idValid,
+            emailValid,
+            passwordValid,
+            resultSelector: { $0 && $1 && $2 }
+        )
+        
+        return Output(
+            passwordValid: passwordValid,
+            signUpValid: signUpEnable
+        )
     }
 }
