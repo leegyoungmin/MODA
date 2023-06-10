@@ -7,5 +7,6 @@
 import RxSwift
 
 protocol AuthRepository: AnyObject {
+    func signIn(id: String, password: String) -> Observable<Void>
     func signUp(to user: User) -> Observable<String>
 }

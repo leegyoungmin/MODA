@@ -7,7 +7,11 @@
 import RxSwift
 
 final class DefaultAuthRepository: AuthRepository {
-    func signUp(to user: User) -> RxSwift.Observable<String> {
+    func signIn(id: String, password: String) -> Observable<Void> {
+        
+    }
+    
+    func signUp(to user: User) -> Observable<String> {
         <#code#>
     }
 }
