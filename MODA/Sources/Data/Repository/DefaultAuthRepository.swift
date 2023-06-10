@@ -7,11 +7,18 @@
 import RxSwift
 
 final class DefaultAuthRepository: AuthRepository {
+    private let service: UserServicing
+    
+    init(service: UserServicing) {
+        self.service = service
+    }
+    
     func signIn(id: String, password: String) -> Observable<Void> {
-        
+        return .just(())
     }
     
     func signUp(to user: User) -> Observable<String> {
-        <#code#>
+        return service.createUser(with: user.toDictionary)
+            .map(\.sessionToken)
     }
 }

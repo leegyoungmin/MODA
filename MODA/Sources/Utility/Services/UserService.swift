@@ -9,7 +9,7 @@ import RxSwift
 protocol UserServicing: AnyObject {
     func saveInstallation(with body: [String: Any])
     
-    func createUser(with body: [String: Any]) -> Observable<User>
+    func createUser(with body: [String: Any]?) -> Observable<User>
 }
 
 final class UserService: UserServicing {
@@ -20,7 +20,7 @@ final class UserService: UserServicing {
             .dispose()
     }
     
-    func createUser(with body: [String: Any]) -> Observable<User> {
+    func createUser(with body: [String: Any]?) -> Observable<User> {
         let api = API.createUser(body: body)
         return DefaultNetworkService().request(to: api)
     }
@@ -29,7 +29,7 @@ final class UserService: UserServicing {
 private extension UserService {
     enum API {
         case saveInstallation(body: [String: Any])
-        case createUser(body: [String: Any])
+        case createUser(body: [String: Any]?)
     }
 }
 
@@ -56,7 +56,7 @@ extension UserService.API: APIType {
     
     var params: [String: String] {
         switch self {
-        case .saveInstallation:
+        default:
             return [:]
         }
     }
