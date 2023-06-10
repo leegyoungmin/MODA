@@ -15,7 +15,7 @@ final class SignUpViewModel: ViewModel {
     }
     
     struct Output {
-        
+        var passwordValid: Observable<Bool>
     }
     
     private var useCase: SignUpUseCase
@@ -26,6 +26,23 @@ final class SignUpViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        return Output()
+        input.id
+            .bind(to: useCase.id)
+            .disposed(by: disposeBag)
+        
+        input.password
+            .bind(to: useCase.password)
+            .disposed(by: disposeBag)
+        
+        input.email
+            .bind(to: useCase.email)
+            .disposed(by: disposeBag)
+        
+        let passwordValid = Observable.combineLatest(input.password, input.passwordConfirm)
+            .filter { ($0.0.isEmpty == false) && ($0.1.isEmpty == false) }
+            .map { $0 == $1 }
+            .debug()
+        
+        return Output(passwordValid: passwordValid)
     }
 }

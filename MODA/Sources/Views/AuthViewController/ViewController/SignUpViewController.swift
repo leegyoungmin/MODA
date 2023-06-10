@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import UIKit
+import RxSwift
 
 final class SignUpViewController: UIViewController {
     
@@ -54,6 +55,7 @@ final class SignUpViewController: UIViewController {
     }()
     
     private let viewModel: SignUpViewModel
+    private var disposeBag = DisposeBag()
     
     init(viewModel: SignUpViewModel) {
         self.viewModel = viewModel
@@ -75,6 +77,8 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        
+        bindingToViewModel()
     }
 }
 
@@ -88,6 +92,16 @@ private extension SignUpViewController {
         )
         
         let output = viewModel.transform(input: input)
+        
+        bindingFromViewModel(output)
+    }
+    
+    func bindingFromViewModel(_ output: SignUpViewModel.Output) {
+        output.passwordValid
+            .subscribe { isSuccess in
+//                print(isSuccess)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
