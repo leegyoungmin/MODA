@@ -17,8 +17,8 @@ final class DefaultAuthRepository: AuthRepository {
         return .just(())
     }
     
-    func signUp(to user: User) -> Observable<String> {
-        return service.createUser(with: user.toDictionary)
+    func signUp(body: [String: Any]) -> Observable<String> {
+        return service.createUser(with: body)
             .map(\.sessionToken)
     }
 }
