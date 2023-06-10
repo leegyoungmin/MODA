@@ -8,7 +8,10 @@ import RxSwift
 
 final class SignUpViewModel: ViewModel {
     struct Input {
-        
+        var id: Observable<String>
+        var email: Observable<String>
+        var password: Observable<String>
+        var passwordConfirm: Observable<String>
     }
     
     struct Output {
