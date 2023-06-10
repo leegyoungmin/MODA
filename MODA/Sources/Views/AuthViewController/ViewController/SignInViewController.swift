@@ -115,7 +115,13 @@ private extension SignInViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let viewModel = SignUpViewModel()
+                let viewModel = SignUpViewModel(
+                    useCase: DefaultSignUpUseCase(
+                        repository: DefaultAuthRepository(
+                            service: UserService()
+                        )
+                    )
+                )
                 let controller = SignUpViewController(viewModel: viewModel)
                 self.present(controller, animated: true)
             }

@@ -61,7 +61,13 @@ final class SignUpViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = SignUpViewModel()
+        self.viewModel = SignUpViewModel(
+            useCase: DefaultSignUpUseCase(
+                repository: DefaultAuthRepository(
+                    service: UserService()
+                )
+            )
+        )
         super.init(coder: coder)
     }
     

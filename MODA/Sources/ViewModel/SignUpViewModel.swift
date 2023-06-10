@@ -18,7 +18,12 @@ final class SignUpViewModel: ViewModel {
         
     }
     
+    private var useCase: SignUpUseCase
     var disposeBag = DisposeBag()
+    
+    init(useCase: SignUpUseCase) {
+        self.useCase = useCase
+    }
     
     func transform(input: Input) -> Output {
         return Output()
