@@ -56,7 +56,7 @@ final class DiaryWriteViewModel: ViewModel {
         input.viewWillAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.diaryWriteUseCase.loadTodayDiary("r:71be8a7f09796ced27e1242288a142b6")
+                self.diaryWriteUseCase.loadTodayDiary()
             }
             .disposed(by: disposeBag)
         
@@ -72,10 +72,7 @@ final class DiaryWriteViewModel: ViewModel {
             .flatMapLatest { [weak self] _ -> Observable<Void> in
                 guard let self = self else { throw NetworkError.unknownError }
                 
-                return self.diaryWriteUseCase.postDiary(
-                    token: "r:71be8a7f09796ced27e1242288a142b6",
-                    with: "Vz9lsMuuKd"
-                )
+                return self.diaryWriteUseCase.postDiary()
             }
         
         Observable.of(saveSuccess, input.cancelButtonTap)

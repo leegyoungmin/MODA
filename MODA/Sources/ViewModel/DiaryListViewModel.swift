@@ -22,17 +22,11 @@ final class DiaryListViewModel: ViewModel {
     }
     
     private let diaryListUseCase: DiaryListUseCase
-    private var currentUser: User?
     
     var disposeBag: DisposeBag = DisposeBag()
     
     init(diaryListUseCase: DiaryListUseCase) {
         self.diaryListUseCase = diaryListUseCase
-        
-        if let userData = UserDefaults.standard.object(forKey: "currentUser") as? Data,
-           let user = try? JSONDecoder().decode(User.self, from: userData) {
-            self.currentUser = user
-        }
     }
     
     func transform(input: Input) -> Output {
@@ -57,15 +51,10 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindInput(_ input: Input) {
-        guard let user = currentUser else { return }
-        
         input.viewDidAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.diaryListUseCase.loadAllDiaries(
-                    user.sessionToken,
-                    id: user.identifier
-                )
+                self.diaryListUseCase.loadAllDiaries()
             }
             .disposed(by: disposeBag)
         
@@ -82,10 +71,7 @@ final class DiaryListViewModel: ViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.diaryListUseCase.loadAllDiaries(
-                    user.sessionToken,
-                    id: user.identifier
-                )
+                self.diaryListUseCase.loadAllDiaries()
             }
             .disposed(by: disposeBag)
     }

@@ -24,27 +24,17 @@ final class DefaultDiaryRepository: DiaryRepository {
         self.selectedMonth = BehaviorSubject(value: month)
     }
     
-    func fetchAllDiaries() {
-        diaryService.loadDiaries()
-            .map { $0.results }
-            .subscribe { [weak self] diaries in
-                guard let self = self else { return }
-                self.diaries.onNext(diaries)
-            }
-            .disposed(by: disposeBag)
-    }
-    
     func fetchSearchDiaries(query: String) -> Observable<[Diary]> {
         return diaryService.searchDiaries(query: query)
             .map { $0.results }
     }
     
-    func createNewDiary(diary: [String: Any]?) -> Observable<Void> {
-        return diaryService.createNewDiary(diary: diary)
+    func createNewDiary(content: String, condition: Int) -> Observable<Void> {
+        return diaryService.createNewDiary(content: content, condition: condition)
     }
     
-    func updateDiary(id: String, diary: [String: Any]?) -> Observable<Void> {
-        return diaryService.updateDiary(to: id, diary: diary)
+    func updateDiary(id: String, content: String, condition: Int) -> Observable<Void> {
+        return diaryService.updateDiary(to: id, content: content, condition: condition)
     }
     
     func removeDiary(id: String) -> Observable<Void> {

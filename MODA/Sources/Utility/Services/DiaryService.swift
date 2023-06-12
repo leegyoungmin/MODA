@@ -10,8 +10,8 @@ import Foundation
 protocol DiaryServicing: AnyObject {
     func loadDiaries() -> Observable<Diaries>
     func searchDiaries(query: String) -> Observable<Diaries>
-    func createNewDiary(diary: [String: Any]?) -> Observable<Void>
-    func updateDiary(to id: String, diary: [String: Any]?) -> Observable<Void>
+    func createNewDiary(content: String, condition: Int) -> Observable<Void>
+    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void>
     func removeDiary(id: String) -> Observable<Void>
 }
 
@@ -37,13 +37,24 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func createNewDiary(diary: [String: Any]?) -> Observable<Void> {
-        let api = API.createDiary(token: user.sessionToken, diary: diary)
+    func createNewDiary(content: String, condition: Int) -> Observable<Void> {
+        let requestDTO = DiaryRequestDTO(
+            content: content,
+            condition: condition,
+            userId: user.identifier
+        )
+        
+        let api = API.createDiary(token: user.sessionToken, diary: requestDTO.toDictionary)
         return DefaultNetworkService().request(to: api)
     }
     
-    func updateDiary(to id: String, diary: [String: Any]?) -> Observable<Void> {
-        let api = API.updateDiary(token: user.sessionToken, id: id, diary: diary)
+    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void> {
+        let requestDTO = DiaryUpdateDTO(content: content, condition: condition)
+        let api = API.updateDiary(
+            token: user.sessionToken,
+            id: id,
+            diary: requestDTO.toDictionary
+        )
         return DefaultNetworkService().request(to: api)
     }
     

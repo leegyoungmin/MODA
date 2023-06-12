@@ -19,12 +19,11 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         self.diaryRepository = diaryRepository
     }
     
-    func loadAllDiaries(_ token: String, id: String) {
+    func loadAllDiaries() {
         guard let month = try? selectedMonth.value(),
               let year = try? selectedYear.value() else { return }
         
-        let userQuery = UserPointer(id: id).query
-        let query = "{\(userQuery), \"createdMonth\": \(month), \"createdYear\": \(year)}"
+        let query = "{\"createdMonth\": \(month), \"createdYear\": \(year)}"
         
         self.diaryRepository.fetchSearchDiaries(query: query)
             .subscribe { [weak self] diaries in

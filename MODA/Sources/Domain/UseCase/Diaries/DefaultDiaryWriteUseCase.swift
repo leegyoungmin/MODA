@@ -21,7 +21,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         self.diaryRepository = diaryRepository
     }
     
-    func loadTodayDiary(_ token: String) {
+    func loadTodayDiary() {
         let date = Date()
         let query = """
 {\"createdMonth\":\(date.toInt(.month)),
@@ -57,7 +57,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
             .disposed(by: disposeBag)
     }
     
-    func postDiary(token: String, with userId: String) -> Observable<Void> {
+    func postDiary() -> Observable<Void> {
         guard let content = try? content.value(),
               let condition = try? condition.value(),
               let isFirstWrite = try? isFirstWrite.value(),
@@ -66,35 +66,34 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         }
         
         return isFirstWrite ? createNewDiary(
-            token: token,
-            userId: "Vz9lsMuuKd",
             content: content,
             condition: condition
         ) : updateExistDiary(
-            token: token,
-            diaryId: id,
+            id: id,
             content: content,
             condition: condition
         )
     }
     
     private func createNewDiary(
-        token: String,
-        userId: String,
         content: String,
         condition: Int
     ) -> Observable<Void> {
-        let requestData = DiaryRequestDTO(content: content, condition: condition, userId: userId)
-        return diaryRepository.createNewDiary(diary: requestData.toDictionary)
+        return diaryRepository.createNewDiary(
+            content: content,
+            condition: condition
+        )
     }
     
     private func updateExistDiary(
-        token: String,
-        diaryId: String,
+        id: String,
         content: String,
         condition: Int
     ) -> Observable<Void> {
-        let requestData = DiaryUpdateDTO(content: content, condition: condition)
-        return diaryRepository.updateDiary(id: diaryId, diary: requestData.toDictionary)
+        return diaryRepository.updateDiary(
+            id: id,
+            content: content,
+            condition: condition
+        )
     }
 }
