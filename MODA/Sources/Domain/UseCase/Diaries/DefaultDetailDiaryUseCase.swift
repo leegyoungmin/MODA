@@ -24,8 +24,10 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
         self.repository = repository
     }
     
-    func fetchCurrentDiary(_ token: String) {
-        repository.fetchSearchDiaries(token, query: "{\"objectId\":\"\(selectedId)\"}")
+    func fetchCurrentDiary() {
+        let query = "{\"objectId\":\"\(selectedId)\"}"
+        
+        repository.fetchSearchDiaries(query: query)
             .compactMap(\.first)
             .subscribe { [weak self] diary in
                 guard let self = self, let value = diary.element else { return }
@@ -38,17 +40,16 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
             .disposed(by: disposeBag)
     }
     
-    func updateCurrentDiary(_ token: String) {
+    func updateCurrentDiary() {
         guard let content = try? diaryContent.value(),
               let condition = try? diaryCondition.value() else { return }
         
         let updateData = DiaryUpdateDTO(content: content, condition: condition.rawValue).toDictionary
         
-        repository.updateDiary(token, id: selectedId, diary: updateData)
+        repository.updateDiary(id: selectedId, diary: updateData)
             .flatMap { [weak self] _ -> Observable<[Diary]> in
                 guard let self = self else { return Observable.just([]) }
                 return self.repository.fetchSearchDiaries(
-                    token,
                     query: "{\"objectId\":\"\(self.selectedId)\"}"
                 )
             }
@@ -61,8 +62,8 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
             .disposed(by: disposeBag)
     }
     
-    func deleteCurrentDiary(_ token: String) {
-        repository.removeDiary(token, id: selectedId)
+    func deleteCurrentDiary() {
+        repository.removeDiary(id: selectedId)
             .subscribe { [weak self] event in
                 guard let self = self else { return }
                 removeDiary.onNext(event)

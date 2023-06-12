@@ -20,4 +20,12 @@ struct User: Codable {
         case updatedDate = "updatedAt"
         case sessionToken
     }
+    
+    static let empty: Self = .init(
+        identifier: "",
+        userName: nil,
+        createdDate: Date(),
+        updatedDate: nil,
+        sessionToken: ""
+    )
 }

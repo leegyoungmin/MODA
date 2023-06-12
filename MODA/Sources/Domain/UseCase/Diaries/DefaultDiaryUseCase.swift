@@ -25,7 +25,8 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         
         let userQuery = UserPointer(id: id).query
         let query = "{\(userQuery), \"createdMonth\": \(month), \"createdYear\": \(year)}"
-        self.diaryRepository.fetchSearchDiaries(token, query: query)
+        
+        self.diaryRepository.fetchSearchDiaries(query: query)
             .subscribe { [weak self] diaries in
                 self?.diaries.on(.next(diaries))
             }

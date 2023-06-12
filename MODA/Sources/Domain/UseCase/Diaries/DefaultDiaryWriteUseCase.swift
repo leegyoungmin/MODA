@@ -31,7 +31,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
 """
         self.saveState.onNext(.loading)
         
-        diaryRepository.fetchSearchDiaries(token, query: query)
+        diaryRepository.fetchSearchDiaries(query: query)
             .catch { [weak self] _ in
                 guard let self = self else { return .just([]) }
                 
@@ -85,7 +85,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         condition: Int
     ) -> Observable<Void> {
         let requestData = DiaryRequestDTO(content: content, condition: condition, userId: userId)
-        return diaryRepository.createNewDiary(token, diary: requestData.toDictionary)
+        return diaryRepository.createNewDiary(diary: requestData.toDictionary)
     }
     
     private func updateExistDiary(
@@ -95,6 +95,6 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         condition: Int
     ) -> Observable<Void> {
         let requestData = DiaryUpdateDTO(content: content, condition: condition)
-        return diaryRepository.updateDiary(token, id: diaryId, diary: requestData.toDictionary)
+        return diaryRepository.updateDiary(id: diaryId, diary: requestData.toDictionary)
     }
 }

@@ -66,7 +66,17 @@ private extension TabViewController {
         
         var instance: UIViewController {
             switch self {
-            case .home:     return DiaryListViewController()
+            case .home:
+                let controller = DiaryListViewController()
+                let viewModel = DiaryListViewModel(
+                    diaryListUseCase: DefaultDiaryListUseCase(
+                        diaryRepository: DefaultDiaryRepository(
+                            diaryService: DiaryService()
+                        )
+                    )
+                )
+                controller.setViewModel(with: viewModel)
+                return controller
             case .save:     return SavedDiaryViewController()
             case .setting:  return SettingViewController()
             }

@@ -42,13 +42,7 @@ final class DiaryListViewController: UIViewController {
     }()
     
     // MARK: - Properties of Data
-    private let viewModel = DiaryListViewModel(
-        diaryListUseCase: DefaultDiaryListUseCase(
-            diaryRepository: DefaultDiaryRepository(
-                diaryService: DiaryService()
-            )
-        )
-    )
+    private var viewModel: DiaryListViewModel?
     
     private var deleteItemEvent = PublishSubject<Diary>()
     private var deleteItemTrigger = PublishSubject<Diary>()
@@ -63,6 +57,10 @@ final class DiaryListViewController: UIViewController {
         configureNavigationBar()
         configureUI()
         bindings()
+    }
+    
+    func setViewModel(with viewModel: DiaryListViewModel) {
+        self.viewModel = viewModel
     }
 }
 
@@ -85,9 +83,9 @@ private extension DiaryListViewController {
             selectedMonth: selectedMonth.asObservable()
         )
         
-        let output = viewModel.transform(input: input)
+        let output = viewModel?.transform(input: input)
         
-        output.diaries
+        output?.diaries
             .bind(
                 to: diaryListTableView.rx.items(
                     cellIdentifier: DiaryListCell.identifier,

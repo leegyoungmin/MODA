@@ -24,8 +24,8 @@ final class DefaultDiaryRepository: DiaryRepository {
         self.selectedMonth = BehaviorSubject(value: month)
     }
     
-    func fetchAllDiaries(_ token: String) {
-        diaryService.loadDiaries(with: token)
+    func fetchAllDiaries() {
+        diaryService.loadDiaries()
             .map { $0.results }
             .subscribe { [weak self] diaries in
                 guard let self = self else { return }
@@ -34,20 +34,20 @@ final class DefaultDiaryRepository: DiaryRepository {
             .disposed(by: disposeBag)
     }
     
-    func fetchSearchDiaries(_ token: String, query: String) -> Observable<[Diary]> {
-        return diaryService.searchDiaries(with: token, query: query)
+    func fetchSearchDiaries(query: String) -> Observable<[Diary]> {
+        return diaryService.searchDiaries(query: query)
             .map { $0.results }
     }
     
-    func createNewDiary(_ token: String, diary: [String: Any]?) -> Observable<Void> {
-        return diaryService.createNewDiary(with: token, diary: diary)
+    func createNewDiary(diary: [String: Any]?) -> Observable<Void> {
+        return diaryService.createNewDiary(diary: diary)
     }
     
-    func updateDiary(_ token: String, id: String, diary: [String: Any]?) -> Observable<Void> {
-        return diaryService.updateDiary(with: token, to: id, diary: diary)
+    func updateDiary(id: String, diary: [String: Any]?) -> Observable<Void> {
+        return diaryService.updateDiary(to: id, diary: diary)
     }
     
-    func removeDiary(_ token: String, id: String) -> Observable<Void> {
-        return diaryService.removeDiary(with: token, id: id)
+    func removeDiary(id: String) -> Observable<Void> {
+        return diaryService.removeDiary(id: id)
     }
 }
