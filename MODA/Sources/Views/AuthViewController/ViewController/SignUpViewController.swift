@@ -22,10 +22,11 @@ final class SignUpViewController: UIViewController {
         return formView
     }()
     
-    private let verifyImageButton: UIButton = {
-        let button = UIButton()
+    private let verifyImageButton: DisableButton = {
+        let button = DisableButton()
         button.setTitle("인증 메일 보내기", for: .normal)
-        button.backgroundColor = UIColor(named: "AccentColor")
+        button.disabledColor = UIColor.secondarySystemBackground
+        button.selectedColor = UIColor(named: "AccentColor")
         button.layer.cornerRadius = 8
         return button
     }()
@@ -92,7 +93,8 @@ private extension SignUpViewController {
             id: idFormView.textField.rx.text.orEmpty.asObservable(),
             email: emailFormView.textField.rx.text.orEmpty.asObservable(),
             password: passwordFormView.textField.rx.text.orEmpty.asObservable(),
-            passwordConfirm: passwordConfirmView.textField.rx.text.orEmpty.asObservable()
+            passwordConfirm: passwordConfirmView.textField.rx.text.orEmpty.asObservable(),
+            didTapSignUpButton: signUpButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -101,12 +103,15 @@ private extension SignUpViewController {
     }
     
     func bindingFromViewModel(_ output: SignUpViewModel.Output) {
+        output.emailValid
+            .bind(to: verifyImageButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
         output.passwordValid
             .bind(to: passwordConfirmView.warningLabel.rx.isHidden)
             .disposed(by: disposeBag)
         
         output.signUpValid
-            .debug()
             .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }

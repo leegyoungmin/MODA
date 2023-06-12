@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import RxSwift
+import Foundation
 
 final class SignUpViewModel: ViewModel {
     struct Input {
@@ -12,9 +13,11 @@ final class SignUpViewModel: ViewModel {
         var email: Observable<String>
         var password: Observable<String>
         var passwordConfirm: Observable<String>
+        var didTapSignUpButton: Observable<Void>
     }
     
     struct Output {
+        var emailValid: Observable<Bool>
         var passwordValid: Observable<Bool>
         var signUpValid: Observable<Bool>
     }
@@ -44,7 +47,8 @@ final class SignUpViewModel: ViewModel {
             .map { $0 == $1 }
         
         let idValid = useCase.id.map { $0.isEmpty == false }
-        let emailValid = useCase.email.map { $0.isEmpty == false }
+        let emailValid = useCase.email
+            .map { self.validEmail(to: $0) && ($0.isEmpty == false) }
         
         let signUpEnable = Observable.combineLatest(
             idValid,
@@ -54,8 +58,17 @@ final class SignUpViewModel: ViewModel {
         )
         
         return Output(
+            emailValid: emailValid,
             passwordValid: passwordValid,
             signUpValid: signUpEnable
         )
+    }
+}
+
+extension SignUpViewModel {
+    func validEmail(to email: String) -> Bool {
+        let reg = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", reg)
+        return predicate.evaluate(with: email)
     }
 }
