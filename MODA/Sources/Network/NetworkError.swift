@@ -25,7 +25,7 @@ enum NetworkError: Int, Error, CustomStringConvertible {
         case .responseDecodingError:
             return "반환된 응답을 해석하지 못했습니다."
         case .invalidRequest:
-            return "잘못된 응답이 발생하였습니다."
+            return "잘못된 요청이 발생하였습니다. \(rawValue)"
         case .unknownError:
             return "알 수 없는 오류가 발생하였습니다."
         }

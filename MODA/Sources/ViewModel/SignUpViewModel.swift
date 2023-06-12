@@ -6,6 +6,7 @@
 
 import RxSwift
 import Foundation
+import RxCocoa
 
 final class SignUpViewModel: ViewModel {
     struct Input {
@@ -43,12 +44,13 @@ final class SignUpViewModel: ViewModel {
             .bind(to: useCase.email)
             .disposed(by: disposeBag)
         
-        let sessionToken = input.didTapSignUpButton
-            .flatMap { [weak self] _ in
-                guard let self = self else { throw NetworkError.unknownError }
+        input.didTapSignUpButton
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
                 
-                return self.useCase.signUp()
+                self.useCase.signUp()
             }
+            .disposed(by: disposeBag)
         
         let passwordValid = Observable.combineLatest(input.password, input.passwordConfirm)
             .filter { ($0.0.isEmpty == false) && ($0.1.isEmpty == false) }
@@ -69,7 +71,7 @@ final class SignUpViewModel: ViewModel {
             emailValid: emailValid,
             passwordValid: passwordValid,
             signUpValid: signUpEnable,
-            loginToken: sessionToken
+            loginToken: useCase.signInToken
         )
     }
 }

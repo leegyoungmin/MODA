@@ -116,10 +116,36 @@ private extension SignUpViewController {
             .disposed(by: disposeBag)
         
         output.loginToken
-            .subscribe {
-                print($0)
+            .observe(on: MainScheduler.instance)
+            .catch { _ in
+                return .just("")
+            }
+            .subscribe { [weak self] token in
+                guard let self = self else { return }
+                
+                if token.element?.isEmpty == true {
+                    presentErrorAlert()
+                }
+                
+                if token.element?.isEmpty == false {
+                    self.dismiss(animated: true)
+                }   
             }
             .disposed(by: disposeBag)
+        
+    }
+}
+
+private extension SignUpViewController {
+    func presentErrorAlert() {
+        let alert = UIAlertController(
+            title: "이미 가입된 회원입니다.",
+            message: "회원으로 가입 되어 있는 계정입니다. 로그인을 시도해주세요.",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        self.present(alert, animated: true)
     }
 }
 

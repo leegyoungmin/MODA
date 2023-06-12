@@ -123,6 +123,11 @@ private extension SignInViewController {
                     )
                 )
                 let controller = SignUpViewController(viewModel: viewModel)
+                controller.rx.deallocated
+                    .subscribe { _ in
+                        print("Disappearing")
+                    }
+                    .disposed(by: disposeBag)
                 self.present(controller, animated: true)
             }
             .disposed(by: disposeBag)
