@@ -115,24 +115,26 @@ private extension SignUpViewController {
             .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.loginToken
+        output.signInUser
             .observe(on: MainScheduler.instance)
             .catch { _ in
-                return .just("")
+                    .just(nil)
             }
-            .subscribe { [weak self] token in
-                guard let self = self else { return }
+            .subscribe { [weak self] user in
+                guard let self = self,
+                      let user = user.element else {
+                    return
+                }
                 
-                if token.element?.isEmpty == true {
+                if user == nil {
                     presentErrorAlert()
                 }
                 
-                if token.element?.isEmpty == false {
+                if user != nil {
                     self.dismiss(animated: true)
-                }   
+                }
             }
             .disposed(by: disposeBag)
-        
     }
 }
 

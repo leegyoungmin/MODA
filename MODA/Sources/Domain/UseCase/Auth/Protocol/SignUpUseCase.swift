@@ -11,7 +11,7 @@ protocol SignUpUseCase {
     var id: BehaviorSubject<String> { get set }
     var email: BehaviorSubject<String> { get set }
     var password: BehaviorSubject<String> { get set }
-    var signInToken: PublishSubject<String> { get set }
+    var signInUser: PublishSubject<User?> { get set }
     
     func signUp()
 }

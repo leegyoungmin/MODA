@@ -21,7 +21,7 @@ final class SignUpViewModel: ViewModel {
         var emailValid: Observable<Bool>
         var passwordValid: Observable<Bool>
         var signUpValid: Observable<Bool>
-        var loginToken: Observable<String>
+        var signInUser: Observable<User?>
     }
     
     private var useCase: SignUpUseCase
@@ -71,7 +71,7 @@ final class SignUpViewModel: ViewModel {
             emailValid: emailValid,
             passwordValid: passwordValid,
             signUpValid: signUpEnable,
-            loginToken: useCase.signInToken
+            signInUser: useCase.signInUser.asObservable()
         )
     }
 }

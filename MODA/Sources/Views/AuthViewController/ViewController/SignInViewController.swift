@@ -63,6 +63,7 @@ final class SignInViewController: UIViewController {
     }()
     
     private let viewModel: SignInViewModel
+    private let currentUser = BehaviorSubject<User?>(value: nil)
     private let disposeBag = DisposeBag()
     
     init(viewModel: SignInViewModel) {
@@ -72,7 +73,14 @@ final class SignInViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        self.viewModel = SignInViewModel()
+        self.viewModel = SignInViewModel(
+            useCase: DefaultSignInUseCase(
+                repository: DefaultAuthRepository(
+                    service: UserService()
+                )
+            )
+        )
+        
         super.init(coder: coder)
     }
     
@@ -89,13 +97,16 @@ final class SignInViewController: UIViewController {
 private extension SignInViewController {
     
     func presentMainViewController() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
                   let window = delegate.window else {
                 return
             }
             
-            window.rootViewController = TabViewController()
+            guard let user = try? self.currentUser.value() else { return }
+            
+            window.rootViewController = TabViewController(currentUser: user)
         }
     }
 }
@@ -103,10 +114,22 @@ private extension SignInViewController {
 private extension SignInViewController {
     func bindingToViewModel() {
         let input = SignInViewModel.Input(
+            id: idFormView.textField.rx.text.orEmpty.asObservable(),
+            password: passwordFormView.textField.rx.text.orEmpty.asObservable(),
             didTapLoginButton: signInButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
+        
+        output.currentUser
+            .bind(to: currentUser)
+            .disposed(by: disposeBag)
+        
+        currentUser.subscribe { [weak self] _ in
+            guard let self = self else { return }
+            self.presentMainViewController()
+        }
+        .disposed(by: disposeBag)
     }
     
     func bindingView() {
@@ -131,15 +154,8 @@ private extension SignInViewController {
         
         let controller = SignUpViewController(viewModel: viewModel)
         
-        useCase.signInToken
-            .asObservable()
-            .subscribe { [weak self] token in
-                guard let self = self else { return }
-                
-                if token.element?.isEmpty == false {
-                    self.presentMainViewController()
-                }
-            }
+        useCase.signInUser
+            .bind(to: currentUser)
             .disposed(by: disposeBag)
         
         self.present(controller, animated: true)

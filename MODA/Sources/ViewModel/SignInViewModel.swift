@@ -8,23 +8,41 @@ import RxSwift
 
 final class SignInViewModel: ViewModel {
     struct Input {
+        var id: Observable<String>
+        var password: Observable<String>
         var didTapLoginButton: Observable<Void>
     }
     
     struct Output {
-        
+        var currentUser: Observable<User>
     }
     
+    private let useCase: SignInUseCase
     var disposeBag = DisposeBag()
     
+    init(useCase: SignInUseCase) {
+        self.useCase = useCase
+    }
+    
     func transform(input: Input) -> Output {
+        
+        input.id
+            .bind(to: useCase.id)
+            .disposed(by: disposeBag)
+        
+        input.password
+            .bind(to: useCase.password)
+            .disposed(by: disposeBag)
+        
         input.didTapLoginButton
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 
-                print("Login Button Tapped -> Login Success")
+                self.useCase.login()
             }
             .disposed(by: disposeBag)
-        return Output()
+        return Output(
+            currentUser: useCase.user.compactMap { $0 }.asObservable()
+        )
     }
 }

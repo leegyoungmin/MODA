@@ -11,7 +11,7 @@ final class DefaultSignUpUseCase: SignUpUseCase {
     var id = BehaviorSubject<String>(value: "")
     var password = BehaviorSubject<String>(value: "")
     var email = BehaviorSubject<String>(value: "")
-    var signInToken = PublishSubject<String>()
+    var signInUser = PublishSubject<User?>()
     
     private let repository: AuthRepository
     private var disposeBag = DisposeBag()
@@ -24,7 +24,7 @@ final class DefaultSignUpUseCase: SignUpUseCase {
         guard let id = try? id.value(),
               let email = try? email.value(),
               let password = try? password.value() else {
-            self.signInToken.on(.error(NetworkError.unknownError))
+            self.signInUser.on(.error(NetworkError.unknownError))
             return
         }
         
@@ -37,9 +37,8 @@ final class DefaultSignUpUseCase: SignUpUseCase {
         repository.signUp(body: bodyDictionary)
             .flatMap { _ in
                 return self.repository.signIn(id: id, password: password)
-                    .map(\.sessionToken)
             }
-            .bind(to: signInToken)
+            .bind(to: signInUser)
             .disposed(by: disposeBag)
     }
 }

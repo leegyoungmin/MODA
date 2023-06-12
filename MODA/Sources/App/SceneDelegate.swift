@@ -16,7 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let controller = SignInViewController(viewModel: SignInViewModel())
+        let viewModel = SignInViewModel(
+            useCase: DefaultSignInUseCase(
+                repository: DefaultAuthRepository(
+                    service: UserService()
+                )
+            )
+        )
+        let controller = SignInViewController(viewModel: viewModel)
         window?.rootViewController = controller
         window?.backgroundColor = .systemBackground
         window?.makeKeyAndVisible()
