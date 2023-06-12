@@ -35,7 +35,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
             .catch { [weak self] _ in
                 guard let self = self else { return .just([]) }
                 
-                self.saveState.onNext(.failure)
+                self.saveState.onNext(.none)
                 return .just([])
             }
             .map(\.first)

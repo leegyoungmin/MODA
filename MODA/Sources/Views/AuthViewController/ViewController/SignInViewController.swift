@@ -80,7 +80,7 @@ final class SignInViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        bindings()
+        bindingView()
         bindingToViewModel()
     }
 }
@@ -109,28 +109,40 @@ private extension SignInViewController {
         let output = viewModel.transform(input: input)
     }
     
-    func bindings() {
-        
+    func bindingView() {
         signUpButton.rx.tap
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let viewModel = SignUpViewModel(
-                    useCase: DefaultSignUpUseCase(
-                        repository: DefaultAuthRepository(
-                            service: UserService()
-                        )
-                    )
-                )
-                let controller = SignUpViewController(viewModel: viewModel)
-                controller.rx.deallocated
-                    .subscribe { _ in
-                        print("Disappearing")
-                    }
-                    .disposed(by: disposeBag)
-                self.present(controller, animated: true)
+                self.presentSignUpView()
             }
             .disposed(by: disposeBag)
+    }
+}
+
+private extension SignInViewController {
+    func presentSignUpView() {
+        let useCase = DefaultSignUpUseCase(
+            repository: DefaultAuthRepository(
+                service: UserService()
+            )
+        )
+        let viewModel = SignUpViewModel(useCase: useCase)
+        
+        let controller = SignUpViewController(viewModel: viewModel)
+        
+        useCase.signInToken
+            .asObservable()
+            .subscribe { [weak self] token in
+                guard let self = self else { return }
+                
+                if token.element?.isEmpty == false {
+                    self.presentMainViewController()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        self.present(controller, animated: true)
     }
 }
 
