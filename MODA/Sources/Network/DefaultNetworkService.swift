@@ -41,9 +41,11 @@ final class DefaultNetworkService: NetworkService {
                     emitter.onError(NetworkError.dataDecodingError)
                     return
                 }
-                
+                                
                 let decoder = JSONDecoder().ISODecoder()
                 guard let values = try? decoder.decode(T.self, from: data) else {
+                    print(String(data: data, encoding: .utf8))
+
                     emitter.onError(NetworkError.typeDecodingError)
                     return
                 }

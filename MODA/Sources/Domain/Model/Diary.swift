@@ -31,7 +31,7 @@ struct Diary: Codable {
     let id: String
     let content: String
     let condition: Condition
-    let user: User
+    let user: UserPointer
     let createdDate: Date
     let issuedDate: Date
     let createdYear: Int
@@ -81,5 +81,9 @@ struct UserPointer: Codable {
         case id = "objectId"
         case type = "__type"
         case className
+    }
+    
+    var query: String {
+        return "\"createdUser\":{\"__type\":\"\(type)\",\"className\":\"\(className)\",\"objectId\":\"\(id)\"}"
     }
 }

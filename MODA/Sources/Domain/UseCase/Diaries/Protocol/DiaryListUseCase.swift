@@ -11,5 +11,5 @@ protocol DiaryListUseCase {
     var selectedYear: BehaviorSubject<Int> { get set }
     var selectedMonth: BehaviorSubject<Int> { get set }
     
-    func loadAllDiaries(_ token: String)
+    func loadAllDiaries(_ token: String, id: String)
 }
