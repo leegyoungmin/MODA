@@ -11,5 +11,6 @@ protocol SignInUseCase: AnyObject {
     var password: BehaviorSubject<String> { get set }
     var user: BehaviorSubject<User?> { get set }
     
+    func fetchUser()
     func login()
 }

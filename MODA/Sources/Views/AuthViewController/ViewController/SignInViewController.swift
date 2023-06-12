@@ -114,6 +114,7 @@ private extension SignInViewController {
 private extension SignInViewController {
     func bindingToViewModel() {
         let input = SignInViewModel.Input(
+            viewWillAppear: rx.methodInvoked(#selector(viewDidAppear)).map { _ in }.asObservable(),
             id: idFormView.textField.rx.text.orEmpty.asObservable(),
             password: passwordFormView.textField.rx.text.orEmpty.asObservable(),
             didTapLoginButton: signInButton.rx.tap.asObservable()

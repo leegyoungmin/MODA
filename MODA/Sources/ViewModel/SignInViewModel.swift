@@ -5,9 +5,11 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import RxSwift
+import Foundation
 
 final class SignInViewModel: ViewModel {
     struct Input {
+        var viewWillAppear: Observable<Void>
         var id: Observable<String>
         var password: Observable<String>
         var didTapLoginButton: Observable<Void>
@@ -25,6 +27,13 @@ final class SignInViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
+        
+        input.viewWillAppear
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.useCase.fetchUser()
+            }
+            .disposed(by: disposeBag)
         
         input.id
             .bind(to: useCase.id)
