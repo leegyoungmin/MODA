@@ -20,6 +20,7 @@ final class SignUpViewModel: ViewModel {
         var emailValid: Observable<Bool>
         var passwordValid: Observable<Bool>
         var signUpValid: Observable<Bool>
+        var loginToken: Observable<String>
     }
     
     private var useCase: SignUpUseCase
@@ -42,6 +43,13 @@ final class SignUpViewModel: ViewModel {
             .bind(to: useCase.email)
             .disposed(by: disposeBag)
         
+        let sessionToken = input.didTapSignUpButton
+            .flatMap { [weak self] _ in
+                guard let self = self else { throw NetworkError.unknownError }
+                
+                return self.useCase.signUp()
+            }
+        
         let passwordValid = Observable.combineLatest(input.password, input.passwordConfirm)
             .filter { ($0.0.isEmpty == false) && ($0.1.isEmpty == false) }
             .map { $0 == $1 }
@@ -60,7 +68,8 @@ final class SignUpViewModel: ViewModel {
         return Output(
             emailValid: emailValid,
             passwordValid: passwordValid,
-            signUpValid: signUpEnable
+            signUpValid: signUpEnable,
+            loginToken: sessionToken
         )
     }
 }

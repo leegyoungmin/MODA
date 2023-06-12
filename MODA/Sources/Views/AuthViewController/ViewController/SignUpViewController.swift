@@ -114,6 +114,12 @@ private extension SignUpViewController {
         output.signUpValid
             .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        output.loginToken
+            .subscribe {
+                print($0)
+            }
+            .disposed(by: disposeBag)
     }
 }
 

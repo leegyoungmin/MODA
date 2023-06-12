@@ -30,6 +30,14 @@ final class DefaultSignUpUseCase: SignUpUseCase {
             "email": email
         ]
         
-        return repository.signUp(body: bodyDictionary).asObservable()
+        return repository.signUp(body: bodyDictionary)
+            .flatMap { [weak self] _ -> Observable<String> in
+                guard let self = self else { throw NetworkError.unknownError }
+                
+                return self.repository.signIn(id: id, password: password)
+                    .map(\.sessionToken)
+            }
+            .debug()
+            .asObservable()
     }
 }
