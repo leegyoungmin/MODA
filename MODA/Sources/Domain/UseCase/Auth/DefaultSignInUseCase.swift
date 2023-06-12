@@ -7,5 +7,26 @@
 import RxSwift
 
 final class DefaultSignInUseCase: SignInUseCase {
+    var id = BehaviorSubject<String>(value: "")
+    var password = BehaviorSubject<String>(value: "")
+    var user = BehaviorSubject<User?>(value: nil)
     
+    private let repository: AuthRepository
+    private var disposeBag = DisposeBag()
+    
+    init(repository: AuthRepository) {
+        self.repository = repository
+    }
+    
+    func login() {
+        guard let id = try? id.value(),
+              let password = try? password.value() else {
+            return
+        }
+        
+        repository.signIn(id: id, password: password)
+            .bind(to: user)
+            .disposed(by: disposeBag)
+    }
+
 }
