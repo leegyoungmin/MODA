@@ -27,8 +27,6 @@ final class MonthCalendarViewModel: ViewModel {
         if let month = month {
             selectedMonth.onNext(month)
         }
-        
-        print(Date().toInt(.year))
     }
     
     func transform(input: Input) -> Output {

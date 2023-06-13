@@ -211,7 +211,6 @@ extension DiaryListViewController: MonthCalendarViewControllerDelegate {
     ) {
         titleLabel.text = "\(selectedDate.month + 1)월"
         selectedMonth.onNext(selectedDate.month + 1)
-        print(selectedDate)
         selectedYear.onNext(selectedDate.year)
     }
 }

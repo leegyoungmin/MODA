@@ -167,7 +167,6 @@ private extension SettingViewController {
             trigger: trigger
         )
         UNUserNotificationCenter.current().add(alertRequest)
-        print("request Success")
     }
 }
 
