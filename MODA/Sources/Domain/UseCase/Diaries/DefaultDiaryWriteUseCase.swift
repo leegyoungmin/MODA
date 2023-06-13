@@ -15,6 +15,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
     var content = BehaviorSubject<String>(value: "")
     var condition = BehaviorSubject<Int>(value: -1)
     var saveState = BehaviorSubject<DiaryWriteViewModel.SaveState>(value: .none)
+    var isLike = BehaviorSubject<Bool>(value: false)
     var isFirstWrite = BehaviorSubject<Bool>(value: true)
     
     init(diaryRepository: DiaryRepository) {
@@ -47,6 +48,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
                     id.onNext(diary.id)
                     content.onNext(diary.content)
                     condition.onNext(diary.condition.rawValue)
+                    isLike.onNext(diary.isLike)
                     isFirstWrite.onNext(false)
                 } else {
                     isFirstWrite.onNext(true)
@@ -61,7 +63,8 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         guard let content = try? content.value(),
               let condition = try? condition.value(),
               let isFirstWrite = try? isFirstWrite.value(),
-              let id = try? id.value() else {
+              let id = try? id.value(),
+              let isLike = try? isLike.value() else {
             return Observable.error(NetworkError.unknownError)
         }
         
@@ -71,7 +74,8 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
         ) : updateExistDiary(
             id: id,
             content: content,
-            condition: condition
+            condition: condition,
+            isLike: isLike
         )
     }
     
@@ -88,12 +92,14 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
     private func updateExistDiary(
         id: String,
         content: String,
-        condition: Int
+        condition: Int,
+        isLike: Bool
     ) -> Observable<Void> {
         return diaryRepository.updateDiary(
             id: id,
             content: content,
-            condition: condition
+            condition: condition,
+            isLike: isLike
         )
     }
 }

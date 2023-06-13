@@ -72,6 +72,7 @@ struct DiaryRequestDTO: Codable {
 struct DiaryUpdateDTO: Codable {
     let content: String
     let condition: Int
+    let isLike: Bool?
 }
 
 struct UserPointer: Codable {

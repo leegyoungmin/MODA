@@ -33,8 +33,8 @@ final class DefaultDiaryRepository: DiaryRepository {
         return diaryService.createNewDiary(content: content, condition: condition)
     }
     
-    func updateDiary(id: String, content: String, condition: Int) -> Observable<Void> {
-        return diaryService.updateDiary(to: id, content: content, condition: condition)
+    func updateDiary(id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void> {
+        return diaryService.updateDiary(to: id, content: content, condition: condition, isLike: isLike)
     }
     
     func removeDiary(id: String) -> Observable<Void> {

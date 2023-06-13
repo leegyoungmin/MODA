@@ -11,7 +11,7 @@ protocol DiaryServicing: AnyObject {
     func loadDiaries() -> Observable<Diaries>
     func searchDiaries(query: String) -> Observable<Diaries>
     func createNewDiary(content: String, condition: Int) -> Observable<Void>
-    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void>
+    func updateDiary(to id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void>
     func removeDiary(id: String) -> Observable<Void>
 }
 
@@ -48,8 +48,8 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void> {
-        let requestDTO = DiaryUpdateDTO(content: content, condition: condition)
+    func updateDiary(to id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void> {
+        let requestDTO = DiaryUpdateDTO(content: content, condition: condition, isLike: isLike)
         let api = API.updateDiary(
             token: user.sessionToken,
             id: id,

@@ -19,4 +19,5 @@ protocol DetailDiaryUseCase: AnyObject {
     func fetchCurrentDiary()
     func updateCurrentDiary()
     func deleteCurrentDiary()
+    func toggleLike()
 }

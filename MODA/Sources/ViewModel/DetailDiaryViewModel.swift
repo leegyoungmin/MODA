@@ -13,6 +13,7 @@ final class DetailDiaryViewModel: ViewModel {
         var didTapSaveButton: Observable<Void>
         var isEditMode: Observable<Bool>
         var editedContent: Observable<String?>
+        var didTapLikeButton: Observable<Void>
         var didTapDeleteButton: Observable<Void>
         var viewWillDisappear: Observable<Void>
     }
@@ -62,6 +63,13 @@ final class DetailDiaryViewModel: ViewModel {
         
         input.editedContent
             .bind(to: useCase.diaryContent)
+            .disposed(by: disposeBag)
+        
+        input.didTapLikeButton
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.useCase.toggleLike()
+            }
             .disposed(by: disposeBag)
         
         input.didTapDeleteButton

@@ -44,12 +44,14 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
     
     func updateCurrentDiary() {
         guard let content = try? diaryContent.value(),
-              let condition = try? diaryCondition.value() else { return }
+              let condition = try? diaryCondition.value(),
+              let like = try? diaryLike.value() else { return }
         
         repository.updateDiary(
             id: selectedId,
             content: content,
-            condition: condition.rawValue
+            condition: condition.rawValue,
+            isLike: like
         )
         .flatMap { [weak self] _ -> Observable<[Diary]> in
             guard let self = self else { return Observable.just([]) }
@@ -75,4 +77,8 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
             .disposed(by: disposeBag)
     }
     
+    func toggleLike() {
+        guard let value = try? diaryLike.value() else { return }
+        diaryLike.onNext(!value)
+    }
 }
