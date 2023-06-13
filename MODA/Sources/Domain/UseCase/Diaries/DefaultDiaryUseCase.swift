@@ -11,6 +11,7 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
     var diaries = PublishSubject<[Diary]>()
     var selectedYear = BehaviorSubject<Int>(value: Date().toInt(.year))
     var selectedMonth = BehaviorSubject<Int>(value: Date().toInt(.month))
+    var removeSuccess = PublishSubject<Void>()
     
     private let diaryRepository: DiaryRepository
     private let disposeBag = DisposeBag()
@@ -19,16 +20,22 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         self.diaryRepository = diaryRepository
     }
     
-    func loadAllDiaries(_ token: String) {
+    func loadAllDiaries() {
         guard let month = try? selectedMonth.value(),
               let year = try? selectedYear.value() else { return }
         
-        let query = "{\"createdMonth\":\(month),\"createdYear\":\(year)}"
+        let query = "{\"createdMonth\": \(month), \"createdYear\": \(year)}"
         
-        self.diaryRepository.fetchSearchDiaries(token, query: query)
+        self.diaryRepository.fetchSearchDiaries(query: query)
             .subscribe { [weak self] diaries in
                 self?.diaries.on(.next(diaries))
             }
+            .disposed(by: disposeBag)
+    }
+    
+    func deleteItem(with diary: Diary) {
+        self.diaryRepository.removeDiary(id: diary.id)
+            .bind(to: removeSuccess)
             .disposed(by: disposeBag)
     }
 }

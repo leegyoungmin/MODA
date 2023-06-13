@@ -14,7 +14,7 @@ final class AuthFormStackView: UIStackView {
         return label
     }()
     
-    private let textField: PaddingTextField = {
+    let textField: PaddingTextField = {
         let textField = PaddingTextField()
         textField.backgroundColor = UIColor(named: "SecondaryColor")
         textField.layer.cornerRadius = 8
@@ -22,12 +22,21 @@ final class AuthFormStackView: UIStackView {
         return textField
     }()
     
+    let warningLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 13)
+        label.isHidden = true
+        label.textColor = .red.withAlphaComponent(0.5)
+        return label
+    }()
+    
     private var additionalView: UIView?
     
-    init(title: String, additionalView: UIView? = nil) {
+    init(title: String, warning: String? = nil, additionalView: UIView? = nil) {
         self.additionalView = additionalView
         super.init(frame: .zero)
         
+        warningLabel.text = warning
         titleLabel.text = title
         self.spacing = 8
         self.axis = .vertical
@@ -44,7 +53,7 @@ final class AuthFormStackView: UIStackView {
         attachSubViews()
     }
     func attachSubViews() {
-        var childViews = [titleLabel, textField]
+        var childViews = [titleLabel, textField, warningLabel]
         
         if let additionalView = additionalView {
             childViews.append(additionalView)

@@ -13,12 +13,13 @@ final class DiaryListViewModel: ViewModel {
         var removeTargetItem: Observable<Diary>
         var selectedYear: Observable<Int>
         var selectedMonth: Observable<Int>
+        var refresh: Observable<Void>
     }
     
     struct Output {
-        var diaries = BehaviorSubject<[Diary]>(value: [])
-        var removed: Observable<Void> = .of(())
-        var currentMonth = PublishSubject<Int>()
+        var diaries: Observable<[Diary]>
+        var removed: Observable<Void>
+        var currentMonth: Observable<Int>
     }
     
     private let diaryListUseCase: DiaryListUseCase
@@ -30,31 +31,25 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        let output = Output()
-        bindOutput(output)
+        let output = bindOutput(input: input)
         bindInput(input)
         return output
     }
     
-    func bindOutput(_ output: Output) {
-        diaryListUseCase.diaries
-            .subscribe { diaries in
-                output.diaries.on(diaries)
-            }
-            .disposed(by: disposeBag)
-        
-        diaryListUseCase.selectedMonth
-            .subscribe { month in
-                output.currentMonth.onNext(month)
-            }
-            .disposed(by: disposeBag)
+    func bindOutput(input: Input) -> Output {
+        return Output(
+            diaries: diaryListUseCase.diaries.asObservable(),
+            removed: diaryListUseCase.removeSuccess.asObservable(),
+            currentMonth: diaryListUseCase.selectedMonth.asObservable()
+        )
     }
     
     func bindInput(_ input: Input) {
-        input.viewDidAppear
+        Observable.of(input.viewDidAppear, input.refresh)
+            .merge()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.diaryListUseCase.loadAllDiaries("r:73c87143778dd7a511da231909e85932")
+                self.diaryListUseCase.loadAllDiaries()
             }
             .disposed(by: disposeBag)
         
@@ -66,12 +61,19 @@ final class DiaryListViewModel: ViewModel {
             .bind(to: diaryListUseCase.selectedYear)
             .disposed(by: disposeBag)
         
+        input.removeTargetItem
+            .subscribe { [weak self] diary in
+                guard let self = self else { return }
+                self.diaryListUseCase.deleteItem(with: diary)
+            }
+            .disposed(by: disposeBag)
+        
         Observable.of(diaryListUseCase.selectedYear, diaryListUseCase.selectedMonth)
             .merge()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.diaryListUseCase.loadAllDiaries("r:73c87143778dd7a511da231909e85932")
+                self.diaryListUseCase.loadAllDiaries()
             }
             .disposed(by: disposeBag)
     }

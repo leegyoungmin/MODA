@@ -11,6 +11,6 @@ protocol DiaryWriteUseCase: AnyObject {
     var condition: BehaviorSubject<Int> { get set }
     var saveState: BehaviorSubject<DiaryWriteViewModel.SaveState> { get set }
     
-    func loadTodayDiary(_ token: String)
-    func postDiary(token: String, with userId: String) -> Observable<Void>
+    func loadTodayDiary()
+    func postDiary() -> Observable<Void>
 }

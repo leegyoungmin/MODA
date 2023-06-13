@@ -9,7 +9,6 @@ import RxSwift
 import RxCocoa
 
 final class SignInViewController: UIViewController {
-    
     private let idFormView: AuthFormStackView = {
         let formView = AuthFormStackView(title: "아이디")
         return formView
@@ -63,100 +62,135 @@ final class SignInViewController: UIViewController {
         return stackView
     }()
     
+    private let viewModel: SignInViewModel
+    private let currentUser = BehaviorSubject<User?>(value: nil)
     private let disposeBag = DisposeBag()
+    
+    init(viewModel: SignInViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = SignInViewModel(
+            useCase: DefaultSignInUseCase(
+                repository: DefaultAuthRepository(
+                    service: UserService()
+                )
+            )
+        )
+        
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        bindings()
-    }
-}
-
-// MARK: - 로그인 임시 코드
-private extension SignInViewController {
-    func logIn(completion: @escaping (Bool) -> Void) {
-        guard let url = URL(string: "https://parseapi.back4app.com/parse/login") else {
-            return
-        }
-
-        var request = URLRequest(url: url)
-
-        request.httpMethod = "POST"
-
-        let header: [String: String] = [
-            "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
-            "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
-            "X-Parse-Revocable-Session": "10",
-            "Content-Type": "application/json"
-        ]
-
-        header.forEach {
-            request.addValue($0.value, forHTTPHeaderField: $0.key)
-        }
-
-        let body: [String: Any] = ["username": "cow970814", "password": "km**970814"]
-
-        guard let jsonBody = try? JSONSerialization.data(withJSONObject: body) else {
-            return
-        }
-
-        request.httpBody = jsonBody
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                return
-            }
-
-            guard let response = response as? HTTPURLResponse,
-                  (200...300) ~= response.statusCode else {
-                return
-            }
-
-            guard let data = data else {
-                return
-            }
-            guard let stringValue = String(data: data, encoding: .utf8) else {
-                return
-            }
-
-            completion(true)
-        }
-        .resume()
+        bindingView()
+        bindingToViewModel()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+
+private extension SignInViewController {
     func presentMainViewController() {
         DispatchQueue.main.async {
-            guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
-                  let window = delegate.window else {
-                return
-            }
+            let scenes = UIApplication.shared.connectedScenes
             
-            window.rootViewController = TabViewController()
+            if let delegate = scenes.first?.delegate as? SceneDelegate,
+               let window = delegate.window {
+                
+                window.rootViewController = TabViewController()
+            }
         }
     }
 }
 
 private extension SignInViewController {
-    func bindings() {
-        signInButton.rx.tap
-            .bind { [weak self] _ in
+    func bindingToViewModel() {
+        let input = SignInViewModel.Input(
+            viewWillAppear: rx.methodInvoked(#selector(viewDidAppear)).map { _ in }.asObservable(),
+            id: idFormView.textField.rx.text.orEmpty.asObservable(),
+            password: passwordFormView.textField.rx.text.orEmpty.asObservable(),
+            didTapLoginButton: signInButton.rx.tap.asObservable()
+        )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.currentUser
+            .asDriver(onErrorJustReturn: nil)
+            .drive(currentUser)
+            .disposed(by: disposeBag)
+        
+        currentUser
+            .asDriver(onErrorJustReturn: nil)
+            .drive { [weak self] user in
                 guard let self = self else { return }
                 
-                self.logIn {
-                    if $0 { self.presentMainViewController() }
+                if let user = user {
+                    let data = try? JSONEncoder().encode(user)
+                    UserDefaults.standard.set(data, forKey: "currentUser")
+                    self.presentMainViewController()
                 }
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    func bindingView() {
         signUpButton.rx.tap
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 
-                let controller = SignUpViewController()
-                self.present(controller, animated: true)
+                self.presentSignUpView()
             }
             .disposed(by: disposeBag)
+        
+        Notification.keyboardWillShow()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] height in
+                guard let self = self else { return }
+                
+                if view.frame.origin.y == .zero {
+                    view.frame.origin.y -= (height / 2)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        Notification.keyboardWillHide()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                
+                if view.frame.origin.y != .zero {
+                    view.frame.origin.y = .zero
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
+private extension SignInViewController {
+    func presentSignUpView() {
+        let useCase = DefaultSignUpUseCase(
+            repository: DefaultAuthRepository(
+                service: UserService()
+            )
+        )
+        let viewModel = SignUpViewModel(useCase: useCase)
+        
+        let controller = SignUpViewController(viewModel: viewModel)
+        
+        useCase.signInUser
+            .asDriver(onErrorJustReturn: nil)
+            .drive(currentUser)
+            .disposed(by: disposeBag)
+        
+        self.present(controller, animated: true)
     }
 }
 
@@ -199,7 +233,7 @@ private extension SignInViewController {
 }
 
 class PaddingTextField: UITextField {
-    var textPadding = UIEdgeInsets(top: 12, left: 10, bottom: 12, right: 10)
+    var textPadding = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.textRect(forBounds: bounds)

@@ -43,7 +43,7 @@ final class DetailDiaryViewModel: ViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 
-                useCase.fetchCurrentDiary("r:c8f161b6407a0799d377bc0425e48e12")
+                useCase.fetchCurrentDiary()
             }
             .disposed(by: disposeBag)
         
@@ -55,7 +55,7 @@ final class DetailDiaryViewModel: ViewModel {
         Observable.of(didTapSaveButton.asObservable(), input.viewWillDisappear.map { true }).merge()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.useCase.updateCurrentDiary("r:c8f161b6407a0799d377bc0425e48e12")
+                self.useCase.updateCurrentDiary()
             }
             .disposed(by: disposeBag)
         
@@ -67,7 +67,7 @@ final class DetailDiaryViewModel: ViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.useCase.deleteCurrentDiary("r:c8f161b6407a0799d377bc0425e48e12")
+                self.useCase.deleteCurrentDiary()
             }
             .disposed(by: disposeBag)
     }

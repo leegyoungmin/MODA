@@ -10,6 +10,8 @@ protocol DiaryListUseCase {
     var diaries: PublishSubject<[Diary]> { get }
     var selectedYear: BehaviorSubject<Int> { get set }
     var selectedMonth: BehaviorSubject<Int> { get set }
+    var removeSuccess: PublishSubject<Void> { get set }
     
-    func loadAllDiaries(_ token: String)
+    func loadAllDiaries()
+    func deleteItem(with diary: Diary)
 }

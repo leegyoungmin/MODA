@@ -16,7 +16,7 @@ protocol DetailDiaryUseCase: AnyObject {
     var removeDiary: PublishSubject<Void> { get set }
 
     
-    func fetchCurrentDiary(_ token: String)
-    func updateCurrentDiary(_ token: String)
-    func deleteCurrentDiary(_ token: String)
+    func fetchCurrentDiary()
+    func updateCurrentDiary()
+    func deleteCurrentDiary()
 }

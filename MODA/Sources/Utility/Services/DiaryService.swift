@@ -8,36 +8,58 @@ import RxSwift
 import Foundation
 
 protocol DiaryServicing: AnyObject {
-    func loadDiaries(with token: String) -> Observable<Diaries>
-    func searchDiaries(with token: String, query: String) -> Observable<Diaries>
-    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Void>
-    func updateDiary(with token: String, to id: String, diary: [String: Any]?) -> Observable<Void>
-    func removeDiary(with token: String, id: String) -> Observable<Void>
+    func loadDiaries() -> Observable<Diaries>
+    func searchDiaries(query: String) -> Observable<Diaries>
+    func createNewDiary(content: String, condition: Int) -> Observable<Void>
+    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void>
+    func removeDiary(id: String) -> Observable<Void>
 }
 
 final class DiaryService: DiaryServicing {
-    func loadDiaries(with token: String) -> Observable<Diaries> {
-        let api = API.loadDiaries(token: token)
+    private let user: User
+    
+    init() {
+        if let userData = UserDefaults.standard.object(forKey: "currentUser") as? Data,
+           let user = try? JSONDecoder().decode(User.self, from: userData) {
+            self.user = user
+        } else {
+            self.user = User.empty
+        }
+    }
+    
+    func loadDiaries() -> Observable<Diaries> {
+        let api = API.loadDiaries(token: user.sessionToken)
         return DefaultNetworkService().request(to: api)
     }
     
-    func searchDiaries(with token: String, query: String) -> Observable<Diaries> {
-        let api = API.searchDiaries(token: token, query: query)
+    func searchDiaries(query: String) -> Observable<Diaries> {
+        let api = API.searchDiaries(token: user.sessionToken, query: query)
         return DefaultNetworkService().request(to: api)
     }
     
-    func createNewDiary(with token: String, diary: [String: Any]?) -> Observable<Void> {
-        let api = API.createDiary(token: token, diary: diary)
+    func createNewDiary(content: String, condition: Int) -> Observable<Void> {
+        let requestDTO = DiaryRequestDTO(
+            content: content,
+            condition: condition,
+            userId: user.identifier
+        )
+        
+        let api = API.createDiary(token: user.sessionToken, diary: requestDTO.toDictionary)
         return DefaultNetworkService().request(to: api)
     }
     
-    func updateDiary(with token: String, to id: String, diary: [String: Any]?) -> Observable<Void> {
-        let api = API.updateDiary(token: token, id: id, diary: diary)
+    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void> {
+        let requestDTO = DiaryUpdateDTO(content: content, condition: condition)
+        let api = API.updateDiary(
+            token: user.sessionToken,
+            id: id,
+            diary: requestDTO.toDictionary
+        )
         return DefaultNetworkService().request(to: api)
     }
     
-    func removeDiary(with token: String, id: String) -> Observable<Void> {
-        let api = API.removeDiary(token: token, id: id)
+    func removeDiary(id: String) -> Observable<Void> {
+        let api = API.removeDiary(token: user.sessionToken, id: id)
         return DefaultNetworkService().request(to: api)
     }
 }
