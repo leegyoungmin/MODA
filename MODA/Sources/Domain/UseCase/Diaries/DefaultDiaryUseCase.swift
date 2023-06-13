@@ -24,7 +24,7 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         guard let month = try? selectedMonth.value(),
               let year = try? selectedYear.value() else { return }
         
-        let query = "{\"createdMonth\": \(month), \"createdYear\": \(year)}"
+        let query = "\"createdMonth\": \(month), \"createdYear\": \(year)"
         
         self.diaryRepository.fetchSearchDiaries(query: query)
             .subscribe { [weak self] diaries in

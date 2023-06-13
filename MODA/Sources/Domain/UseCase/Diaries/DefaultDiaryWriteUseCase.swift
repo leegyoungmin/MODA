@@ -25,10 +25,9 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
     func loadTodayDiary() {
         let date = Date()
         let query = """
-{\"createdMonth\":\(date.toInt(.month)),
+\"createdMonth\":\(date.toInt(.month)),
 \"createdYear\":\(date.toInt(.year)),
 \"createdDay\":\(date.toInt(.day))
-}
 """
         self.saveState.onNext(.loading)
         

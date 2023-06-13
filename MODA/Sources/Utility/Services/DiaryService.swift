@@ -33,7 +33,10 @@ final class DiaryService: DiaryServicing {
     }
     
     func searchDiaries(query: String) -> Observable<Diaries> {
-        let api = API.searchDiaries(token: user.sessionToken, query: query)
+        let userPoint = UserPointer(id: user.identifier).query
+        let userQuery = "{\(userPoint), \(query)}"
+        print(userQuery)
+        let api = API.searchDiaries(token: user.sessionToken, query: userQuery)
         return DefaultNetworkService().request(to: api)
     }
     

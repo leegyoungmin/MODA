@@ -26,7 +26,7 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
     }
     
     func fetchCurrentDiary() {
-        let query = "{\"objectId\":\"\(selectedId)\"}"
+        let query = "\"objectId\":\"\(selectedId)\""
         
         repository.fetchSearchDiaries(query: query)
             .compactMap(\.first)

@@ -7,5 +7,7 @@
 import RxSwift
 
 protocol SavedDiaryUseCase: AnyObject {
+    var savedDiaries: PublishSubject<[Diary]> { get set }
     
+    func loadLikeDiaries()
 }
