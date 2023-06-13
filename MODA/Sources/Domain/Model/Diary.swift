@@ -37,6 +37,7 @@ struct Diary: Codable {
     let createdYear: Int
     let createdMonth: Int
     let createdDay: Int
+    var isLike: Bool
     
     enum CodingKeys: String, CodingKey {
         case id = "objectId"
@@ -46,6 +47,7 @@ struct Diary: Codable {
         case createdDate = "createdAt"
         case issuedDate = "updatedAt"
         case createdYear, createdMonth, createdDay
+        case isLike
     }
 }
 

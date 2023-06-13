@@ -13,8 +13,8 @@ protocol DetailDiaryUseCase: AnyObject {
     var diaryDate: BehaviorSubject<Date?> { get set }
     var diaryContent: BehaviorSubject<String?> { get set }
     var diaryCondition: BehaviorSubject<Diary.Condition?> { get set }
+    var diaryLike: BehaviorSubject<Bool> { get set }
     var removeDiary: PublishSubject<Void> { get set }
-
     
     func fetchCurrentDiary()
     func updateCurrentDiary()

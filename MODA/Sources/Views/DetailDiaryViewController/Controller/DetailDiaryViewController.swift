@@ -36,6 +36,7 @@ final class DetailDiaryViewController: UIViewController {
     private let likeButton: RoundRectangleButton = {
         let button = RoundRectangleButton()
         button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.setImage(UIImage(systemName: "heart.fill"), for: .selected)
         return button
     }()
     
@@ -107,6 +108,10 @@ final class DetailDiaryViewController: UIViewController {
         
         output?.content
             .bind(to: contentTextView.rx.text)
+            .disposed(by: disposeBag)
+        
+        output?.isLike
+            .bind(to: likeButton.rx.isSelected)
             .disposed(by: disposeBag)
         
         output?.isEditable

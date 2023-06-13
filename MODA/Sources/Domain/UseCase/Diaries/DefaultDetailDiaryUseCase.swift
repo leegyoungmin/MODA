@@ -14,6 +14,7 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
     var diaryDate = BehaviorSubject<Date?>(value: nil)
     var diaryContent = BehaviorSubject<String?>(value: nil)
     var diaryCondition = BehaviorSubject<Diary.Condition?>(value: nil)
+    var diaryLike = BehaviorSubject<Bool>(value: false)
     var removeDiary = PublishSubject<Void>()
     
     private let repository: DiaryRepository
@@ -36,6 +37,7 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
                 self.diaryDate.onNext(value.createdDate)
                 self.diaryContent.onNext(value.content)
                 self.diaryCondition.onNext(value.condition)
+                self.diaryLike.onNext(value.isLike)
             }
             .disposed(by: disposeBag)
     }

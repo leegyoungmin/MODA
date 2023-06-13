@@ -21,6 +21,7 @@ final class DetailDiaryViewModel: ViewModel {
         var createdDate: Observable<String>
         var content: Observable<String?>
         var condition: Observable<Diary.Condition?>
+        var isLike: Observable<Bool>
         var isEditable: Observable<Bool>
         var didSuccessRemove: Observable<Void>
     }
@@ -85,6 +86,7 @@ final class DetailDiaryViewModel: ViewModel {
             createdDate: createdDate,
             content: useCase.diaryContent.asObservable(),
             condition: useCase.diaryCondition.asObservable(),
+            isLike: useCase.diaryLike.asObservable(),
             isEditable: isEditable,
             didSuccessRemove: useCase.removeDiary.asObservable()
         )

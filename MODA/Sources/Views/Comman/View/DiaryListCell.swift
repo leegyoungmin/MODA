@@ -50,6 +50,7 @@ final class DiaryListCell: UITableViewCell {
     private(set) var starButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "star"), for: .normal)
+        button.setImage(UIImage(systemName: "star.fill"), for: .selected)
         return button
     }()
     
@@ -98,6 +99,7 @@ final class DiaryListCell: UITableViewCell {
         createdDateLabel.text = "\(diary.createdDay) 일"
         conditionLabel.text = diary.condition.description
         contentLabel.text = diary.content
+        starButton.isSelected = diary.isLike
     }
 }
 
