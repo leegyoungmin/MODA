@@ -144,15 +144,20 @@ extension DiaryWriteViewController {
     }
     
     func bindingInput() {
-        Notification.keyboardHeight()
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] height in
-                guard let self = self else { return }
-                
-                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
-                scrollView.contentInset = contentInset
-            }
-            .disposed(by: disposeBag)
+        
+        Observable.of(
+            Notification.keyboardWillShow(),
+            Notification.keyboardWillHide()
+        )
+        .merge()
+        .observe(on: MainScheduler.instance)
+        .subscribe { [weak self] height in
+            guard let self = self else { return }
+            
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+            scrollView.contentInset = contentInset
+        }
+        .disposed(by: disposeBag)
     }
     
     func bindingOutput(_ output: DiaryWriteViewModel.Output) {

@@ -91,6 +91,10 @@ final class SignInViewController: UIViewController {
         bindingView()
         bindingToViewModel()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
 private extension SignInViewController {
@@ -140,17 +144,24 @@ private extension SignInViewController {
             }
             .disposed(by: disposeBag)
         
-        Notification.keyboardHeight()
+        Notification.keyboardWillShow()
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] height in
                 guard let self = self else { return }
                 
-                let originY = self.view.frame.origin.y
+                if view.frame.origin.y == .zero {
+                    view.frame.origin.y -= (height / 2)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        Notification.keyboardWillHide()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
                 
-                if originY == .zero {
-                    self.view.frame.origin.y -= (height / 2)
-                } else {
-                    self.view.frame.origin.y = .zero
+                if view.frame.origin.y != .zero {
+                    view.frame.origin.y = .zero
                 }
             }
             .disposed(by: disposeBag)
