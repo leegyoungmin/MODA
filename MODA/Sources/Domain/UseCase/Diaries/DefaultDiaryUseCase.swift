@@ -11,6 +11,7 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
     var diaries = PublishSubject<[Diary]>()
     var selectedYear = BehaviorSubject<Int>(value: Date().toInt(.year))
     var selectedMonth = BehaviorSubject<Int>(value: Date().toInt(.month))
+    var removeSuccess = PublishSubject<Void>()
     
     private let diaryRepository: DiaryRepository
     private let disposeBag = DisposeBag()
@@ -29,6 +30,12 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
             .subscribe { [weak self] diaries in
                 self?.diaries.on(.next(diaries))
             }
+            .disposed(by: disposeBag)
+    }
+    
+    func deleteItem(with diary: Diary) {
+        self.diaryRepository.removeDiary(id: diary.id)
+            .bind(to: removeSuccess)
             .disposed(by: disposeBag)
     }
 }

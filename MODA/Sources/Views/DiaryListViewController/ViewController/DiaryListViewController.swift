@@ -48,6 +48,7 @@ final class DiaryListViewController: UIViewController {
     private var deleteItemTrigger = PublishSubject<Diary>()
     private var selectedYear = PublishSubject<Int>()
     private var selectedMonth = PublishSubject<Int>()
+    private var refresh = PublishSubject<Void>()
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
@@ -80,7 +81,8 @@ private extension DiaryListViewController {
             viewDidAppear: viewDidAppear,
             removeTargetItem: deleteItemTrigger,
             selectedYear: selectedYear.asObservable(),
-            selectedMonth: selectedMonth.asObservable()
+            selectedMonth: selectedMonth.asObservable(),
+            refresh: refresh.asObservable()
         )
         
         let output = viewModel?.transform(input: input)
@@ -103,6 +105,10 @@ private extension DiaryListViewController {
                 
                 cell.setUpDatas(to: model)
             }
+            .disposed(by: disposeBag)
+        
+        output?.removed
+            .bind(to: refresh)
             .disposed(by: disposeBag)
     }
     
@@ -146,8 +152,10 @@ private extension DiaryListViewController {
             .disposed(by: disposeBag)
         
         deleteItemEvent
-            .bind { [weak self] diary in
-                self?.presentDeleteAlert(with: diary)
+            .distinctUntilChanged(at: \.id)
+            .subscribe { [weak self] diary in
+                guard let self = self else { return }
+                self.presentDeleteAlert(with: diary)
             }
             .disposed(by: disposeBag)
         
@@ -169,14 +177,14 @@ private extension DiaryListViewController {
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         
-        let deleteAction = UIAlertAction(
-            title: "삭제",
-            style: .destructive
-        ) { _ in
-            self.deleteItemTrigger.onNext(item)
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.deleteItemTrigger.on(.next(item))
         }
         
         [cancelAction, deleteAction].forEach(alertController.addAction)
+        
         self.present(alertController, animated: true)
     }
     
