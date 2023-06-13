@@ -9,6 +9,12 @@ import RxSwift
 import RxCocoa
 
 final class SignInViewController: UIViewController {
+    private let logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MODAIcon")
+        return imageView
+    }()
+    
     private let idFormView: AuthFormStackView = {
         let formView = AuthFormStackView(title: "아이디")
         return formView
@@ -202,15 +208,28 @@ private extension SignInViewController {
     
     func configureHierarchy() {
         [signUpLabel, signUpButton].forEach(signUpStackView.addArrangedSubview)
-        [idFormView, passwordFormView, signInButton, signUpStackView].forEach(view.addSubview)
+        [
+            logoImageView,
+            idFormView,
+            passwordFormView,
+            signInButton,
+            signUpStackView
+        ].forEach(view.addSubview)
     }
     
     func makeConstraints() {
         
+        logoImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(46)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.8)
+            $0.height.equalTo(logoImageView.snp.width)
+        }
+        
         idFormView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(44)
             $0.trailing.equalToSuperview().offset(-44)
-            $0.centerY.equalToSuperview().offset(-50)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(16)
         }
         
         passwordFormView.snp.makeConstraints {
