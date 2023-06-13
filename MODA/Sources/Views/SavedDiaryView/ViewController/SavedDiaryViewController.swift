@@ -22,8 +22,7 @@ final class SavedDiaryViewController: UIViewController {
         return collectionView
     }()
     
-    
-    private let mockDatas: Observable<[Diary]> = Observable.of([])
+    private var viewModel: SavedDiaryViewModel?
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -32,20 +31,14 @@ final class SavedDiaryViewController: UIViewController {
         configureUI()
         bindings()
     }
+    
+    func setViewModel(with viewModel: SavedDiaryViewModel) {
+        self.viewModel = viewModel
+    }
 }
 
 private extension SavedDiaryViewController {
     func bindings() {
-        self.mockDatas.bind(
-            to: savedDiaryListView.rx.items(
-                cellIdentifier: SavedDiaryCell.identifier,
-                cellType: SavedDiaryCell.self
-            )
-        ) { (_, model, cell) in
-            cell.setUpData(to: model)
-        }
-        .disposed(by: disposeBag)
-        
         savedDiaryListView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }

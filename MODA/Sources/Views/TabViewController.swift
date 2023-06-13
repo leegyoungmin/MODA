@@ -66,7 +66,17 @@ private extension TabViewController {
                 )
                 controller.setViewModel(with: viewModel)
                 return controller
-            case .save:     return SavedDiaryViewController()
+            case .save:
+                let controller = SavedDiaryViewController()
+                let viewModel = SavedDiaryViewModel(
+                    useCase: DefaultSavedDiaryUseCase(
+                        repository: DefaultDiaryRepository(
+                            diaryService: DiaryService()
+                        )
+                    )
+                )
+                controller.setViewModel(with: viewModel)
+                return controller
             case .setting:  return SettingViewController()
             }
         }

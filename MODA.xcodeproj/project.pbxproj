@@ -33,6 +33,9 @@
 		180F95882A1B356000C571FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180F95862A1B356000C571FD /* LaunchScreen.storyboard */; };
 		18194A602A1F36E700C0541F /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18194A5F2A1F36E700C0541F /* Setting.swift */; };
 		182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */; };
+		183DF6212A385F2500546825 /* SavedDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DF6202A385F2500546825 /* SavedDiaryViewModel.swift */; };
+		183DF6232A385FE300546825 /* SavedDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DF6222A385FE300546825 /* SavedDiaryUseCase.swift */; };
+		183DF6252A38600300546825 /* DefaultSavedDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183DF6242A38600300546825 /* DefaultSavedDiaryUseCase.swift */; };
 		184680872A3311CA0052BC5C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184680862A3311CA0052BC5C /* SignInViewModel.swift */; };
 		184680892A3313880052BC5C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184680882A3313880052BC5C /* AuthRepository.swift */; };
 		1846808B2A3313FA0052BC5C /* DefaultAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846808A2A3313FA0052BC5C /* DefaultAuthRepository.swift */; };
@@ -106,6 +109,9 @@
 		180F95892A1B356000C571FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18194A5F2A1F36E700C0541F /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryViewController.swift; sourceTree = "<group>"; };
+		183DF6202A385F2500546825 /* SavedDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryViewModel.swift; sourceTree = "<group>"; };
+		183DF6222A385FE300546825 /* SavedDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryUseCase.swift; sourceTree = "<group>"; };
+		183DF6242A38600300546825 /* DefaultSavedDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSavedDiaryUseCase.swift; sourceTree = "<group>"; };
 		184680862A3311CA0052BC5C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		184680882A3313880052BC5C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		1846808A2A3313FA0052BC5C /* DefaultAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthRepository.swift; sourceTree = "<group>"; };
@@ -179,6 +185,7 @@
 				1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */,
 				184680862A3311CA0052BC5C /* SignInViewModel.swift */,
 				184680922A3314FC0052BC5C /* SignUpViewModel.swift */,
+				183DF6202A385F2500546825 /* SavedDiaryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -204,7 +211,8 @@
 		180517772A25932E00DB9152 /* SavedDiaryView */ = {
 			isa = PBXGroup;
 			children = (
-				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
+				183DF61F2A385EC000546825 /* View */,
+				183DF61E2A385EB700546825 /* ViewController */,
 			);
 			path = SavedDiaryView;
 			sourceTree = "<group>";
@@ -422,6 +430,21 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		183DF61E2A385EB700546825 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		183DF61F2A385EC000546825 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		184680842A33119F0052BC5C /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,6 +506,7 @@
 				186EEABE2A2A197000F16646 /* DefaultDiaryUseCase.swift */,
 				18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */,
 				18C9A3192A3073CB002F7B81 /* DefaultDetailDiaryUseCase.swift */,
+				183DF6242A38600300546825 /* DefaultSavedDiaryUseCase.swift */,
 			);
 			path = Diaries;
 			sourceTree = "<group>";
@@ -493,6 +517,7 @@
 				186EEABC2A2A192B00F16646 /* DiaryListUseCase.swift */,
 				18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */,
 				18C9A3172A307382002F7B81 /* DetailDiaryUseCase.swift */,
+				183DF6222A385FE300546825 /* SavedDiaryUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -681,6 +706,7 @@
 				180517832A25E9C600DB9152 /* JsonDecoder + Extensions.swift in Sources */,
 				189BE2612A31C116006B6374 /* Int + Extensions.swift in Sources */,
 				180247412A206B2400B7B221 /* BottomSheetViewController.swift in Sources */,
+				183DF6232A385FE300546825 /* SavedDiaryUseCase.swift in Sources */,
 				18E600702A2B20180056A879 /* Encodable + Extensions.swift in Sources */,
 				18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */,
 				180F95802A1B355F00C571FD /* DiaryListViewController.swift in Sources */,
@@ -698,6 +724,7 @@
 				18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */,
 				185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */,
 				184680872A3311CA0052BC5C /* SignInViewModel.swift in Sources */,
+				183DF6252A38600300546825 /* DefaultSavedDiaryUseCase.swift in Sources */,
 				189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
 				1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */,
@@ -720,6 +747,7 @@
 				1804BB492A32C5CA00D96F7D /* UserRepository.swift in Sources */,
 				180F957E2A1B355F00C571FD /* SceneDelegate.swift in Sources */,
 				180517902A2604CF00DB9152 /* DefaultNetworkService.swift in Sources */,
+				183DF6212A385F2500546825 /* SavedDiaryViewModel.swift in Sources */,
 				18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */,
 				187CA9062A29B4B90018B8CB /* MonthCalendarViewModel.swift in Sources */,
 				180517852A25ECF500DB9152 /* DateFormatter + Extensions.swift in Sources */,
