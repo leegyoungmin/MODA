@@ -154,8 +154,8 @@ private extension SettingViewController {
         content.sound = .default
         
         var dateComponent = DateComponents()
-        dateComponent.hour = 12
-        dateComponent.minute = 5
+        dateComponent.hour = hour
+        dateComponent.minute = minute
         
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponent,
