@@ -74,6 +74,7 @@
 		18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */; };
 		18E632272A2A375B009FD40D /* DiaryWriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */; };
 		18E6322E2A2A4362009FD40D /* DisableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6322D2A2A4362009FD40D /* DisableButton.swift */; };
+		18E7F4242A382E93009F9F69 /* NotificationCenter + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7F4232A382E93009F9F69 /* NotificationCenter + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewModel.swift; sourceTree = "<group>"; };
 		18E6322D2A2A4362009FD40D /* DisableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableButton.swift; sourceTree = "<group>"; };
+		18E7F4232A382E93009F9F69 /* NotificationCenter + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,6 +551,7 @@
 				18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */,
 				189BE2602A31C116006B6374 /* Int + Extensions.swift */,
 				1804BB512A32CC8400D96F7D /* UNNotification + Extensions.swift */,
+				18E7F4232A382E93009F9F69 /* NotificationCenter + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				1846808B2A3313FA0052BC5C /* DefaultAuthRepository.swift in Sources */,
 				180517802A25E1AF00DB9152 /* DiaryService.swift in Sources */,
 				18E6322E2A2A4362009FD40D /* DisableButton.swift in Sources */,
+				18E7F4242A382E93009F9F69 /* NotificationCenter + Extensions.swift in Sources */,
 				184680892A3313880052BC5C /* AuthRepository.swift in Sources */,
 				1805177C2A25954100DB9152 /* DiaryListViewModel.swift in Sources */,
 				1805179C2A26433100DB9152 /* ViewModel.swift in Sources */,

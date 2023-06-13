@@ -144,7 +144,7 @@ extension DiaryWriteViewController {
     }
     
     func bindingInput() {
-        keyboardHeight()
+        Notification.keyboardHeight()
             .observe(on: MainScheduler.instance)
             .subscribe { [weak self] height in
                 guard let self = self else { return }
@@ -239,25 +239,6 @@ extension DiaryWriteViewController: ConditionButtonDelegate {
                 }
             }
         }
-    }
-}
-
-// MARK: - KeyBoard Observable 관련 메서드
-private extension DiaryWriteViewController {
-    func keyboardHeight() -> Observable<CGFloat> {
-        return Observable
-            .from([
-                NotificationCenter.default.rx
-                    .notification(UIResponder.keyboardWillShowNotification)
-                    .map {
-                        ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
-                    },
-                
-                NotificationCenter.default.rx
-                    .notification(UIResponder.keyboardWillHideNotification)
-                    .map { _ in 0 }
-            ])
-            .merge()
     }
 }
 

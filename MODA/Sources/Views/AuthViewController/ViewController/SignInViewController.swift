@@ -93,9 +93,7 @@ final class SignInViewController: UIViewController {
     }
 }
 
-// MARK: - 로그인 임시 코드
 private extension SignInViewController {
-    
     func presentMainViewController() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -139,6 +137,21 @@ private extension SignInViewController {
                 guard let self = self else { return }
                 
                 self.presentSignUpView()
+            }
+            .disposed(by: disposeBag)
+        
+        Notification.keyboardHeight()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] height in
+                guard let self = self else { return }
+                
+                let originY = self.view.frame.origin.y
+                
+                if originY == .zero {
+                    self.view.frame.origin.y -= (height / 2)
+                } else {
+                    self.view.frame.origin.y = .zero
+                }
             }
             .disposed(by: disposeBag)
     }
