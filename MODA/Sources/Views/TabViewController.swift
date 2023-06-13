@@ -8,17 +8,6 @@ import UIKit
 
 final class TabViewController: UITabBarController {
     private let routers = Router.allCases
-    private let currentUser: User?
-    
-    init(currentUser: User) {
-        self.currentUser = currentUser
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        self.currentUser = nil
-        super.init(coder: coder)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

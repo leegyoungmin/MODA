@@ -99,16 +99,14 @@ final class SignInViewController: UIViewController {
 
 private extension SignInViewController {
     func presentMainViewController() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            guard let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
-                  let window = delegate.window else {
-                return
+        DispatchQueue.main.async {
+            let scenes = UIApplication.shared.connectedScenes
+            
+            if let delegate = scenes.first?.delegate as? SceneDelegate,
+               let window = delegate.window {
+                
+                window.rootViewController = TabViewController()
             }
-            
-            guard let user = try? self.currentUser.value() else { return }
-            
-            window.rootViewController = TabViewController(currentUser: user)
         }
     }
 }
@@ -125,14 +123,22 @@ private extension SignInViewController {
         let output = viewModel.transform(input: input)
         
         output.currentUser
-            .bind(to: currentUser)
+            .asDriver(onErrorJustReturn: nil)
+            .drive(currentUser)
             .disposed(by: disposeBag)
         
-        currentUser.subscribe { [weak self] _ in
-            guard let self = self else { return }
-            self.presentMainViewController()
-        }
-        .disposed(by: disposeBag)
+        currentUser
+            .asDriver(onErrorJustReturn: nil)
+            .drive { [weak self] user in
+                guard let self = self else { return }
+                
+                if let user = user {
+                    let data = try? JSONEncoder().encode(user)
+                    UserDefaults.standard.set(data, forKey: "currentUser")
+                    self.presentMainViewController()
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     func bindingView() {
@@ -180,7 +186,8 @@ private extension SignInViewController {
         let controller = SignUpViewController(viewModel: viewModel)
         
         useCase.signInUser
-            .bind(to: currentUser)
+            .asDriver(onErrorJustReturn: nil)
+            .drive(currentUser)
             .disposed(by: disposeBag)
         
         self.present(controller, animated: true)

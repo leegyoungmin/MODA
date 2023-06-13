@@ -20,6 +20,8 @@ final class DefaultNetworkService: NetworkService {
                 return Disposables.create()
             }
             
+            print(request.url)
+            
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     emitter.onError(error)
@@ -34,6 +36,7 @@ final class DefaultNetworkService: NetworkService {
                 guard (200...300) ~= response.statusCode else {
                     let error = NetworkError(rawValue: response.statusCode) ?? .unknownError
                     emitter.onError(error)
+                    print(String(data: data!, encoding: .utf8))
                     return
                 }
                 

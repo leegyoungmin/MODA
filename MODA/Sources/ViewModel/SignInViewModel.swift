@@ -16,10 +16,10 @@ final class SignInViewModel: ViewModel {
     }
     
     struct Output {
-        var currentUser: Observable<User>
+        var currentUser: Observable<User?>
     }
     
-    private let useCase: SignInUseCase
+    let useCase: SignInUseCase
     var disposeBag = DisposeBag()
     
     init(useCase: SignInUseCase) {
@@ -27,7 +27,6 @@ final class SignInViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        
         input.viewWillAppear
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
@@ -51,7 +50,7 @@ final class SignInViewModel: ViewModel {
             }
             .disposed(by: disposeBag)
         return Output(
-            currentUser: useCase.user.compactMap { $0 }.asObservable()
+            currentUser: useCase.user
         )
     }
 }

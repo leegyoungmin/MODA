@@ -130,7 +130,9 @@ private extension SignUpViewController {
                     presentErrorAlert()
                 }
                 
-                if user != nil {
+                if let user = user {
+                    let data = try? JSONEncoder().encode(user)
+                    UserDefaults.standard.set(data, forKey: "currentUser")
                     self.dismiss(animated: true)
                 }
             }
