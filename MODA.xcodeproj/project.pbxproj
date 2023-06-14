@@ -63,6 +63,9 @@
 		18A8E1082A1CE7C4007125FC /* Date + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1072A1CE7C4007125FC /* Date + Extension.swift */; };
 		18A8E10A2A1CF512007125FC /* DiaryWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */; };
 		18A8E10C2A1CF824007125FC /* ConditionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8E10B2A1CF824007125FC /* ConditionButton.swift */; };
+		18AC9EC32A39945400EAFB4A /* DiaryRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC9EC22A39945400EAFB4A /* DiaryRequestDTO.swift */; };
+		18AC9EC52A39946800EAFB4A /* DiaryUpdateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC9EC42A39946800EAFB4A /* DiaryUpdateDTO.swift */; };
+		18AC9EE62A39985800EAFB4A /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC9EE52A39985800EAFB4A /* UI.swift */; };
 		18BDA4082A1E08C0000C5BFA /* SavedDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */; };
 		18BDA40A2A1E150E000C5BFA /* SavedDiaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */; };
 		18BDA40C2A1E1E7C000C5BFA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */; };
@@ -139,6 +142,9 @@
 		18A8E1072A1CE7C4007125FC /* Date + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extension.swift"; sourceTree = "<group>"; };
 		18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteViewController.swift; sourceTree = "<group>"; };
 		18A8E10B2A1CF824007125FC /* ConditionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionButton.swift; sourceTree = "<group>"; };
+		18AC9EC22A39945400EAFB4A /* DiaryRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRequestDTO.swift; sourceTree = "<group>"; };
+		18AC9EC42A39946800EAFB4A /* DiaryUpdateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryUpdateDTO.swift; sourceTree = "<group>"; };
+		18AC9EE52A39985800EAFB4A /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryViewController.swift; sourceTree = "<group>"; };
 		18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDiaryCell.swift; sourceTree = "<group>"; };
 		18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -176,65 +182,6 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		180517742A2592F400DB9152 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				187CA9042A29B4A90018B8CB /* MonthCalebdar */,
-				1805177B2A25954100DB9152 /* DiaryListViewModel.swift */,
-				18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */,
-				1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */,
-				184680862A3311CA0052BC5C /* SignInViewModel.swift */,
-				184680922A3314FC0052BC5C /* SignUpViewModel.swift */,
-				183DF6202A385F2500546825 /* SavedDiaryViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		180517752A2592F900DB9152 /* DiaryListViewController */ = {
-			isa = PBXGroup;
-			children = (
-				187CA8FC2A29B24A0018B8CB /* ViewController */,
-				187CA8FB2A29B2440018B8CB /* View */,
-			);
-			path = DiaryListViewController;
-			sourceTree = "<group>";
-		};
-		180517762A25931E00DB9152 /* DiaryWriteViewController */ = {
-			isa = PBXGroup;
-			children = (
-				18E632292A2A37BD009FD40D /* View */,
-				18E632282A2A37B5009FD40D /* ViewController */,
-			);
-			path = DiaryWriteViewController;
-			sourceTree = "<group>";
-		};
-		180517772A25932E00DB9152 /* SavedDiaryView */ = {
-			isa = PBXGroup;
-			children = (
-				183DF61F2A385EC000546825 /* View */,
-				183DF61E2A385EB700546825 /* ViewController */,
-			);
-			path = SavedDiaryView;
-			sourceTree = "<group>";
-		};
-		180517782A25933900DB9152 /* SettingViewController */ = {
-			isa = PBXGroup;
-			children = (
-				189BE25D2A31B51F006B6374 /* ViewController */,
-				189BE25C2A31B51D006B6374 /* View */,
-			);
-			path = SettingViewController;
-			sourceTree = "<group>";
-		};
-		180517792A25934200DB9152 /* AuthViewController */ = {
-			isa = PBXGroup;
-			children = (
-				184680852A3311A10052BC5C /* ViewController */,
-				184680842A33119F0052BC5C /* View */,
-			);
-			path = AuthViewController;
-			sourceTree = "<group>";
-		};
 		1805177E2A25E1A600DB9152 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,40 +194,11 @@
 		180517892A2603DF00DB9152 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				18AC9EE42A39984E00EAFB4A /* Constants */,
 				18A8E1062A1CE7BC007125FC /* Extensions */,
 				1805177E2A25E1A600DB9152 /* Services */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		1805178A2A2603F900DB9152 /* Comman */ = {
-			isa = PBXGroup;
-			children = (
-				1805178C2A26041A00DB9152 /* ViewController */,
-				1805178B2A26040D00DB9152 /* View */,
-			);
-			path = Comman;
-			sourceTree = "<group>";
-		};
-		1805178B2A26040D00DB9152 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */,
-				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
-				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
-				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
-				180247482A209F8F00B7B221 /* AuthFormStackView.swift */,
-				18E6322D2A2A4362009FD40D /* DisableButton.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1805178C2A26041A00DB9152 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				180247402A206B2400B7B221 /* BottomSheetViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		1805178D2A26044000DB9152 /* Domain */ = {
@@ -295,9 +213,10 @@
 		1805178E2A2604BE00DB9152 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				1804BB4E2A32CB5800D96F7D /* Protocol */,
 				1805178F2A2604CF00DB9152 /* DefaultNetworkService.swift */,
 				180517922A263D4400DB9152 /* NetworkError.swift */,
+				18AC9EC12A39944E00EAFB4A /* DataMapping */,
+				1804BB4E2A32CB5800D96F7D /* Protocol */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -313,10 +232,10 @@
 		180517952A26410F00DB9152 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				180517982A26419F00DB9152 /* Protocol */,
+				1846808A2A3313FA0052BC5C /* DefaultAuthRepository.swift */,
 				180517992A2641B200DB9152 /* DefaultDiaryRepository.swift */,
 				1804BB4A2A32C5FA00D96F7D /* DefaultUserRepository.swift */,
-				1846808A2A3313FA0052BC5C /* DefaultAuthRepository.swift */,
+				180517982A26419F00DB9152 /* Protocol */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -329,21 +248,6 @@
 				184680882A3313880052BC5C /* AuthRepository.swift */,
 			);
 			path = Protocol;
-			sourceTree = "<group>";
-		};
-		180983EC2A1B676500F0E854 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				1821623C2A2F2A9400A27374 /* DetailDiaryViewController */,
-				1805178A2A2603F900DB9152 /* Comman */,
-				180517792A25934200DB9152 /* AuthViewController */,
-				180517752A2592F900DB9152 /* DiaryListViewController */,
-				180517762A25931E00DB9152 /* DiaryWriteViewController */,
-				180517772A25932E00DB9152 /* SavedDiaryView */,
-				180517782A25933900DB9152 /* SettingViewController */,
-				188423072A1DC5AD0047A946 /* TabViewController.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		180983ED2A1B676A00F0E854 /* App */ = {
@@ -375,8 +279,8 @@
 			isa = PBXGroup;
 			children = (
 				189BE2572A319343006B6374 /* MODA.entitlements */,
-				180F95912A1B3C5600C571FD /* Sources */,
 				180F95902A1B3C5200C571FD /* Resource */,
+				180F95912A1B3C5600C571FD /* Sources */,
 			);
 			path = MODA;
 			sourceTree = "<group>";
@@ -394,79 +298,22 @@
 		180F95912A1B3C5600C571FD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				180517942A26410C00DB9152 /* Data */,
-				1805178E2A2604BE00DB9152 /* Network */,
 				180983ED2A1B676A00F0E854 /* App */,
+				180517942A26410C00DB9152 /* Data */,
 				1805178D2A26044000DB9152 /* Domain */,
+				1805178E2A2604BE00DB9152 /* Network */,
+				18AC9EC62A39956A00EAFB4A /* Presentation */,
 				180517892A2603DF00DB9152 /* Utility */,
-				180517742A2592F400DB9152 /* ViewModel */,
-				180983EC2A1B676500F0E854 /* Views */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		1821623C2A2F2A9400A27374 /* DetailDiaryViewController */ = {
-			isa = PBXGroup;
-			children = (
-				1821623E2A2F2A9D00A27374 /* Controller */,
-				1821623D2A2F2A9B00A27374 /* View */,
-			);
-			path = DetailDiaryViewController;
-			sourceTree = "<group>";
-		};
-		1821623D2A2F2A9B00A27374 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				186FDFD52A30134E0025D974 /* RoundRectangleButton.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1821623E2A2F2A9D00A27374 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		183DF61E2A385EB700546825 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		183DF61F2A385EC000546825 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		184680842A33119F0052BC5C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		184680852A3311A10052BC5C /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				180247422A207B9F00B7B221 /* SignInViewController.swift */,
-				180247442A208CCE00B7B221 /* SignUpViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		1846808C2A3314210052BC5C /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				1846808D2A3314270052BC5C /* Protocol */,
 				184680902A33144C0052BC5C /* DefaultSignInUseCase.swift */,
 				1892155E2A344BA5002C3A4C /* DefaultSignUpUseCase.swift */,
+				1846808D2A3314270052BC5C /* Protocol */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -494,35 +341,94 @@
 			isa = PBXGroup;
 			children = (
 				1846808C2A3314210052BC5C /* Auth */,
-				186EEABA2A2A191900F16646 /* Diaries */,
+				186EEABA2A2A191900F16646 /* Diary */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		186EEABA2A2A191900F16646 /* Diaries */ = {
+		186EEABA2A2A191900F16646 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				186EEABB2A2A192100F16646 /* Protocol */,
+				18C9A3192A3073CB002F7B81 /* DefaultDetailDiaryUseCase.swift */,
 				186EEABE2A2A197000F16646 /* DefaultDiaryUseCase.swift */,
 				18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */,
-				18C9A3192A3073CB002F7B81 /* DefaultDetailDiaryUseCase.swift */,
 				183DF6242A38600300546825 /* DefaultSavedDiaryUseCase.swift */,
+				186EEABB2A2A192100F16646 /* Protocol */,
 			);
-			path = Diaries;
+			path = Diary;
 			sourceTree = "<group>";
 		};
 		186EEABB2A2A192100F16646 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				18C9A3172A307382002F7B81 /* DetailDiaryUseCase.swift */,
 				186EEABC2A2A192B00F16646 /* DiaryListUseCase.swift */,
 				18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */,
-				18C9A3172A307382002F7B81 /* DetailDiaryUseCase.swift */,
 				183DF6222A385FE300546825 /* SavedDiaryUseCase.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		187CA8FB2A29B2440018B8CB /* View */ = {
+		187CA8FC2A29B24A0018B8CB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				180F957F2A1B355F00C571FD /* DiaryListViewController.swift */,
+				187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18A8E1062A1CE7BC007125FC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18A8E1072A1CE7C4007125FC /* Date + Extension.swift */,
+				180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */,
+				18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */,
+				189BE2602A31C116006B6374 /* Int + Extensions.swift */,
+				180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */,
+				18E7F4232A382E93009F9F69 /* NotificationCenter + Extensions.swift */,
+				180517872A25F77600DB9152 /* Reusable + Extensions.swift */,
+				1804BB512A32CC8400D96F7D /* UNNotification + Extensions.swift */,
+				1805179B2A26433100DB9152 /* ViewModel.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		18AC9EC12A39944E00EAFB4A /* DataMapping */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9EC22A39945400EAFB4A /* DiaryRequestDTO.swift */,
+				18AC9EC42A39946800EAFB4A /* DiaryUpdateDTO.swift */,
+			);
+			path = DataMapping;
+			sourceTree = "<group>";
+		};
+		18AC9EC62A39956A00EAFB4A /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9ECA2A39960000EAFB4A /* AuthScene */,
+				18AC9ED92A3996A100EAFB4A /* Comman */,
+				18AC9ED52A39966C00EAFB4A /* DetailDiaryScene */,
+				18AC9EC72A39959C00EAFB4A /* DiaryListScene */,
+				18AC9ECE2A39962600EAFB4A /* DiaryWriteScene */,
+				18AC9EDF2A3996EF00EAFB4A /* MainScene */,
+				18AC9ED12A39964E00EAFB4A /* SavedDiaryScene */,
+				18AC9EDC2A3996BB00EAFB4A /* SettingScene */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		18AC9EC72A39959C00EAFB4A /* DiaryListScene */ = {
+			isa = PBXGroup;
+			children = (
+				187CA8FC2A29B24A0018B8CB /* Controller */,
+				18AC9EC82A3995AA00EAFB4A /* View */,
+				18AC9EC92A3995AD00EAFB4A /* ViewModel */,
+			);
+			path = DiaryListScene;
+			sourceTree = "<group>";
+		};
+		18AC9EC82A3995AA00EAFB4A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				187CA8FD2A29B2580018B8CB /* MonthControl.swift */,
@@ -531,24 +437,167 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		187CA8FC2A29B24A0018B8CB /* ViewController */ = {
+		18AC9EC92A3995AD00EAFB4A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				180F957F2A1B355F00C571FD /* DiaryListViewController.swift */,
-				187CA9022A29B4860018B8CB /* MonthCalendarViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		187CA9042A29B4A90018B8CB /* MonthCalebdar */ = {
-			isa = PBXGroup;
-			children = (
+				1805177B2A25954100DB9152 /* DiaryListViewModel.swift */,
 				187CA9052A29B4B90018B8CB /* MonthCalendarViewModel.swift */,
 			);
-			path = MonthCalebdar;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		189BE25C2A31B51D006B6374 /* View */ = {
+		18AC9ECA2A39960000EAFB4A /* AuthScene */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9ECC2A39960900EAFB4A /* Controller */,
+				18AC9ECD2A39960C00EAFB4A /* ViewModel */,
+			);
+			path = AuthScene;
+			sourceTree = "<group>";
+		};
+		18AC9ECC2A39960900EAFB4A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				180247422A207B9F00B7B221 /* SignInViewController.swift */,
+				180247442A208CCE00B7B221 /* SignUpViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18AC9ECD2A39960C00EAFB4A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				184680862A3311CA0052BC5C /* SignInViewModel.swift */,
+				184680922A3314FC0052BC5C /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18AC9ECE2A39962600EAFB4A /* DiaryWriteScene */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9ECF2A39963800EAFB4A /* Controller */,
+				18AC9ED02A39963A00EAFB4A /* ViewModel */,
+			);
+			path = DiaryWriteScene;
+			sourceTree = "<group>";
+		};
+		18AC9ECF2A39963800EAFB4A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18AC9ED02A39963A00EAFB4A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18E632262A2A375B009FD40D /* DiaryWriteViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18AC9ED12A39964E00EAFB4A /* SavedDiaryScene */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9ED22A39965700EAFB4A /* Controller */,
+				18AC9ED42A39965C00EAFB4A /* ViewModel */,
+			);
+			path = SavedDiaryScene;
+			sourceTree = "<group>";
+		};
+		18AC9ED22A39965700EAFB4A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18BDA4072A1E08C0000C5BFA /* SavedDiaryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18AC9ED42A39965C00EAFB4A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				183DF6202A385F2500546825 /* SavedDiaryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18AC9ED52A39966C00EAFB4A /* DetailDiaryScene */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9ED62A39967500EAFB4A /* Controller */,
+				18AC9ED82A39967B00EAFB4A /* ViewModel */,
+			);
+			path = DetailDiaryScene;
+			sourceTree = "<group>";
+		};
+		18AC9ED62A39967500EAFB4A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1821623F2A2F2AA500A27374 /* DetailDiaryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18AC9ED82A39967B00EAFB4A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1888132A2A3058D80095899D /* DetailDiaryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18AC9ED92A3996A100EAFB4A /* Comman */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9EDB2A3996A500EAFB4A /* Controller */,
+				18AC9EDA2A3996A300EAFB4A /* View */,
+			);
+			path = Comman;
+			sourceTree = "<group>";
+		};
+		18AC9EDA2A3996A300EAFB4A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				180247482A209F8F00B7B221 /* AuthFormStackView.swift */,
+				18A8E10B2A1CF824007125FC /* ConditionButton.swift */,
+				185F81682A1CCB7700C4D554 /* DiaryListCell.swift */,
+				18E6322D2A2A4362009FD40D /* DisableButton.swift */,
+				186FDFD52A30134E0025D974 /* RoundRectangleButton.swift */,
+				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
+				18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18AC9EDB2A3996A500EAFB4A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				180247402A206B2400B7B221 /* BottomSheetViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18AC9EDC2A3996BB00EAFB4A /* SettingScene */ = {
+			isa = PBXGroup;
+			children = (
+				18AC9EDD2A3996D200EAFB4A /* Controller */,
+				18AC9EDE2A3996D500EAFB4A /* View */,
+			);
+			path = SettingScene;
+			sourceTree = "<group>";
+		};
+		18AC9EDD2A3996D200EAFB4A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */,
+				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18AC9EDE2A3996D500EAFB4A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				188150822A31D28A00314200 /* UITimePicker.swift */,
@@ -556,44 +605,20 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		189BE25D2A31B51F006B6374 /* ViewController */ = {
+		18AC9EDF2A3996EF00EAFB4A /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
-				18BDA40B2A1E1E7C000C5BFA /* SettingViewController.swift */,
-				189BE25E2A31B759006B6374 /* NoticeSettingViewController.swift */,
+				188423072A1DC5AD0047A946 /* TabViewController.swift */,
 			);
-			path = ViewController;
+			path = MainScene;
 			sourceTree = "<group>";
 		};
-		18A8E1062A1CE7BC007125FC /* Extensions */ = {
+		18AC9EE42A39984E00EAFB4A /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				18A8E1072A1CE7C4007125FC /* Date + Extension.swift */,
-				180517822A25E9C600DB9152 /* JsonDecoder + Extensions.swift */,
-				180517842A25ECF500DB9152 /* DateFormatter + Extensions.swift */,
-				180517872A25F77600DB9152 /* Reusable + Extensions.swift */,
-				1805179B2A26433100DB9152 /* ViewModel.swift */,
-				18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */,
-				189BE2602A31C116006B6374 /* Int + Extensions.swift */,
-				1804BB512A32CC8400D96F7D /* UNNotification + Extensions.swift */,
-				18E7F4232A382E93009F9F69 /* NotificationCenter + Extensions.swift */,
+				18AC9EE52A39985800EAFB4A /* UI.swift */,
 			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		18E632282A2A37B5009FD40D /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				18A8E1092A1CF512007125FC /* DiaryWriteViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		18E632292A2A37BD009FD40D /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -735,7 +760,9 @@
 				180F957C2A1B355F00C571FD /* AppDelegate.swift in Sources */,
 				18C9A3182A307382002F7B81 /* DetailDiaryUseCase.swift in Sources */,
 				18C9A31A2A3073CB002F7B81 /* DefaultDetailDiaryUseCase.swift in Sources */,
+				18AC9EC52A39946800EAFB4A /* DiaryUpdateDTO.swift in Sources */,
 				1804BB4B2A32C5FA00D96F7D /* DefaultUserRepository.swift in Sources */,
+				18AC9EC32A39945400EAFB4A /* DiaryRequestDTO.swift in Sources */,
 				180247492A209F8F00B7B221 /* AuthFormStackView.swift in Sources */,
 				180247452A208CCE00B7B221 /* SignUpViewController.swift in Sources */,
 				1805179A2A2641B200DB9152 /* DefaultDiaryRepository.swift in Sources */,
@@ -754,6 +781,7 @@
 				18BDA40E2A1E5BE8000C5BFA /* SettingCell.swift in Sources */,
 				185F81622A1CC6F000C4D554 /* Diary.swift in Sources */,
 				18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */,
+				18AC9EE62A39985800EAFB4A /* UI.swift in Sources */,
 				180517932A263D4400DB9152 /* NetworkError.swift in Sources */,
 				188423082A1DC5AD0047A946 /* TabViewController.swift in Sources */,
 				180247432A207B9F00B7B221 /* SignInViewController.swift in Sources */,
