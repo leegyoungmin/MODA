@@ -33,6 +33,19 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
             .disposed(by: disposeBag)
     }
     
+    func updateDiary(diary: Diary) {
+        self.diaryRepository.updateDiary(
+            id: diary.id,
+            content: diary.content,
+            condition: diary.condition.rawValue,
+            isLike: diary.isLike
+        )
+        .subscribe { [weak self] _ in
+            self?.loadAllDiaries()
+        }
+        .disposed(by: disposeBag)
+    }
+    
     func deleteItem(with diary: Diary) {
         self.diaryRepository.removeDiary(id: diary.id)
             .bind(to: removeSuccess)

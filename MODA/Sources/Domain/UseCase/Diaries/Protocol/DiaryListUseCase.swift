@@ -13,5 +13,6 @@ protocol DiaryListUseCase {
     var removeSuccess: PublishSubject<Void> { get set }
     
     func loadAllDiaries(option: [String: String])
+    func updateDiary(diary: Diary)
     func deleteItem(with diary: Diary)
 }

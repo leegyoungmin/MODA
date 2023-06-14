@@ -55,6 +55,7 @@ final class DiaryListViewController: UIViewController {
     
     private var deleteItemEvent = PublishSubject<Diary>()
     private var deleteItemTrigger = PublishSubject<Diary>()
+    private var didTapLikeButton = PublishSubject<Diary>()
     private var selectedYear = PublishSubject<Int>()
     private var selectedMonth = PublishSubject<Int>()
     private var refresh = PublishSubject<Void>()
@@ -89,6 +90,7 @@ private extension DiaryListViewController {
         let input = DiaryListViewModel.Input(
             viewDidAppear: viewDidAppear,
             removeTargetItem: deleteItemTrigger,
+            isLikeItem: didTapLikeButton.asObservable(),
             selectedYear: selectedYear.asObservable(),
             selectedMonth: selectedMonth.asObservable(),
             refresh: refresh.asObservable()
@@ -109,6 +111,13 @@ private extension DiaryListViewController {
                     .subscribe { [weak self] _ in
                         guard let self = self else { return }
                         self.deleteItemEvent.onNext(model)
+                    }
+                    .disposed(by: self.disposeBag)
+                
+                cell.starButton.rx.tap
+                    .subscribe { [weak self] _ in
+                        guard let self = self else { return }
+                        self.didTapLikeButton.onNext(model)
                     }
                     .disposed(by: self.disposeBag)
                 

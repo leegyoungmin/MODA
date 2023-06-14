@@ -11,6 +11,7 @@ final class DiaryListViewModel: ViewModel {
     struct Input {
         var viewDidAppear: Observable<Void>
         var removeTargetItem: Observable<Diary>
+        var isLikeItem: Observable<Diary>
         var selectedYear: Observable<Int>
         var selectedMonth: Observable<Int>
         var refresh: Observable<Void>
@@ -59,6 +60,15 @@ final class DiaryListViewModel: ViewModel {
         
         input.selectedYear
             .bind(to: diaryListUseCase.selectedYear)
+            .disposed(by: disposeBag)
+        
+        input.isLikeItem
+            .subscribe { [weak self] diary in
+                guard var newDiary = diary.element else { return }
+                newDiary.isLike.toggle()
+                
+                self?.diaryListUseCase.updateDiary(diary: newDiary)
+            }
             .disposed(by: disposeBag)
         
         input.removeTargetItem
