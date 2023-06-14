@@ -36,7 +36,7 @@ final class MonthCalendarViewController: UIViewController {
     
     private let confirmButton: UIButton = {
         let button = UIButton()
-        button.setTitle("확인", for: .normal)
+        button.setTitle("confirm"~, for: .normal)
         button.layer.cornerRadius = 12
         button.backgroundColor = UIConstants.Colors.accentColor
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
@@ -78,7 +78,7 @@ final class MonthCalendarViewController: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.year
-            .compactMap { "\($0)년" }
+            .compactMap { "\($0)" }
             .observe(on: MainScheduler.instance)
             .bind(to: yearStackView.yearLabel.rx.text)
             .disposed(by: disposeBag)
@@ -130,7 +130,7 @@ private extension MonthCalendarViewController {
         configureHierarchy()
         makeConstraints()
         
-        titleLabel.text = "달 선택"
+        titleLabel.text = "select_month"~
     }
     
     func configureHierarchy() {

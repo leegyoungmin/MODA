@@ -31,7 +31,7 @@ final class DiaryWriteViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "오늘은 컨디션이 어떤가요?"
+        label.text = "diary_condition_title"~
         return label
     }()
     
@@ -39,7 +39,7 @@ final class DiaryWriteViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "오늘을 기억할 수 있는 말을 적어보세요."
+        label.text = "diary_memory_title"~
         return label
     }()
     
@@ -70,7 +70,7 @@ final class DiaryWriteViewController: UIViewController {
     
     private let saveButton: DisableButton = {
         let button = DisableButton()
-        button.setTitle("저장하기", for: .normal)
+        button.setTitle("save"~, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 22, weight: .bold)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
@@ -217,11 +217,11 @@ extension DiaryWriteViewController {
 private extension DiaryWriteViewController {
     func presentErrorAlert() {
         let controller = UIAlertController(
-            title: "예기치못한 에러가 발생하였습니다.",
-            message: "잠시후 다시 시도해주세요.",
+            title: "unknown_error_title"~,
+            message: "unknown_error_message"~,
             preferredStyle: .alert
         )
-        controller.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+        controller.addAction(UIAlertAction(title: "confirm"~, style: .default, handler: { _ in
             self.loadingView.stopAnimating()
         }))
         self.present(controller, animated: true)
@@ -269,7 +269,7 @@ private extension DiaryWriteViewController {
     
     func configureNavigationBar() {
         navigationItem.leftBarButtonItem = dismissButton
-        navigationItem.title = Date().toString("yy년 MM월 dd일")
+        navigationItem.title = Date().toString("yyyy. MM. dd")
     }
     
     func makeConstraints() {

@@ -17,7 +17,7 @@ protocol NoticeSettingDelegate: AnyObject {
 final class NoticeSettingViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "시간 설정"
+        label.text = "setting_time"~
         label.textColor = UIConstants.Colors.accentColor
         label.font = .systemFont(ofSize: 24, weight: .bold)
         return label
@@ -28,13 +28,13 @@ final class NoticeSettingViewController: UIViewController {
         label.numberOfLines = 0
         label.textColor = .secondaryLabel.withAlphaComponent(0.4)
         label.font = .systemFont(ofSize: 14, weight: .light)
-        label.text = "알림은 오전에 대한 알림만 제공합니다.\n일기를 작성하지 않으면 다시 알림을 전송합니다."
+        label.text = "time_notice"~
         return label
     }()
     
     private let saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("확인", for: .normal)
+        button.setTitle("confirm"~, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.backgroundColor = UIConstants.Colors.accentColor?.cgColor
         button.layer.cornerRadius = 8

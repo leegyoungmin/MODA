@@ -19,7 +19,7 @@ final class SettingViewController: UIViewController {
         return tableView
     }()
     
-    private let settingSections = SettingSection.defaultSettings
+    private let settingSections = SettingSection.generateSettings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +118,9 @@ extension SettingViewController: NoticeSettingDelegate {
             return
         }
         
+        UserDefaults.standard.set(time.hour, forKey: "notificationHour")
+        UserDefaults.standard.set(time.minute, forKey: "notificationMinute")
+        
         cell.updateContent(time.hour.dateDescription + ":" + time.minute.dateDescription)
         
         removeAllNotification(identifier: [UNNotification.diaryIdentifier])
@@ -149,8 +152,8 @@ private extension SettingViewController {
     
     func requestNotification(hour: Int, minute: Int) {
         let content = UNMutableNotificationContent()
-        content.title = "MODA"
-        content.body = "아침에 일기를 쓰고, 기분 좋은 하루를 보내보세요."
+        content.title = "app_name"~
+        content.body = "alert_message"~
         content.sound = .default
         
         var dateComponent = DateComponents()
@@ -176,8 +179,8 @@ private extension SettingViewController {
             let controller = MFMailComposeViewController()
             controller.mailComposeDelegate = self
             
-            controller.setToRecipients(["cow970814@kakao.com"])
-            controller.setSubject("MODA 문의 및 의견")
+            controller.setToRecipients(["MODA_email"~])
+            controller.setSubject("MODA_comment"~)
             self.present(controller, animated: true)
         }
     }
@@ -185,11 +188,11 @@ private extension SettingViewController {
     func presentMailSendFailAlert() {
         let controller = UIAlertController(
             title: "",
-            message: "메일을 발송하는데 문제가 발생하였습니다. 잠시후 다시 시도해주세요.",
+            message: "send_mail_error"~,
             preferredStyle: .alert
         )
         
-        controller.addAction(UIAlertAction(title: "확인", style: .default))
+        controller.addAction(UIAlertAction(title: "confirm"~, style: .default))
         
         present(controller, animated: true)
     }
@@ -197,9 +200,7 @@ private extension SettingViewController {
 
 private extension SettingViewController {
     func presentPolicyView() {
-        guard let url = URL(
-            string: "https://modacorp.notion.site/MODA-3249cb6456644ebeab9cdcbb3f5f2076?pvs=4"
-        ) else {
+        guard let url = URL(string: "policy_site"~) else {
             return
         }
         

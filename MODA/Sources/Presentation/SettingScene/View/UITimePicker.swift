@@ -11,7 +11,7 @@ protocol TimePickerDelegate: AnyObject {
 }
 
 class UITimePicker: UIPickerView {
-    private var amValue = "오전"
+    private var amValue = "AM"~
     private var hourCollection = Array(0...12)
     private var minuteCollection = Array(stride(from: 0, through: 50, by: 10))
     
@@ -85,10 +85,10 @@ extension UITimePicker: UIPickerViewDataSource {
         if component == .zero {
             label.text = amValue
         } else if component == 1 {
-            let item = hourCollection[row].dateDescription + " " + "시"
+            let item = hourCollection[row].dateDescription + " " + "hour"~
             label.text = item
         } else {
-            let item = minuteCollection[row].dateDescription + " " + "분"
+            let item = minuteCollection[row].dateDescription + " " + "minute"~
             label.text = item
         }
         

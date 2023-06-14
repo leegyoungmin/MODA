@@ -16,12 +16,12 @@ final class SignInViewController: UIViewController {
     }()
     
     private let idFormView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "아이디")
+        let formView = AuthFormStackView(title: "auth_id"~)
         return formView
     }()
     
     private let passwordFormView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "비밀번호")
+        let formView = AuthFormStackView(title: "auth_password"~)
         return formView
     }()
     
@@ -38,7 +38,7 @@ final class SignInViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = UIConstants.Colors.accentColor
         button.layer.cornerRadius = 8
-        button.setTitle("로그인하기", for: .normal)
+        button.setTitle("sign_in"~, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         button.setTitleColor(.white, for: .normal)
         return button
@@ -46,14 +46,14 @@ final class SignInViewController: UIViewController {
     
     private let signUpLabel: UILabel = {
         let label = UILabel()
-        label.text = "아직 계정이 없으신가요?"
+        label.text = "no_account"~
         label.font = .systemFont(ofSize: 14)
         return label
     }()
     
     private let signUpButton: UIButton = {
         let button = UIButton()
-        button.setTitle("회원가입하러 가기", for: .normal)
+        button.setTitle("go_sign_up"~, for: .normal)
         button.setTitleColor(UIConstants.Colors.accentColor, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button

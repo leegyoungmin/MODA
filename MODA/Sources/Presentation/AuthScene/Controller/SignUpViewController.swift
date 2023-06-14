@@ -13,18 +13,18 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 28)
         label.textColor = UIConstants.Colors.backgroundColor
-        label.text = "회원가입"
+        label.text = "sign_up"~
         return label
     }()
     
     private let idFormView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "아이디")
+        let formView = AuthFormStackView(title: "auth_id"~)
         return formView
     }()
     
     private let verifyImageButton: DisableButton = {
         let button = DisableButton()
-        button.setTitle("인증 메일 보내기", for: .normal)
+        button.setTitle("send_email"~, for: .normal)
         button.disabledColor = UIColor.secondarySystemBackground
         button.selectedColor = UIConstants.Colors.accentColor
         button.layer.cornerRadius = 8
@@ -32,19 +32,19 @@ final class SignUpViewController: UIViewController {
     }()
     
     private lazy var emailFormView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "이메일", additionalView: verifyImageButton)
+        let formView = AuthFormStackView(title: "email"~, additionalView: verifyImageButton)
         return formView
     }()
     
     private let passwordFormView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "비밀번호")
+        let formView = AuthFormStackView(title: "auth_password"~)
         return formView
     }()
     
     private let passwordConfirmView: AuthFormStackView = {
         let formView = AuthFormStackView(
-            title: "비밀번호 확인",
-            warning: "비밀번호가 일치하지 않습니다."
+            title: "password_confirm"~,
+            warning: "password_warning"~
         )
         return formView
     }()
@@ -53,7 +53,7 @@ final class SignUpViewController: UIViewController {
         let button = DisableButton()
         button.disabledColor = UIColor.secondarySystemBackground
         button.selectedColor = UIConstants.Colors.accentColor
-        button.setTitle("회원가입하기", for: .normal)
+        button.setTitle("sign_up"~, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         button.layer.cornerRadius = 8
         button.isEnabled = false
@@ -143,12 +143,12 @@ private extension SignUpViewController {
 private extension SignUpViewController {
     func presentErrorAlert() {
         let alert = UIAlertController(
-            title: "이미 가입된 회원입니다.",
-            message: "회원으로 가입 되어 있는 계정입니다. 로그인을 시도해주세요.",
+            title: "user_already_title"~,
+            message: "user_already_message"~,
             preferredStyle: .alert
         )
         
-        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        alert.addAction(UIAlertAction(title: "confirm"~, style: .default))
         self.present(alert, animated: true)
     }
 }

@@ -39,9 +39,9 @@ private extension TabViewController {
         
         var title: String {
             switch self {
-            case .home:     return "홈"
-            case .save:     return "저장일기"
-            case .setting:  return "설정"
+            case .home:     return "home"~
+            case .save:     return "saved_diary"~
+            case .setting:  return "setting"~
             }
         }
         

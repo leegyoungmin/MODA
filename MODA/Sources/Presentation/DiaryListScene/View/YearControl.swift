@@ -31,7 +31,7 @@ final class YearControl: UIStackView {
     
     let yearLabel: UILabel = {
         let label = UILabel()
-        label.text = Date().toString("yyyy년")
+        label.text = Date().toString("yyyy")
         return label
     }()
     

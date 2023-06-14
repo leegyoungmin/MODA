@@ -4,6 +4,8 @@
 //
 //  Copyright (c) 2023 Minii All rights reserved.
 
+import Foundation
+
 struct SettingSection {
     let title: String
     let options: [SettingOption]
@@ -15,14 +17,21 @@ struct SettingOption {
 }
 
 extension SettingSection {
-    static let defaultSettings: [SettingSection] = [
-        .init(title: "알림 설정", options: [
-            .init(title: "알림 시간", content: "09:00")
-        ]),
-        .init(title: "고객 센터", options: [
-            .init(title: "의견보내기", content: ""),
-            .init(title: "별점남기기", content: ""),
-            .init(title: "개인정보처리방침", content: "")
-        ])
-    ]
+    static func generateSettings() -> [SettingSection] {
+        let hour = UserDefaults.standard.integer(forKey: "notificationHour")
+        let minute = UserDefaults.standard.integer(forKey: "notificationMinute")
+        
+        let description = String(format: "%02d", hour) + ":" + String(format: "%02d", minute)
+        
+        return [
+            .init(title: "alert_setting"~, options: [
+                .init(title: "alert_time"~, content: description)
+            ]),
+            .init(title: "service_center"~, options: [
+                .init(title: "send_comment"~, content: ""),
+                .init(title: "send_star"~, content: ""),
+                .init(title: "policy_title"~, content: "")
+            ])
+        ]
+    }
 }

@@ -24,7 +24,7 @@ final class SavedDiaryViewController: UIViewController {
     
     private let emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "저장된 일기가 없습니다.\n홈화면에서 다시 보고 싶은 일기를 저장해보세요."
+        label.text = "noting_saved_diary"~
         label.textAlignment = .center
         label.textColor = .secondaryLabel
         label.numberOfLines = 0
@@ -108,6 +108,8 @@ private extension SavedDiaryViewController {
         emptyLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-16)
         }
     }
 }

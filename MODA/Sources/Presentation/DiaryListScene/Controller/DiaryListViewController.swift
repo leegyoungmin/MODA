@@ -43,7 +43,7 @@ final class DiaryListViewController: UIViewController {
     
     private let emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "작성된 일기가 없습니다."
+        label.text = "noting_write_diary"~
         label.textAlignment = .center
         label.textColor = .secondaryLabel
         label.numberOfLines = 0
@@ -193,14 +193,14 @@ private extension DiaryListViewController {
     
     func presentDeleteAlert(with item: Diary) {
         let alertController = UIAlertController(
-            title: "정말 삭제하시겠습니까?",
+            title: "delete_alert_title"~,
             message: nil,
             preferredStyle: .alert
         )
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let cancelAction = UIAlertAction(title: "cancel"~, style: .cancel)
         
-        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+        let deleteAction = UIAlertAction(title: "delete"~, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             
             self.deleteItemTrigger.on(.next(item))
