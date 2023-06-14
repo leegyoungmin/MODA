@@ -20,13 +20,13 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         self.diaryRepository = diaryRepository
     }
     
-    func loadAllDiaries() {
+    func loadAllDiaries(option: [String: String] = [:]) {
         guard let month = try? selectedMonth.value(),
               let year = try? selectedYear.value() else { return }
         
         let query = "\"createdMonth\": \(month), \"createdYear\": \(year)"
         
-        self.diaryRepository.fetchSearchDiaries(query: query)
+        self.diaryRepository.fetchSearchDiaries(query: query, options: option)
             .subscribe { [weak self] diaries in
                 self?.diaries.on(.next(diaries))
             }

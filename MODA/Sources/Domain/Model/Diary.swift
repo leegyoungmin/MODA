@@ -49,6 +49,10 @@ struct Diary: Codable {
         case createdYear, createdMonth, createdDay
         case isLike
     }
+    
+    var dateDescription: String {
+        return "\(createdYear)년 \(createdMonth)월 \(createdDay)일"
+    }
 }
 
 struct DiaryRequestDTO: Codable {

@@ -49,7 +49,7 @@ final class DiaryListViewModel: ViewModel {
             .merge()
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
-                self.diaryListUseCase.loadAllDiaries()
+                self.diaryListUseCase.loadAllDiaries(option: [:])
             }
             .disposed(by: disposeBag)
         
@@ -73,7 +73,7 @@ final class DiaryListViewModel: ViewModel {
             .subscribe { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.diaryListUseCase.loadAllDiaries()
+                self.diaryListUseCase.loadAllDiaries(option: [:])
             }
             .disposed(by: disposeBag)
     }

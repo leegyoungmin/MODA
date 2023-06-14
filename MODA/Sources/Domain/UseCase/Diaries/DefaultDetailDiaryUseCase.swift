@@ -28,7 +28,7 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
     func fetchCurrentDiary() {
         let query = "\"objectId\":\"\(selectedId)\""
         
-        repository.fetchSearchDiaries(query: query)
+        repository.fetchSearchDiaries(query: query, options: [:])
             .compactMap(\.first)
             .subscribe { [weak self] diary in
                 guard let self = self, let value = diary.element else { return }
@@ -56,7 +56,8 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
         .flatMap { [weak self] _ -> Observable<[Diary]> in
             guard let self = self else { return Observable.just([]) }
             return self.repository.fetchSearchDiaries(
-                query: "{\"objectId\":\"\(self.selectedId)\"}"
+                query: "{\"objectId\":\"\(self.selectedId)\"}",
+                options: [:]
             )
         }
         .compactMap(\.first)

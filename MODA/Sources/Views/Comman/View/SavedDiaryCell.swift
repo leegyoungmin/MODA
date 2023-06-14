@@ -37,6 +37,7 @@ final class SavedDiaryCell: UICollectionViewCell {
     }()
     
     func setUpData(to diary: Diary) {
+        self.dateLabel.text = diary.dateDescription
         self.conditionLabel.text = diary.condition.description
         self.contentLabel.text = diary.content
     }
@@ -98,7 +99,7 @@ private extension SavedDiaryCell {
             $0.top.equalTo(dividerView.snp.bottom).offset(12)
             $0.leading.equalTo(dateLabel.snp.leading)
             $0.trailing.equalTo(conditionLabel.snp.trailing)
-            $0.bottom.equalToSuperview().offset(-12)
+            $0.bottom.lessThanOrEqualToSuperview().offset(-12)
         }
     }
 }

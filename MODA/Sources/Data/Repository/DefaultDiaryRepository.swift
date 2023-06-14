@@ -24,8 +24,8 @@ final class DefaultDiaryRepository: DiaryRepository {
         self.selectedMonth = BehaviorSubject(value: month)
     }
     
-    func fetchSearchDiaries(query: String) -> Observable<[Diary]> {
-        return diaryService.searchDiaries(query: query)
+    func fetchSearchDiaries(query: String, options: [String: String] = [:]) -> Observable<[Diary]> {
+        return diaryService.searchDiaries(query: query, option: options)
             .map { $0.results }
     }
     

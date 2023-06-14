@@ -39,6 +39,26 @@ final class SavedDiaryViewController: UIViewController {
 
 private extension SavedDiaryViewController {
     func bindings() {
+        let viewWillAppear = rx.methodInvoked(#selector(viewWillAppear)).map { _ in }
+        
+        let input = SavedDiaryViewModel.Input(
+            viewWillAppear: viewWillAppear.asObservable()
+        )
+        
+        let output = viewModel?.transform(input: input)
+        
+        output?.likeDiaries
+            .bind(
+                to: savedDiaryListView.rx.items(
+                    cellIdentifier: SavedDiaryCell.identifier,
+                    cellType: SavedDiaryCell.self
+                )
+            ) { _, model, cell in
+                cell.setUpData(to: model)
+            }
+            .disposed(by: disposeBag)
+        
+        
         savedDiaryListView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }

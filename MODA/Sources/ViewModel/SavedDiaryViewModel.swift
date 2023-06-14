@@ -8,11 +8,11 @@ import RxSwift
 
 final class SavedDiaryViewModel: ViewModel {
     struct Input {
-        
+        var viewWillAppear: Observable<Void>
     }
     
     struct Output {
-        
+        var likeDiaries: Observable<[Diary]>
     }
     
     private let useCase: SavedDiaryUseCase
@@ -23,6 +23,15 @@ final class SavedDiaryViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        return Output()
+        input.viewWillAppear
+            .subscribe { [weak self] _ in
+                guard let self = self else { return }
+                self.useCase.loadLikeDiaries()
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(
+            likeDiaries: useCase.savedDiaries
+        )
     }
 }

@@ -31,7 +31,7 @@ final class DefaultDiaryWriteUseCase: DiaryWriteUseCase {
 """
         self.saveState.onNext(.loading)
         
-        diaryRepository.fetchSearchDiaries(query: query)
+        diaryRepository.fetchSearchDiaries(query: query, options: [:])
             .catch { [weak self] _ in
                 guard let self = self else { return .just([]) }
                 

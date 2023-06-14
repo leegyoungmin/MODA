@@ -12,6 +12,6 @@ protocol DiaryListUseCase {
     var selectedMonth: BehaviorSubject<Int> { get set }
     var removeSuccess: PublishSubject<Void> { get set }
     
-    func loadAllDiaries()
+    func loadAllDiaries(option: [String: String])
     func deleteItem(with diary: Diary)
 }
