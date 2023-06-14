@@ -41,6 +41,15 @@ final class DiaryListViewController: UIViewController {
         return button
     }()
     
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "작성된 일기가 없습니다."
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.numberOfLines = 0
+        return label
+    }()
+    
     // MARK: - Properties of Data
     private var viewModel: DiaryListViewModel?
     
@@ -105,6 +114,11 @@ private extension DiaryListViewController {
                 
                 cell.setUpDatas(to: model)
             }
+            .disposed(by: disposeBag)
+        
+        output?.diaries
+            .map { $0.isEmpty == false }
+            .bind(to: emptyLabel.rx.isHidden)
             .disposed(by: disposeBag)
         
         output?.removed
@@ -256,13 +270,18 @@ private extension DiaryListViewController {
     }
     
     func configureHierarchy() {
-        [diaryListTableView].forEach(view.addSubview)
+        [diaryListTableView, emptyLabel].forEach(view.addSubview)
     }
     
     func makeConstraints() {
         diaryListTableView.snp.makeConstraints {
             $0.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalToSuperview()
+        }
+        
+        emptyLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
     }
 }

@@ -22,6 +22,15 @@ final class SavedDiaryViewController: UIViewController {
         return collectionView
     }()
     
+    private let emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "저장된 일기가 없습니다.\n홈화면에서 다시 보고 싶은 일기를 저장해보세요."
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.numberOfLines = 0
+        return label
+    }()
+    
     private var viewModel: SavedDiaryViewModel?
     private let disposeBag = DisposeBag()
     
@@ -58,6 +67,11 @@ private extension SavedDiaryViewController {
             }
             .disposed(by: disposeBag)
         
+        output?.likeDiaries
+            .map { $0.isEmpty == false }
+            .bind(to: emptyLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
         
         savedDiaryListView.rx.setDelegate(self)
             .disposed(by: disposeBag)
@@ -83,12 +97,17 @@ private extension SavedDiaryViewController {
     }
     
     func configureHierarchy() {
-        [savedDiaryListView].forEach(view.addSubview)
+        [savedDiaryListView, emptyLabel].forEach(view.addSubview)
     }
     
     func makeConstraints() {
         savedDiaryListView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
     }
 }
