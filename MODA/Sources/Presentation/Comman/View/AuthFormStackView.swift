@@ -14,8 +14,8 @@ final class AuthFormStackView: UIStackView {
         return label
     }()
     
-    let textField: PaddingTextField = {
-        let textField = PaddingTextField()
+    let textField: UIPaddingTextField = {
+        let textField = UIPaddingTextField()
         textField.backgroundColor = UIConstants.Colors.secondaryColor
         textField.layer.cornerRadius = 8
         textField.autocapitalizationType = .none

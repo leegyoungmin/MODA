@@ -75,6 +75,7 @@
 		18D0154E2A1FBA45002DBF22 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154D2A1FBA45002DBF22 /* RxCocoa */; };
 		18D015502A1FBA45002DBF22 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 18D0154F2A1FBA45002DBF22 /* RxRelay */; };
 		18D015522A1FBA45002DBF22 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D015512A1FBA45002DBF22 /* RxSwift */; };
+		18DD3D2C2A3A0A4500BB142F /* UIPaddingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DD3D2B2A3A0A4500BB142F /* UIPaddingTextField.swift */; };
 		18E600702A2B20180056A879 /* Encodable + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */; };
 		18E632232A2A370E009FD40D /* DiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */; };
 		18E632252A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */; };
@@ -151,6 +152,7 @@
 		18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		18C9A3172A307382002F7B81 /* DetailDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDiaryUseCase.swift; sourceTree = "<group>"; };
 		18C9A3192A3073CB002F7B81 /* DefaultDetailDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDetailDiaryUseCase.swift; sourceTree = "<group>"; };
+		18DD3D2B2A3A0A4500BB142F /* UIPaddingTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPaddingTextField.swift; sourceTree = "<group>"; };
 		18E6006F2A2B20180056A879 /* Encodable + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable + Extensions.swift"; sourceTree = "<group>"; };
 		18E632222A2A370E009FD40D /* DiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryWriteUseCase.swift; sourceTree = "<group>"; };
 		18E632242A2A3728009FD40D /* DefaultDiaryWriteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDiaryWriteUseCase.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 				186FDFD52A30134E0025D974 /* RoundRectangleButton.swift */,
 				18BDA4092A1E150E000C5BFA /* SavedDiaryCell.swift */,
 				18BDA40D2A1E5BE8000C5BFA /* SettingCell.swift */,
+				18DD3D2B2A3A0A4500BB142F /* UIPaddingTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				184680872A3311CA0052BC5C /* SignInViewModel.swift in Sources */,
 				183DF6252A38600300546825 /* DefaultSavedDiaryUseCase.swift in Sources */,
 				189BE25F2A31B759006B6374 /* NoticeSettingViewController.swift in Sources */,
+				18DD3D2C2A3A0A4500BB142F /* UIPaddingTextField.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
 				1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */,
 				1892155B2A344876002C3A4C /* User.swift in Sources */,
