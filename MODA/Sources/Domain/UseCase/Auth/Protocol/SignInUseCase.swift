@@ -9,7 +9,7 @@ import RxSwift
 protocol SignInUseCase: AnyObject {
     var id: BehaviorSubject<String> { get set }
     var password: BehaviorSubject<String> { get set }
-    var user: BehaviorSubject<User?> { get set }
+    var isSaved: PublishSubject<Bool> { get set }
     
     func fetchUser()
     func login()

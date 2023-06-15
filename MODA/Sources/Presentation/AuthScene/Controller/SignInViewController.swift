@@ -128,20 +128,15 @@ private extension SignInViewController {
         
         let output = viewModel.transform(input: input)
         
-        output.currentUser
-            .asDriver(onErrorJustReturn: nil)
-            .drive(currentUser)
-            .disposed(by: disposeBag)
-        
-        currentUser
-            .asDriver(onErrorJustReturn: nil)
-            .drive { [weak self] user in
-                guard let self = self else { return }
-                
-                if let user = user {
-                    let data = try? JSONEncoder().encode(user)
-                    UserDefaults.standard.set(data, forKey: "currentUser")
+        output.isSaved
+            .observe(on: MainScheduler.instance)
+            .subscribe { isSaved in
+                if isSaved {
                     self.presentMainViewController()
+                } else {
+                    let controller = UIAlertController(title: "로그인 실패", message: "아이디와 비밀번호를 확인해주세요.", preferredStyle: .alert)
+                    controller.addAction(UIAlertAction(title: "확인", style: .default))
+                    self.present(controller, animated: true)
                 }
             }
             .disposed(by: disposeBag)

@@ -6,6 +6,7 @@
 
 import RxSwift
 import Foundation
+import RxRelay
 
 final class SignInViewModel: ViewModel {
     struct Input {
@@ -16,7 +17,7 @@ final class SignInViewModel: ViewModel {
     }
     
     struct Output {
-        var currentUser: Observable<User?>
+        var isSaved: Observable<Bool>
     }
     
     let useCase: SignInUseCase
@@ -49,8 +50,9 @@ final class SignInViewModel: ViewModel {
                 self.useCase.login()
             }
             .disposed(by: disposeBag)
+        
         return Output(
-            currentUser: useCase.user
+            isSaved: self.useCase.isSaved
         )
     }
 }
