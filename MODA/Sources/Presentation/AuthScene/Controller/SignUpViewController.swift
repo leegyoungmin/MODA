@@ -115,25 +115,17 @@ private extension SignUpViewController {
             .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        output.signInUser
+        output.signUpSuccess
             .observe(on: MainScheduler.instance)
-            .catch { _ in
-                    .just(nil)
-            }
-            .subscribe { [weak self] user in
-                guard let self = self,
-                      let user = user.element else {
-                    return
-                }
+            .subscribe { [weak self] isSuccess in
+                guard let self = self else { return }
                 
-                if user == nil {
-                    presentErrorAlert()
-                }
-                
-                if let user = user {
-                    let data = try? JSONEncoder().encode(user)
-                    UserDefaults.standard.set(data, forKey: "currentUser")
+                if isSuccess == true {
                     self.dismiss(animated: true)
+                }
+                
+                if isSuccess == false {
+                    self.presentErrorAlert()
                 }
             }
             .disposed(by: disposeBag)

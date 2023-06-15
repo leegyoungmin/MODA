@@ -174,9 +174,9 @@ private extension SignInViewController {
         
         let controller = SignUpViewController(viewModel: viewModel)
         
-        useCase.signInUser
-            .asDriver(onErrorJustReturn: nil)
-            .drive(currentUser)
+        useCase.isSignInSuccess
+            .filter { $0 }
+            .subscribe(onNext: handleLoginResult)
             .disposed(by: disposeBag)
         
         self.present(controller, animated: true)

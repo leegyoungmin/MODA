@@ -6,12 +6,13 @@
 
 import RxSwift
 import RxRelay
+import Foundation
 
 final class DefaultSignUpUseCase: SignUpUseCase {
     var id = BehaviorSubject<String>(value: "")
     var password = BehaviorSubject<String>(value: "")
     var email = BehaviorSubject<String>(value: "")
-    var signInUser = PublishSubject<User?>()
+    var isSignInSuccess = PublishSubject<Bool>()
     
     private let repository: AuthRepository
     private var disposeBag = DisposeBag()
@@ -24,7 +25,7 @@ final class DefaultSignUpUseCase: SignUpUseCase {
         guard let id = try? id.value(),
               let email = try? email.value(),
               let password = try? password.value() else {
-            self.signInUser.on(.error(NetworkError.unknownError))
+            self.isSignInSuccess.onNext(false)
             return
         }
         
@@ -38,7 +39,21 @@ final class DefaultSignUpUseCase: SignUpUseCase {
             .flatMap { _ in
                 return self.repository.signIn(id: id, password: password)
             }
-            .bind(to: signInUser)
+            .asDriver(onErrorJustReturn: User.empty)
+            .drive { [weak self] user in
+                guard let self = self else { return }
+                
+                if user.sessionToken.isEmpty {
+                    isSignInSuccess.onNext(false)
+                    return
+                }
+                
+                if let data = try? JSONEncoder().encode(user) {
+                    UserDefaults.standard.set(data, forKey: "currentUser")
+                    
+                    self.isSignInSuccess.onNext(true)
+                }
+            }
             .disposed(by: disposeBag)
     }
 }
