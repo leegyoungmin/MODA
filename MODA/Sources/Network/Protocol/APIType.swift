@@ -48,8 +48,6 @@ extension APIType {
         
         request.httpMethod = method
         
-        print(request.allHTTPHeaderFields)
-        
         if let body = body {
             let jsonData = try? JSONSerialization.data(withJSONObject: body)
             request.httpBody = jsonData

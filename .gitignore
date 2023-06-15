@@ -139,4 +139,6 @@ xcuserdata
 *.xcodeproj
 .xcconfig
 
+APISecret.xcconfig
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager,cocoapods,macos,carthage

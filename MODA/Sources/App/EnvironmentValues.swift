@@ -17,12 +17,8 @@ final class EnvironmentValues {
             self.apiKey = apiKey
         }
         
-        print(apiKey)
-        
         if let applicationId = Bundle.main.object(forInfoDictionaryKey: "APP-ID") as? String {
             self.applicationId = applicationId
         }
-        
-        print(applicationId)
     }
 }
