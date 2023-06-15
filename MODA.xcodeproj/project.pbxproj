@@ -125,8 +125,8 @@
 		1846808E2A3314320052BC5C /* SignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUseCase.swift; sourceTree = "<group>"; };
 		184680902A33144C0052BC5C /* DefaultSignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignInUseCase.swift; sourceTree = "<group>"; };
 		184680922A3314FC0052BC5C /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		1859E0CA2A3AF21A009616BA /* APISecret.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APISecret.xcconfig; sourceTree = "<group>"; };
 		1859E0CB2A3AF349009616BA /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
+		1859E0CD2A3AF888009616BA /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		185F81612A1CC6F000C4D554 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		185F81682A1CCB7700C4D554 /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
 		186EEABC2A2A192B00F16646 /* DiaryListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListUseCase.swift; sourceTree = "<group>"; };
@@ -289,10 +289,10 @@
 		180F957A2A1B355F00C571FD /* MODA */ = {
 			isa = PBXGroup;
 			children = (
-				1859E0CA2A3AF21A009616BA /* APISecret.xcconfig */,
 				189BE2572A319343006B6374 /* MODA.entitlements */,
 				180F95902A1B3C5200C571FD /* Resource */,
 				180F95912A1B3C5600C571FD /* Sources */,
+				1859E0CD2A3AF888009616BA /* Secrets.xcconfig */,
 			);
 			path = MODA;
 			sourceTree = "<group>";
@@ -840,7 +840,6 @@
 /* Begin XCBuildConfiguration section */
 		180F958A2A1B356000C571FD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1859E0CA2A3AF21A009616BA /* APISecret.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -902,7 +901,6 @@
 		};
 		180F958B2A1B356000C571FD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1859E0CA2A3AF21A009616BA /* APISecret.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
