@@ -37,6 +37,7 @@ struct Diary: Codable {
     let createdYear: Int
     let createdMonth: Int
     let createdDay: Int
+    var isLike: Bool
     
     enum CodingKeys: String, CodingKey {
         case id = "objectId"
@@ -46,44 +47,10 @@ struct Diary: Codable {
         case createdDate = "createdAt"
         case issuedDate = "updatedAt"
         case createdYear, createdMonth, createdDay
-    }
-}
-
-struct DiaryRequestDTO: Codable {
-    let content: String
-    let condition: Int
-    let createdUser: UserPointer
-    let createdYear: Int
-    let createdMonth: Int
-    let createdDay: Int
-    
-    init(content: String, condition: Int, userId: String) {
-        self.content = content
-        self.condition = condition
-        self.createdUser = UserPointer(id: userId)
-        self.createdYear = Date().toInt(.year)
-        self.createdMonth = Date().toInt(.month)
-        self.createdDay = Date().toInt(.day)
-    }
-}
-
-struct DiaryUpdateDTO: Codable {
-    let content: String
-    let condition: Int
-}
-
-struct UserPointer: Codable {
-    let id: String
-    let type: String = "Pointer"
-    let className: String = "_User"
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "objectId"
-        case type = "__type"
-        case className
+        case isLike
     }
     
-    var query: String {
-        return "\"createdUser\":{\"__type\":\"\(type)\",\"className\":\"\(className)\",\"objectId\":\"\(id)\"}"
+    var dateDescription: String {
+        return "\(createdYear)년 \(createdMonth)월 \(createdDay)일"
     }
 }

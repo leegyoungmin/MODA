@@ -7,8 +7,8 @@
 import RxSwift
 
 protocol DiaryRepository {
-    func fetchSearchDiaries(query: String) -> Observable<[Diary]>
+    func fetchSearchDiaries(query: String, options: [String: String]) -> Observable<[Diary]>
     func createNewDiary(content: String, condition: Int) -> Observable<Void>
-    func updateDiary(id: String, content: String, condition: Int) -> Observable<Void>
+    func updateDiary(id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void>
     func removeDiary(id: String) -> Observable<Void>
 }

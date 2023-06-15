@@ -24,8 +24,8 @@ final class DefaultDiaryRepository: DiaryRepository {
         self.selectedMonth = BehaviorSubject(value: month)
     }
     
-    func fetchSearchDiaries(query: String) -> Observable<[Diary]> {
-        return diaryService.searchDiaries(query: query)
+    func fetchSearchDiaries(query: String, options: [String: String] = [:]) -> Observable<[Diary]> {
+        return diaryService.searchDiaries(query: query, option: options)
             .map { $0.results }
     }
     
@@ -33,8 +33,8 @@ final class DefaultDiaryRepository: DiaryRepository {
         return diaryService.createNewDiary(content: content, condition: condition)
     }
     
-    func updateDiary(id: String, content: String, condition: Int) -> Observable<Void> {
-        return diaryService.updateDiary(to: id, content: content, condition: condition)
+    func updateDiary(id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void> {
+        return diaryService.updateDiary(to: id, content: content, condition: condition, isLike: isLike)
     }
     
     func removeDiary(id: String) -> Observable<Void> {

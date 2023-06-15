@@ -29,3 +29,19 @@ struct User: Codable {
         sessionToken: ""
     )
 }
+
+struct UserPointer: Codable {
+    let id: String
+    let type: String = "Pointer"
+    let className: String = "_User"
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "objectId"
+        case type = "__type"
+        case className
+    }
+    
+    var query: String {
+        return "\"createdUser\":{\"__type\":\"\(type)\",\"className\":\"\(className)\",\"objectId\":\"\(id)\"}"
+    }
+}

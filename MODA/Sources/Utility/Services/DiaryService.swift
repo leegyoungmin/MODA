@@ -9,9 +9,9 @@ import Foundation
 
 protocol DiaryServicing: AnyObject {
     func loadDiaries() -> Observable<Diaries>
-    func searchDiaries(query: String) -> Observable<Diaries>
+    func searchDiaries(query: String, option: [String: String]) -> Observable<Diaries>
     func createNewDiary(content: String, condition: Int) -> Observable<Void>
-    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void>
+    func updateDiary(to id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void>
     func removeDiary(id: String) -> Observable<Void>
 }
 
@@ -32,8 +32,10 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func searchDiaries(query: String) -> Observable<Diaries> {
-        let api = API.searchDiaries(token: user.sessionToken, query: query)
+    func searchDiaries(query: String, option: [String: String] = [:]) -> Observable<Diaries> {
+        let userPoint = UserPointer(id: user.identifier).query
+        let userQuery = "{\(userPoint), \(query)}"
+        let api = API.searchDiaries(token: user.sessionToken, query: userQuery, option: option)
         return DefaultNetworkService().request(to: api)
     }
     
@@ -48,8 +50,8 @@ final class DiaryService: DiaryServicing {
         return DefaultNetworkService().request(to: api)
     }
     
-    func updateDiary(to id: String, content: String, condition: Int) -> Observable<Void> {
-        let requestDTO = DiaryUpdateDTO(content: content, condition: condition)
+    func updateDiary(to id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void> {
+        let requestDTO = DiaryUpdateDTO(content: content, condition: condition, isLike: isLike)
         let api = API.updateDiary(
             token: user.sessionToken,
             id: id,
@@ -68,7 +70,7 @@ final class DiaryService: DiaryServicing {
 private extension DiaryService {
     enum API {
         case loadDiaries(token: String)
-        case searchDiaries(token: String, query: String)
+        case searchDiaries(token: String, query: String, option: [String: String])
         case createDiary(token: String, diary: [String: Any]?)
         case updateDiary(token: String, id: String, diary: [String: Any]?)
         case removeDiary(token: String, id: String)
@@ -108,7 +110,8 @@ extension DiaryService.API: APIType {
     
     var headers: [String: String] {
         switch self {
-        case .loadDiaries(let token), .removeDiary(let token, _), .searchDiaries(let token, _):
+        case .loadDiaries(let token), .removeDiary(let token, _),
+                .searchDiaries(let token, _, _):
             return [
                 "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
                 "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
@@ -135,8 +138,12 @@ extension DiaryService.API: APIType {
     
     var params: [String: String] {
         switch self {
-        case .searchDiaries(_, let query):
-            return ["where": query]
+        case .searchDiaries(_, let query, let option):
+            var params = ["where": query]
+            option.forEach {
+                params[$0.key] = $0.value
+            }
+            return params
         default:
             return [:]
         }
