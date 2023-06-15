@@ -130,25 +130,13 @@ private extension SignInViewController {
         
         output.isSaved
             .observe(on: MainScheduler.instance)
-            .subscribe { isSaved in
-                if isSaved {
-                    self.presentMainViewController()
-                } else {
-                    let controller = UIAlertController(title: "로그인 실패", message: "아이디와 비밀번호를 확인해주세요.", preferredStyle: .alert)
-                    controller.addAction(UIAlertAction(title: "확인", style: .default))
-                    self.present(controller, animated: true)
-                }
-            }
+            .bind(onNext: handleLoginResult)
             .disposed(by: disposeBag)
     }
     
     func bindingView() {
         signUpButton.rx.tap
-            .bind { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.presentSignUpView()
-            }
+            .bind(onNext: presentSignUpView)
             .disposed(by: disposeBag)
         
         Notification.keyboardWillShow()
@@ -192,6 +180,25 @@ private extension SignInViewController {
             .disposed(by: disposeBag)
         
         self.present(controller, animated: true)
+    }
+    
+    func handleLoginResult(_ isSaved: Bool) {
+        if isSaved {
+            presentMainViewController()
+        } else {
+            presentLoginFailAlert()
+        }
+    }
+    
+    func presentLoginFailAlert() {
+        let controller = UIAlertController(
+            title: "로그인 실패",
+            message: "아이디와 비밀번호를 확인해주세요.",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "확인", style: .default))
+        
+        present(controller, animated: true)
     }
 }
 
