@@ -42,6 +42,7 @@
 		1846808F2A3314320052BC5C /* SignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846808E2A3314320052BC5C /* SignInUseCase.swift */; };
 		184680912A33144C0052BC5C /* DefaultSignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184680902A33144C0052BC5C /* DefaultSignInUseCase.swift */; };
 		184680932A3314FC0052BC5C /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184680922A3314FC0052BC5C /* SignUpViewModel.swift */; };
+		1859E0CC2A3AF349009616BA /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E0CB2A3AF349009616BA /* EnvironmentValues.swift */; };
 		185F81622A1CC6F000C4D554 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81612A1CC6F000C4D554 /* Diary.swift */; };
 		185F81662A1CCA6A00C4D554 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 185F81652A1CCA6A00C4D554 /* SnapKit */; };
 		185F81692A1CCB7700C4D554 /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185F81682A1CCB7700C4D554 /* DiaryListCell.swift */; };
@@ -124,6 +125,8 @@
 		1846808E2A3314320052BC5C /* SignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUseCase.swift; sourceTree = "<group>"; };
 		184680902A33144C0052BC5C /* DefaultSignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignInUseCase.swift; sourceTree = "<group>"; };
 		184680922A3314FC0052BC5C /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		1859E0CA2A3AF21A009616BA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		1859E0CB2A3AF349009616BA /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		185F81612A1CC6F000C4D554 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		185F81682A1CCB7700C4D554 /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
 		186EEABC2A2A192B00F16646 /* DiaryListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListUseCase.swift; sourceTree = "<group>"; };
@@ -262,6 +265,7 @@
 			children = (
 				180F957B2A1B355F00C571FD /* AppDelegate.swift */,
 				180F957D2A1B355F00C571FD /* SceneDelegate.swift */,
+				1859E0CB2A3AF349009616BA /* EnvironmentValues.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -299,6 +303,7 @@
 				180F95862A1B356000C571FD /* LaunchScreen.storyboard */,
 				180F95892A1B356000C571FD /* Info.plist */,
 				18DD3D332A3A0BAE00BB142F /* Localizable.strings */,
+				1859E0CA2A3AF21A009616BA /* Config.xcconfig */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -767,6 +772,7 @@
 				18DD3D2C2A3A0A4500BB142F /* UIPaddingTextField.swift in Sources */,
 				182162402A2F2AA500A27374 /* DetailDiaryViewController.swift in Sources */,
 				1804BB522A32CC8400D96F7D /* UNNotification + Extensions.swift in Sources */,
+				1859E0CC2A3AF349009616BA /* EnvironmentValues.swift in Sources */,
 				1892155B2A344876002C3A4C /* User.swift in Sources */,
 				1846808F2A3314320052BC5C /* SignInUseCase.swift in Sources */,
 				187CA8FE2A29B2580018B8CB /* MonthControl.swift in Sources */,
@@ -834,6 +840,7 @@
 /* Begin XCBuildConfiguration section */
 		180F958A2A1B356000C571FD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1859E0CA2A3AF21A009616BA /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -895,6 +902,7 @@
 		};
 		180F958B2A1B356000C571FD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1859E0CA2A3AF21A009616BA /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

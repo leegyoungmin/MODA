@@ -87,15 +87,11 @@ extension UserService.API: APIType {
         switch self {
         case .saveInstallation:
             return [
-                "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
-                "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
                 "Content-Type": "application/json"
             ]
             
         case .createUser, .login:
             return [
-                "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
-                "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
                 "X-Parse-Revocable-Session": "1",
                 "Content-Type": "application/json"
             ]

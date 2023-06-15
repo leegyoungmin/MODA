@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  MODA
+//
+//  Copyright (c) 2023 Minii All rights reserved.
+        
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_APPLICATION_ID = T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz
+API_KEY = 8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M

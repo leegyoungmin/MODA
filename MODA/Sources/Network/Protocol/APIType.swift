@@ -18,6 +18,13 @@ protocol APIType {
 }
 
 extension APIType {
+    static var baseHeader: [String: String] {
+        [
+            "X-Parse-Application-Id": EnvironmentValues.shared.applicationId,
+            "X-Parse-REST-API-Key": EnvironmentValues.shared.apiKey
+        ]
+    }
+    
     func generateRequest() throws -> URLRequest {
         guard var urlComponent = URLComponents(string: baseURL + path) else { throw NetworkError.unknownError }
         let parameters = params.map {
@@ -31,8 +38,17 @@ extension APIType {
         }
         
         var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = headers
+        headers.forEach {
+            request.addValue($0.value, forHTTPHeaderField: $0.key)
+        }
+        
+        Self.baseHeader.forEach {
+            request.addValue($0.value, forHTTPHeaderField: $0.key)
+        }
+        
         request.httpMethod = method
+        
+        print(request.allHTTPHeaderFields)
         
         if let body = body {
             let jsonData = try? JSONSerialization.data(withJSONObject: body)

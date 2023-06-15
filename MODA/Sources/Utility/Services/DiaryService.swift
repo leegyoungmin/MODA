@@ -110,18 +110,13 @@ extension DiaryService.API: APIType {
     
     var headers: [String: String] {
         switch self {
-        case .loadDiaries(let token), .removeDiary(let token, _),
-                .searchDiaries(let token, _, _):
+        case .loadDiaries(let token), .removeDiary(let token, _), .searchDiaries(let token, _, _):
             return [
-                "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
-                "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
                 "X-Parse-Session-Token": token
             ]
             
         case .createDiary(let token, _), .updateDiary(let token, _, _):
             return [
-                "X-Parse-Application-Id": "T5Idi2coPjEwJ1e30yj8qfgcwvxYHnKlnz4HpyLz",
-                "X-Parse-REST-API-Key": "8EFZ0dSEauC938nFNQ3MVV3rvIgJzKlDsLhIxf9M",
                 "X-Parse-Session-Token": token,
                 "Content-Type": "application/json"
             ]
