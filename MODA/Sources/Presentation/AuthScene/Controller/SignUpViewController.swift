@@ -37,7 +37,10 @@ final class SignUpViewController: UIViewController {
     }()
     
     private let passwordFormView: AuthFormStackView = {
-        let formView = AuthFormStackView(title: "auth_password"~)
+        let formView = AuthFormStackView(
+            title: "auth_password"~,
+            warning: "password_length_warning"~
+        )
         return formView
     }()
     
@@ -46,6 +49,7 @@ final class SignUpViewController: UIViewController {
             title: "password_confirm"~,
             warning: "password_warning"~
         )
+        formView.warningLabel.isHidden = false
         return formView
     }()
     
@@ -107,6 +111,10 @@ private extension SignUpViewController {
             .bind(to: verifyImageButton.rx.isEnabled)
             .disposed(by: disposeBag)
         
+        output.passwordLength
+            .bind(to: passwordFormView.warningLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
         output.passwordValid
             .bind(to: passwordConfirmView.warningLabel.rx.isHidden)
             .disposed(by: disposeBag)
@@ -119,8 +127,6 @@ private extension SignUpViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] user in
                 guard let self = self else { return }
-                
-                print(user)
                 
                 if user.sessionToken.isEmpty == true {
                     presentErrorAlert()

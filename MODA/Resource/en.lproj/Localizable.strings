@@ -9,6 +9,7 @@
 "send_email" = "Send verification email";
 "password_confirm" = "Confirm password";
 "password_warning" = "The passwords don't match.";
+"password_length_warning" = "Password must be at least 8 characters, including English uppercase and lowercase letters, numbers, and special characters.";
 "user_already_title" = "You are already a registered member.";
 "user_already_message" = "You are already a member of this account. Please try to log in.";
 "delete_alert_title" = "Are you sure you want to delete it?";

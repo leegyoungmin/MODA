@@ -19,6 +19,7 @@ final class SignUpViewModel: ViewModel {
     
     struct Output {
         var emailValid: Observable<Bool>
+        var passwordLength: Observable<Bool>
         var passwordValid: Observable<Bool>
         var signUpValid: Observable<Bool>
         var signUpUser: Observable<User>
@@ -44,17 +45,12 @@ final class SignUpViewModel: ViewModel {
             .bind(to: useCase.email)
             .disposed(by: disposeBag)
         
-//        input.didTapSignUpButton
-//            .subscribe { [weak self] _ in
-//                guard let self = self else { return }
-//
-//                self.useCase.signUp()
-//            }
-//            .disposed(by: disposeBag)
+        let passwords = Observable.combineLatest(input.password, input.passwordConfirm)
         
-        let passwordValid = Observable.combineLatest(input.password, input.passwordConfirm)
-            .filter { ($0.0.isEmpty == false) && ($0.1.isEmpty == false) }
-            .map { $0 == $1 }
+        let passwordValid = passwords.map { ($0 == $1) }
+        
+        let passwordLengthValid = input.password.filter { $0.isEmpty == false }
+            .map { self.validatePassword(to: $0) }
         
         let idValid = useCase.id.map { $0.isEmpty == false }
         let emailValid = useCase.email
@@ -74,6 +70,7 @@ final class SignUpViewModel: ViewModel {
         
         return Output(
             emailValid: emailValid,
+            passwordLength: passwordLengthValid,
             passwordValid: passwordValid,
             signUpValid: signUpEnable,
             signUpUser: signUpUser
@@ -83,8 +80,15 @@ final class SignUpViewModel: ViewModel {
 
 extension SignUpViewModel {
     func validEmail(to email: String) -> Bool {
-        let reg = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", reg)
+        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: email)
+    }
+    
+    func validatePassword(to password: String) -> Bool {
+        let regex = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,50}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+//        print(predicate.evaluate(with: password))
+        return predicate.evaluate(with: password)
     }
 }

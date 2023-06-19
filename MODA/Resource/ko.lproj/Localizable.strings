@@ -9,6 +9,7 @@
 "send_email" = "인증 메일 발송하기";
 "password_confirm" = "비밀번호 확인";
 "password_warning" = "비밀 번호가 일치하지 않습니다.";
+"password_length_warning" = "비밀번호는 영어, 숫자, 특수문자를 포함하여야 합니다.";
 "user_already_title" = "이미 가입된 회원입니다.";
 "user_already_message" = "회원으로 가입되어 있는 계정입니다. 로그인을 시도해주세요.";
 "delete_alert_title" = "정말 삭제하시겠습니까?";

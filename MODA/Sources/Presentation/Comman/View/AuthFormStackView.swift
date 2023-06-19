@@ -24,8 +24,9 @@ final class AuthFormStackView: UIStackView {
     
     let warningLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
         label.isHidden = true
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 13)
         label.textColor = .red.withAlphaComponent(0.5)
         return label
     }()
