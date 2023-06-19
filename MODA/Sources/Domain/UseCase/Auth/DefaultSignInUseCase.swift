@@ -19,10 +19,12 @@ final class DefaultSignInUseCase: SignInUseCase {
         self.repository = repository
     }
     
-    func fetchUser() {
+    func fetchUser() -> Observable<User> {
         if let data = UserDefaults.standard.object(forKey: "currentUser") as? Data,
-           let _ = try? JSONDecoder().decode(User.self, from: data) {
-            self.isSaved.onNext(true)
+           let user = try? JSONDecoder().decode(User.self, from: data) {
+            return Observable.of(user)
+        } else {
+            return Observable.error(NetworkError.unknownError)
         }
     }
     
@@ -33,6 +35,14 @@ final class DefaultSignInUseCase: SignInUseCase {
         }
         
         return repository.signIn(id: id, password: password)
+            .do(onNext: saveDefaults)
             .catchAndReturn(User.empty)
+    }
+}
+
+private extension DefaultSignInUseCase {
+    func saveDefaults(with user: User) {
+        let data = try? JSONEncoder().encode(user)
+        UserDefaults.standard.set(data, forKey: "currentUser")
     }
 }

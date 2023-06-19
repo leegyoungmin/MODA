@@ -17,6 +17,7 @@ final class SignInViewModel: ViewModel {
     }
     
     struct Output {
+        var fetchedUser: Observable<User>
         var currentUser: Observable<User>
     }
     
@@ -28,27 +29,30 @@ final class SignInViewModel: ViewModel {
     }
     
     func transform(input: Input) -> Output {
-        input.viewWillAppear
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                self.useCase.fetchUser()
-            }
-            .disposed(by: disposeBag)
-        
         input.id
+            .filter { $0.isEmpty == false }
             .bind(to: useCase.id)
             .disposed(by: disposeBag)
         
         input.password
+            .filter { $0.isEmpty == false }
             .bind(to: useCase.password)
             .disposed(by: disposeBag)
+        
+        let fetchedUser = input.viewWillAppear
+            .flatMap {
+                self.useCase.fetchUser()
+                    .catchAndReturn(User.empty)
+            }
         
         let currentUser = input.didTapLoginButton
             .flatMapLatest { [unowned self] _ -> Observable<User> in
                 return self.useCase.login()
-                    .catchAndReturn(User.empty)
             }
         
-        return Output(currentUser: currentUser)
+        return Output(
+            fetchedUser: fetchedUser,
+            currentUser: currentUser
+        )
     }
 }

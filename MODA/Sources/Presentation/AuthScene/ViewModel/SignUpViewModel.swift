@@ -49,7 +49,8 @@ final class SignUpViewModel: ViewModel {
         
         let passwordValid = passwords.map { ($0 == $1) }
         
-        let passwordLengthValid = input.password.filter { $0.isEmpty == false }
+        let passwordLengthValid = input.password
+            .filter { $0.isEmpty == false }
             .map { self.validatePassword(to: $0) }
         
         let idValid = useCase.id.map { $0.isEmpty == false }

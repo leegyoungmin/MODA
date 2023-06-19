@@ -131,7 +131,7 @@ private extension SignUpViewController {
                 if user.sessionToken.isEmpty == true {
                     presentErrorAlert()
                 } else {
-                    self.dismiss(animated: false)
+                    self.dismiss(animated: true)
                 }
             })
             .disposed(by: disposeBag)

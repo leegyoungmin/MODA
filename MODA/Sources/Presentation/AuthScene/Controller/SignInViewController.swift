@@ -128,6 +128,12 @@ private extension SignInViewController {
         
         let output = viewModel.transform(input: input)
         
+        output.fetchedUser
+            .observe(on: MainScheduler.instance)
+            .filter { $0.sessionToken.isEmpty == false }
+            .subscribe(onNext: handleLoginResult)
+            .disposed(by: disposeBag)
+        
         output.currentUser
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: handleLoginResult)

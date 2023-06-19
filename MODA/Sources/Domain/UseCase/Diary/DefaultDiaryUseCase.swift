@@ -20,17 +20,16 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         self.diaryRepository = diaryRepository
     }
     
-    func loadAllDiaries(option: [String: String] = [:]) {
+    func loadAllDiaries(option: [String: String] = [:]) -> Observable<[Diary]> {
         guard let month = try? selectedMonth.value(),
-              let year = try? selectedYear.value() else { return }
+              let year = try? selectedYear.value() else {
+            return Observable.error(NetworkError.unknownError)
+        }
         
         let query = "\"createdMonth\": \(month), \"createdYear\": \(year)"
         
-        self.diaryRepository.fetchSearchDiaries(query: query, options: option)
-            .subscribe { [weak self] diaries in
-                self?.diaries.on(.next(diaries))
-            }
-            .disposed(by: disposeBag)
+        return diaryRepository.fetchSearchDiaries(query: query, options: option)
+            .catchAndReturn([])
     }
     
     func updateDiary(diary: Diary) {

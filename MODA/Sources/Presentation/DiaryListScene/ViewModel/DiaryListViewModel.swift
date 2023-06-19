@@ -38,22 +38,24 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindOutput(input: Input) -> Output {
+        let diaries = Observable.of(input.viewDidAppear, input.refresh)
+            .merge()
+            .flatMapLatest { [weak self] _ -> Observable<[Diary]> in
+                guard let self = self else {
+                    return Observable.of([])
+                }
+                return self.diaryListUseCase.loadAllDiaries(option: [:])
+            }
+        
         return Output(
-            diaries: diaryListUseCase.diaries.asObservable(),
+            diaries: diaries,
             removed: diaryListUseCase.removeSuccess.asObservable(),
             currentMonth: diaryListUseCase.selectedMonth.asObservable()
         )
     }
     
     func bindInput(_ input: Input) {
-        Observable.of(input.viewDidAppear, input.refresh)
-            .merge()
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                self.diaryListUseCase.loadAllDiaries(option: [:])
-            }
-            .disposed(by: disposeBag)
-        
+
         input.selectedMonth
             .bind(to: diaryListUseCase.selectedMonth)
             .disposed(by: disposeBag)

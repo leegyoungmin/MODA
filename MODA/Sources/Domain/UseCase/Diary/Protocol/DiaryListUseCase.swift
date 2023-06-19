@@ -12,7 +12,7 @@ protocol DiaryListUseCase {
     var selectedMonth: BehaviorSubject<Int> { get set }
     var removeSuccess: PublishSubject<Void> { get set }
     
-    func loadAllDiaries(option: [String: String])
+    func loadAllDiaries(option: [String: String]) -> Observable<[Diary]>
     func updateDiary(diary: Diary)
     func deleteItem(with diary: Diary)
 }

@@ -11,6 +11,6 @@ protocol SignInUseCase: AnyObject {
     var password: BehaviorSubject<String> { get set }
     var isSaved: PublishSubject<Bool> { get set }
     
-    func fetchUser()
+    func fetchUser() -> Observable<User>
     func login() -> Observable<User>
 }
