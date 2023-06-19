@@ -56,7 +56,6 @@ final class DefaultNetworkService: NetworkService {
     }
     
     func request(to api: APIType) -> Observable<Void> {
-        
         return Observable.create { emitter in
             guard let request = try? api.generateRequest() else {
                 emitter.onError(NetworkError.invalidURLError)

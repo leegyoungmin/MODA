@@ -13,7 +13,7 @@ final class EnvironmentValues {
     var applicationId: String = ""
     
     private init() {
-        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "API-Key") as? String {
+        if let apiKey = Bundle.main.object(forInfoDictionaryKey: "API-KEY") as? String {
             self.apiKey = apiKey
         }
         

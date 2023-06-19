@@ -12,7 +12,7 @@ final class DefaultSignUpUseCase: SignUpUseCase {
     var id = BehaviorSubject<String>(value: "")
     var password = BehaviorSubject<String>(value: "")
     var email = BehaviorSubject<String>(value: "")
-    var isSignInSuccess = PublishSubject<Bool>()
+    var signUpUser = PublishSubject<User>()
     
     private let repository: AuthRepository
     private var disposeBag = DisposeBag()
@@ -21,12 +21,11 @@ final class DefaultSignUpUseCase: SignUpUseCase {
         self.repository = repository
     }
     
-    func signUp() {
+    func signUp() -> Observable<User> {
         guard let id = try? id.value(),
               let email = try? email.value(),
               let password = try? password.value() else {
-            self.isSignInSuccess.onNext(false)
-            return
+            return Observable.error(NetworkError.unknownError)
         }
         
         let bodyDictionary: [String: Any] = [
@@ -35,25 +34,10 @@ final class DefaultSignUpUseCase: SignUpUseCase {
             "email": email
         ]
         
-        repository.signUp(body: bodyDictionary)
+        return repository.signUp(body: bodyDictionary)
             .flatMap { _ in
                 return self.repository.signIn(id: id, password: password)
             }
-            .asDriver(onErrorJustReturn: User.empty)
-            .drive { [weak self] user in
-                guard let self = self else { return }
-                
-                if user.sessionToken.isEmpty {
-                    isSignInSuccess.onNext(false)
-                    return
-                }
-                
-                if let data = try? JSONEncoder().encode(user) {
-                    UserDefaults.standard.set(data, forKey: "currentUser")
-                    
-                    self.isSignInSuccess.onNext(true)
-                }
-            }
-            .disposed(by: disposeBag)
+            .catchAndReturn(User.empty)
     }
 }

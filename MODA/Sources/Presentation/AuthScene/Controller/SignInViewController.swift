@@ -128,9 +128,9 @@ private extension SignInViewController {
         
         let output = viewModel.transform(input: input)
         
-        output.isSaved
+        output.currentUser
             .observe(on: MainScheduler.instance)
-            .bind(onNext: handleLoginResult)
+            .subscribe(onNext: handleLoginResult)
             .disposed(by: disposeBag)
     }
     
@@ -174,19 +174,22 @@ private extension SignInViewController {
         
         let controller = SignUpViewController(viewModel: viewModel)
         
-        useCase.isSignInSuccess
-            .filter { $0 }
+        useCase.signUpUser
             .subscribe(onNext: handleLoginResult)
             .disposed(by: disposeBag)
         
         self.present(controller, animated: true)
     }
     
-    func handleLoginResult(_ isSaved: Bool) {
-        if isSaved {
-            presentMainViewController()
-        } else {
+    func handleLoginResult(to user: User) {
+        if user.sessionToken.isEmpty == true {
             presentLoginFailAlert()
+            return
+        }
+        
+        if user.sessionToken.isEmpty == false {
+            presentMainViewController()
+            return
         }
     }
     

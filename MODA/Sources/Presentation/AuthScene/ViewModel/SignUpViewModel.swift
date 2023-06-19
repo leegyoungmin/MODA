@@ -21,7 +21,7 @@ final class SignUpViewModel: ViewModel {
         var emailValid: Observable<Bool>
         var passwordValid: Observable<Bool>
         var signUpValid: Observable<Bool>
-        var signUpSuccess: Observable<Bool>
+        var signUpUser: Observable<User>
     }
     
     private var useCase: SignUpUseCase
@@ -67,11 +67,16 @@ final class SignUpViewModel: ViewModel {
             resultSelector: { $0 && $1 && $2 }
         )
         
+        let signUpUser = input.didTapSignUpButton
+            .flatMapLatest { _ -> Observable<User> in
+                return self.useCase.signUp()
+            }
+        
         return Output(
             emailValid: emailValid,
             passwordValid: passwordValid,
             signUpValid: signUpEnable,
-            signUpSuccess: useCase.isSignInSuccess.asObservable()
+            signUpUser: signUpUser
         )
     }
 }

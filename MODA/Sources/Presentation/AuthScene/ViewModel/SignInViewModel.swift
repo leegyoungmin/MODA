@@ -17,7 +17,7 @@ final class SignInViewModel: ViewModel {
     }
     
     struct Output {
-        var isSaved: Observable<Bool>
+        var currentUser: Observable<User>
     }
     
     let useCase: SignInUseCase
@@ -43,16 +43,12 @@ final class SignInViewModel: ViewModel {
             .bind(to: useCase.password)
             .disposed(by: disposeBag)
         
-        input.didTapLoginButton
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.useCase.login()
+        let currentUser = input.didTapLoginButton
+            .flatMapLatest { [unowned self] _ -> Observable<User> in
+                return self.useCase.login()
+                    .catchAndReturn(User.empty)
             }
-            .disposed(by: disposeBag)
         
-        return Output(
-            isSaved: self.useCase.isSaved
-        )
+        return Output(currentUser: currentUser)
     }
 }

@@ -28,7 +28,8 @@ final class UserService: UserServicing {
     
     func createUser(with body: [String: Any]?) -> Observable<User> {
         let api = API.createUser(body: body)
-        return DefaultNetworkService().request(to: api)
+        return DefaultNetworkService()
+            .request(to: api)
     }
 }
 

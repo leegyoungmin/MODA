@@ -12,5 +12,5 @@ protocol SignInUseCase: AnyObject {
     var isSaved: PublishSubject<Bool> { get set }
     
     func fetchUser()
-    func login()
+    func login() -> Observable<User>
 }

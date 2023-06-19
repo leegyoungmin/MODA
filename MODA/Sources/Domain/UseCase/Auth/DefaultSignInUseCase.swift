@@ -26,34 +26,13 @@ final class DefaultSignInUseCase: SignInUseCase {
         }
     }
     
-    func login() {
-        guard let id = try? id.value(),
-              let password = try? password.value() else {
+    func login() -> Observable<User> {
+        guard let id = try? id.value(), let password = try? password.value() else {
             isSaved.onNext(false)
-            return
+            return Observable.error(NetworkError.unknownError)
         }
         
-        repository.signIn(id: id, password: password)
-            .asDriver(onErrorJustReturn: User.empty)
-            .drive { [weak self] user in
-                guard let self = self else {
-                    self?.isSaved.onNext(false)
-                    return
-                }
-                
-                if user.sessionToken.isEmpty {
-                    isSaved.onNext(false)
-                    return
-                }
-                
-                if let data = try? JSONEncoder().encode(user) {
-                    UserDefaults.standard.set(data, forKey: "currentUser")
-                    isSaved.onNext(true)
-                    return
-                }
-                
-                isSaved.onNext(false)
-            }
-            .disposed(by: disposeBag)
+        return repository.signIn(id: id, password: password)
+            .catchAndReturn(User.empty)
     }
 }
