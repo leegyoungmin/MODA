@@ -120,8 +120,12 @@ private extension SignUpViewController {
             .subscribe(onNext: { [weak self] user in
                 guard let self = self else { return }
                 
+                print(user)
+                
                 if user.sessionToken.isEmpty == true {
                     presentErrorAlert()
+                } else {
+                    self.dismiss(animated: false)
                 }
             })
             .disposed(by: disposeBag)

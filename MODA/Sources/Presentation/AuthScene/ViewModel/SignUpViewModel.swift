@@ -44,13 +44,13 @@ final class SignUpViewModel: ViewModel {
             .bind(to: useCase.email)
             .disposed(by: disposeBag)
         
-        input.didTapSignUpButton
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.useCase.signUp()
-            }
-            .disposed(by: disposeBag)
+//        input.didTapSignUpButton
+//            .subscribe { [weak self] _ in
+//                guard let self = self else { return }
+//
+//                self.useCase.signUp()
+//            }
+//            .disposed(by: disposeBag)
         
         let passwordValid = Observable.combineLatest(input.password, input.passwordConfirm)
             .filter { ($0.0.isEmpty == false) && ($0.1.isEmpty == false) }

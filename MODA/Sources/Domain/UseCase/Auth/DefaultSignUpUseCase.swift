@@ -39,5 +39,6 @@ final class DefaultSignUpUseCase: SignUpUseCase {
                 return self.repository.signIn(id: id, password: password)
             }
             .catchAndReturn(User.empty)
+            .do(onNext: { self.signUpUser.onNext($0) })
     }
 }
