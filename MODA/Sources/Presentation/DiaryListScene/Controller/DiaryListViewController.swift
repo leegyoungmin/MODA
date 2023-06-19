@@ -90,7 +90,7 @@ private extension DiaryListViewController {
         let input = DiaryListViewModel.Input(
             viewDidAppear: viewDidAppear,
             removeTargetItem: deleteItemTrigger,
-            isLikeItem: didTapLikeButton.asObservable(),
+            newDiary: didTapLikeButton.asObservable(),
             selectedYear: selectedYear.asObservable(),
             selectedMonth: selectedMonth.asObservable(),
             refresh: refresh.asObservable()
@@ -117,7 +117,9 @@ private extension DiaryListViewController {
                 cell.starButton.rx.tap
                     .subscribe { [weak self] _ in
                         guard let self = self else { return }
-                        self.didTapLikeButton.onNext(model)
+                        var newModel = model
+                        newModel.isLike.toggle()
+                        self.didTapLikeButton.onNext(newModel)
                     }
                     .disposed(by: self.disposeBag)
                 

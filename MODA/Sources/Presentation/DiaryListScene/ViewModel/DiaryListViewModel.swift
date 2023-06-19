@@ -11,7 +11,7 @@ final class DiaryListViewModel: ViewModel {
     struct Input {
         var viewDidAppear: Observable<Void>
         var removeTargetItem: Observable<Diary>
-        var isLikeItem: Observable<Diary>
+        var newDiary: Observable<Diary>
         var selectedYear: Observable<Int>
         var selectedMonth: Observable<Int>
         var refresh: Observable<Void>
@@ -38,8 +38,10 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindOutput(input: Input) -> Output {
+        let updatedDiaries = input.newDiary
+            .flatMapLatest { self.diaryListUseCase.toggleLike(to: $0) }
+        
         let diaries = Observable.of(input.viewDidAppear, input.refresh)
-            .merge()
             .flatMapLatest { [weak self] _ -> Observable<[Diary]> in
                 guard let self = self else {
                     return Observable.of([])
@@ -47,8 +49,11 @@ final class DiaryListViewModel: ViewModel {
                 return self.diaryListUseCase.loadAllDiaries(option: [:])
             }
         
+        let fetchedDiaries = Observable.of(diaries, updatedDiaries)
+            .merge()
+        
         return Output(
-            diaries: diaries,
+            diaries: fetchedDiaries,
             removed: diaryListUseCase.removeSuccess.asObservable(),
             currentMonth: diaryListUseCase.selectedMonth.asObservable()
         )
@@ -62,15 +67,6 @@ final class DiaryListViewModel: ViewModel {
         
         input.selectedYear
             .bind(to: diaryListUseCase.selectedYear)
-            .disposed(by: disposeBag)
-        
-        input.isLikeItem
-            .subscribe { [weak self] diary in
-                guard var newDiary = diary.element else { return }
-                newDiary.isLike.toggle()
-                
-                self?.diaryListUseCase.updateDiary(diary: newDiary)
-            }
             .disposed(by: disposeBag)
         
         input.removeTargetItem
