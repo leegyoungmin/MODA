@@ -90,7 +90,6 @@ final class DetailDiaryViewController: UIViewController {
         let input = DetailDiaryViewModel.Input(
             viewWillAppear: rx.methodInvoked(#selector(viewWillAppear)).map { _ in }.asObservable(),
             didTapSaveButton: didTapSaveButtonEvent,
-            isEditMode: editMode.asObservable(),
             editedContent: contentTextView.rx.text.orEmpty.asObservable(),
             didTapLikeButton: likeButton.rx.tap.asObservable(),
             didTapDeleteButton: removeButton.rx.tap.asObservable(),

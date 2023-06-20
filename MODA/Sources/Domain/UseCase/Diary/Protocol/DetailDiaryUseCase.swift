@@ -14,7 +14,6 @@ protocol DetailDiaryUseCase: AnyObject {
     var diaryContent: BehaviorSubject<String> { get set }
     var diaryCondition: BehaviorSubject<Diary.Condition?> { get set }
     var diaryLike: BehaviorSubject<Bool> { get set }
-    var removeDiary: PublishSubject<Void> { get set }
     
     func fetchCurrentDiary() -> Observable<Diary>
     func updateCurrentDiary() -> Observable<Void>

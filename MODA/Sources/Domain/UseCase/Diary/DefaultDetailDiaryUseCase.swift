@@ -15,7 +15,6 @@ final class DefaultDetailDiaryUseCase: DetailDiaryUseCase {
     var diaryContent = BehaviorSubject<String>(value: "")
     var diaryCondition = BehaviorSubject<Diary.Condition?>(value: nil)
     var diaryLike = BehaviorSubject<Bool>(value: false)
-    var removeDiary = PublishSubject<Void>()
     
     private let repository: DiaryRepository
     private let disposeBag = DisposeBag()

@@ -11,7 +11,6 @@ final class DetailDiaryViewModel: ViewModel {
     struct Input {
         var viewWillAppear: Observable<Void>
         var didTapSaveButton: Observable<Void>
-        var isEditMode: Observable<Bool>
         var editedContent: Observable<String>
         var didTapLikeButton: Observable<Void>
         var didTapDeleteButton: Observable<Void>
