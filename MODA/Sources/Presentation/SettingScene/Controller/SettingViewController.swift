@@ -7,6 +7,7 @@
 import UIKit
 import MessageUI
 import WebKit
+import StoreKit
 
 final class SettingViewController: UIViewController {
     private let settingTableView: UITableView = {
@@ -98,6 +99,8 @@ extension SettingViewController: UITableViewDelegate {
         } else if indexPath.section == 1 {
             if indexPath.row == .zero {
                 self.presentMail()
+            } else if indexPath.row == 1 {
+                AppStoreReviewManager.requestReviewIfAppropriate()
             } else if indexPath.row == 2 {
                 self.presentPolicyView()
             }
@@ -139,6 +142,41 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
             presentMailSendFailAlert()
         default:
             controller.dismiss(animated: true)
+        }
+    }
+}
+
+private extension SettingViewController {
+    enum AppStoreReviewManager {
+        private static let minimumReviewWorthyActionCount = 5
+        private static var actionCount: Int {
+            get { UserDefaults.standard.integer(forKey: "actionCount") }
+            set { UserDefaults.standard.set(newValue, forKey: "actionCount") }
+        }
+        
+        static func requestReviewIfAppropriate() {
+            guard self.actionCount >= minimumReviewWorthyActionCount else { return }
+            
+            self.actionCount += 1
+            
+            let bundleVersionKey = kCFBundleVersionKey as String
+            let currentVersion = Bundle.main.object(forInfoDictionaryKey: bundleVersionKey) as? String
+            
+            let lastVersion = UserDefaults.standard.string(forKey: "lastVersion")
+            
+            guard lastVersion == nil || lastVersion != currentVersion else { return }
+            
+            if #available(iOS 14.0, *) {
+                guard let scene = UIApplication.shared
+                    .connectedScenes
+                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
+                    return
+                }
+                
+                SKStoreReviewController.requestReview(in: scene)
+            } else {
+                SKStoreReviewController.requestReview()
+            }
         }
     }
 }
