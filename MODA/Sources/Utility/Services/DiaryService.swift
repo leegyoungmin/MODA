@@ -127,6 +127,8 @@ extension DiaryService.API: APIType {
         switch self {
         case .createDiary(_, let diary), .updateDiary(_, _, let diary):
             return diary
+        case .loadDiaries:
+            return ["order": "createdDay"]
         default: return nil
         }
     }

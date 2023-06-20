@@ -84,13 +84,14 @@ private extension DiaryListViewController {
     /// - ViewModel 데이터 관련 바인딩
     func bindingFromViewModel() {
         let viewDidAppear = self.rx.methodInvoked(#selector(viewDidAppear))
+            .take(1)
             .map { _ in }
             .asObservable()
         
         let input = DiaryListViewModel.Input(
             viewDidAppear: viewDidAppear,
             removeTargetItem: deleteItemTrigger,
-            newDiary: didTapLikeButton.asObservable(),
+            updateTargetDiary: didTapLikeButton,
             selectedYear: selectedYear.asObservable(),
             selectedMonth: selectedMonth.asObservable(),
             refresh: refresh.asObservable()
@@ -99,6 +100,7 @@ private extension DiaryListViewController {
         let output = viewModel?.transform(input: input)
         
         output?.diaries
+            .observe(on: MainScheduler.instance)
             .bind(
                 to: diaryListTableView.rx.items(
                     cellIdentifier: DiaryListCell.identifier,
@@ -107,23 +109,21 @@ private extension DiaryListViewController {
             ) { (_, model, cell) in
                 cell.selectionStyle = .none
                 
-                cell.deleteButton.rx.tap
-                    .subscribe { [weak self] _ in
-                        guard let self = self else { return }
-                        self.deleteItemEvent.onNext(model)
-                    }
-                    .disposed(by: self.disposeBag)
+                cell.data.onNext(model)
                 
-                cell.starButton.rx.tap
-                    .subscribe { [weak self] _ in
-                        guard let self = self else { return }
-                        var newModel = model
-                        newModel.isLike.toggle()
-                        self.didTapLikeButton.onNext(newModel)
+                cell.toggleLike
+                    .map {
+                        var newItem = model
+                        newItem.isLike = $0
+                        return newItem
                     }
-                    .disposed(by: self.disposeBag)
+                    .bind(to: self.didTapLikeButton)
+                    .disposed(by: cell.disposeBag)
                 
-                cell.setUpDatas(to: model)
+                cell.deleteItem
+                    .map { _ in return model }
+                    .bind(to: self.deleteItemEvent)
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         

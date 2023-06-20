@@ -13,7 +13,6 @@ protocol DiaryListUseCase {
     var removeSuccess: PublishSubject<Void> { get set }
     
     func loadAllDiaries(option: [String: String]) -> Observable<[Diary]>
-    func toggleLike(to newDiary: Diary) -> Observable<[Diary]>
-//    func updateDiary(diary: Diary) -> Observable<[Diary]>
+    func toggleLike(to newDiary: Diary) -> Observable<Void>
     func deleteItem(with diary: Diary)
 }

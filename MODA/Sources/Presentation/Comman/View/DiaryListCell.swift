@@ -5,6 +5,7 @@
 //  Copyright (c) 2023 Minii All rights reserved.
 
 import UIKit
+import RxSwift
 
 final class DiaryListCell: UITableViewCell {
     private let diaryContentView: UIView = {
@@ -68,19 +69,65 @@ final class DiaryListCell: UITableViewCell {
         return stackView
     }()
     
+    private let onChangeLike: (Bool) -> Void
+    private let onDeleteItem: () -> Void
+    private let cellDisposeBag = DisposeBag()
+    
+    var disposeBag = DisposeBag()
+    let data: AnyObserver<Diary>
+    var item: Diary?
+    let toggleLike: Observable<Bool>
+    let deleteItem: Observable<Void>
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        let onData = PublishSubject<Diary>()
+        let toggleLikeButton = PublishSubject<Bool>()
+        let tappedDeleteButton = PublishSubject<Void>()
+        
+        data = onData.asObserver()
+        
+        onChangeLike = { toggleLikeButton.onNext($0) }
+        onDeleteItem = { tappedDeleteButton.onNext(()) }
+        
+        toggleLike = toggleLikeButton
+        deleteItem = tappedDeleteButton
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.layer.cornerRadius = 12
         contentView.backgroundColor = .white
         
         configureUI()
+        binding()
+        
+        onData.observe(on: MainScheduler.instance)
+            .subscribe(onNext: { diary in
+                self.createdDateLabel.text = "\(diary.createdDay) 일"
+                self.conditionLabel.text = diary.condition.description
+                self.contentLabel.text = diary.content
+                self.starButton.isSelected = diary.isLike
+                self.item = diary
+            })
+            .disposed(by: cellDisposeBag)
     }
     
     required init?(coder: NSCoder) {
+        let onData = PublishSubject<Diary>()
+        let toggleLikeButton = PublishSubject<Bool>()
+        let tappedDeleteButton = PublishSubject<Void>()
+        
+        data = onData.asObserver()
+        
+        onChangeLike = { toggleLikeButton.onNext($0) }
+        onDeleteItem = { tappedDeleteButton.onNext(()) }
+        
+        toggleLike = toggleLikeButton
+        deleteItem = tappedDeleteButton
+        
         super.init(coder: coder)
         
         configureUI()
+        binding()
     }
     
     override func layoutSubviews() {
@@ -95,11 +142,25 @@ final class DiaryListCell: UITableViewCell {
         )
     }
     
-    func setUpDatas(to diary: Diary) {
-        createdDateLabel.text = "\(diary.createdDay) 일"
-        conditionLabel.text = diary.condition.description
-        contentLabel.text = diary.content
-        starButton.isSelected = diary.isLike
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
+    
+    private func binding() {
+        starButton.addTarget(self, action: #selector(didTapStarButton), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
+    }
+    
+    @objc func didTapStarButton(_ selector: UIButton) {
+        let isLike = selector.isSelected
+        selector.isSelected.toggle()
+        onChangeLike(!isLike)
+    }
+    
+    @objc func didTapDeleteButton(_ selector: UIButton) {
+        onDeleteItem()
     }
 }
 

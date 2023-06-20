@@ -32,14 +32,13 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
             .catchAndReturn([])
     }
     
-    func toggleLike(to newDiary: Diary) -> Observable<[Diary]> {
+    func toggleLike(to newDiary: Diary) -> Observable<Void> {
         return diaryRepository.updateDiary(
             id: newDiary.id,
             content: newDiary.content,
             condition: newDiary.condition.rawValue,
             isLike: newDiary.isLike
         )
-        .flatMap { self.loadAllDiaries() }
     }
     
     func updateDiary(diary: Diary) -> Observable<[Diary]> {

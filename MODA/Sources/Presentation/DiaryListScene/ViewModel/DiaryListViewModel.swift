@@ -11,7 +11,7 @@ final class DiaryListViewModel: ViewModel {
     struct Input {
         var viewDidAppear: Observable<Void>
         var removeTargetItem: Observable<Diary>
-        var newDiary: Observable<Diary>
+        var updateTargetDiary: Observable<Diary>
         var selectedYear: Observable<Int>
         var selectedMonth: Observable<Int>
         var refresh: Observable<Void>
@@ -38,22 +38,16 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindOutput(input: Input) -> Output {
-        let updatedDiaries = input.newDiary
-            .flatMapLatest { self.diaryListUseCase.toggleLike(to: $0) }
+        let toggleDiary = input.updateTargetDiary
+            .flatMapLatest { return self.diaryListUseCase.toggleLike(to: $0) }
         
-        let diaries = Observable.of(input.viewDidAppear, input.refresh)
-            .flatMapLatest { [weak self] _ -> Observable<[Diary]> in
-                guard let self = self else {
-                    return Observable.of([])
-                }
+        let diaries = Observable.merge([input.viewDidAppear, input.refresh, toggleDiary])
+            .flatMapLatest { _ -> Observable<[Diary]> in
                 return self.diaryListUseCase.loadAllDiaries(option: [:])
             }
         
-        let fetchedDiaries = Observable.of(diaries, updatedDiaries)
-            .merge()
-        
         return Output(
-            diaries: fetchedDiaries,
+            diaries: diaries,
             removed: diaryListUseCase.removeSuccess.asObservable(),
             currentMonth: diaryListUseCase.selectedMonth.asObservable()
         )
