@@ -22,6 +22,7 @@ final class SignInViewController: UIViewController {
     
     private let passwordFormView: AuthFormStackView = {
         let formView = AuthFormStackView(title: "auth_password"~)
+        formView.textField.isSecureTextEntry = true
         return formView
     }()
     

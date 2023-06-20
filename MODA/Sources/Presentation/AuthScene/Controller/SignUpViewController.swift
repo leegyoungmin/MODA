@@ -41,6 +41,7 @@ final class SignUpViewController: UIViewController {
             title: "auth_password"~,
             warning: "password_length_warning"~
         )
+        formView.textField.isSecureTextEntry = true
         return formView
     }()
     
@@ -50,6 +51,7 @@ final class SignUpViewController: UIViewController {
             warning: "password_warning"~
         )
         formView.warningLabel.isHidden = false
+        formView.textField.isSecureTextEntry = true
         return formView
     }()
     
