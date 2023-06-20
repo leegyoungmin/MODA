@@ -54,3 +54,18 @@ struct Diary: Codable {
         return "\(createdYear)년 \(createdMonth)월 \(createdDay)일"
     }
 }
+
+extension Diary {
+    static let empty: Diary = .init(
+        id: "",
+        content: "",
+        condition: .bad,
+        user: UserPointer(id: ""),
+        createdDate: Date(),
+        issuedDate: Date(),
+        createdYear: 0,
+        createdMonth: 0,
+        createdDay: 0,
+        isLike: false
+    )
+}

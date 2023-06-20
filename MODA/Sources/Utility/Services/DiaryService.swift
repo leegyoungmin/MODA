@@ -17,26 +17,29 @@ protocol DiaryServicing: AnyObject {
 
 final class DiaryService: DiaryServicing {
     private let user: User
+    private let networkService: NetworkService
     
-    init() {
+    init(networkService: NetworkService = DefaultNetworkService()) {
         if let userData = UserDefaults.standard.object(forKey: "currentUser") as? Data,
            let user = try? JSONDecoder().decode(User.self, from: userData) {
             self.user = user
         } else {
             self.user = User.empty
         }
+        
+        self.networkService = networkService
     }
     
     func loadDiaries() -> Observable<Diaries> {
         let api = API.loadDiaries(token: user.sessionToken)
-        return DefaultNetworkService().request(to: api)
+        return networkService.request(to: api)
     }
     
     func searchDiaries(query: String, option: [String: String] = [:]) -> Observable<Diaries> {
         let userPoint = UserPointer(id: user.identifier).query
         let userQuery = "{\(userPoint), \(query)}"
         let api = API.searchDiaries(token: user.sessionToken, query: userQuery, option: option)
-        return DefaultNetworkService().request(to: api)
+        return networkService.request(to: api)
     }
     
     func createNewDiary(content: String, condition: Int) -> Observable<Void> {
@@ -47,7 +50,7 @@ final class DiaryService: DiaryServicing {
         )
         
         let api = API.createDiary(token: user.sessionToken, diary: requestDTO.toDictionary)
-        return DefaultNetworkService().request(to: api)
+        return networkService.request(to: api)
     }
     
     func updateDiary(to id: String, content: String, condition: Int, isLike: Bool) -> Observable<Void> {
@@ -57,12 +60,12 @@ final class DiaryService: DiaryServicing {
             id: id,
             diary: requestDTO.toDictionary
         )
-        return DefaultNetworkService().request(to: api)
+        return networkService.request(to: api)
     }
     
     func removeDiary(id: String) -> Observable<Void> {
         let api = API.removeDiary(token: user.sessionToken, id: id)
-        return DefaultNetworkService().request(to: api)
+        return networkService.request(to: api)
     }
 }
 

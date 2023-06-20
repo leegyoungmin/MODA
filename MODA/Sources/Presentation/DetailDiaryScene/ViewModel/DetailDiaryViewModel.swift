@@ -12,17 +12,14 @@ final class DetailDiaryViewModel: ViewModel {
         var viewWillAppear: Observable<Void>
         var didTapSaveButton: Observable<Void>
         var isEditMode: Observable<Bool>
-        var editedContent: Observable<String?>
+        var editedContent: Observable<String>
         var didTapLikeButton: Observable<Void>
         var didTapDeleteButton: Observable<Void>
         var viewWillDisappear: Observable<Void>
     }
     
     struct Output {
-        var createdDate: Observable<String>
-        var content: Observable<String?>
-        var condition: Observable<Diary.Condition?>
-        var isLike: Observable<Bool>
+        var diary: Observable<Diary>
         var isEditable: Observable<Bool>
         var didSuccessRemove: Observable<Void>
     }
@@ -41,62 +38,40 @@ final class DetailDiaryViewModel: ViewModel {
     }
     
     func bindingInput(_ input: Input) {
-        input.viewWillAppear
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                
-                useCase.fetchCurrentDiary()
-            }
-            .disposed(by: disposeBag)
-        
-        let didTapSaveButton = Observable.combineLatest(
-            input.didTapSaveButton,
-            input.isEditMode
-        ).map { return $0.1 }
-        
-        Observable.of(didTapSaveButton.asObservable(), input.viewWillDisappear.map { true }).merge()
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                self.useCase.updateCurrentDiary()
-            }
-            .disposed(by: disposeBag)
-        
         input.editedContent
             .bind(to: useCase.diaryContent)
-            .disposed(by: disposeBag)
-        
-        input.didTapLikeButton
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                self.useCase.toggleLike()
-            }
-            .disposed(by: disposeBag)
-        
-        input.didTapDeleteButton
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.useCase.deleteCurrentDiary()
-            }
             .disposed(by: disposeBag)
     }
     
     func bindingOutput(_ input: Input) -> Output {
-        let createdDate = useCase.diaryDate
-            .compactMap { $0?.toString("yyyy년 MM월 dd일") }
-            .asObservable()
+        let updateDiary = Observable.merge([
+            input.didTapSaveButton,
+            input.viewWillDisappear
+        ]).flatMapLatest { _ in return self.useCase.updateCurrentDiary() }
         
-        let isEditable = useCase.diaryDate
-            .compactMap { $0?.isEqual(rhs: Date()) }
-            .asObservable()
+        let toggleDiaryLike = input.didTapLikeButton
+            .flatMapLatest { _ in return self.useCase.toggleLike() }
+        
+        let fetchedDiary = Observable.merge([
+            input.viewWillAppear,
+            updateDiary,
+            toggleDiaryLike
+        ]).flatMapLatest {
+            return self.useCase.fetchCurrentDiary()
+        }
+        
+        let isEditable = fetchedDiary.compactMap {
+            return $0.createdDate.isEqual(rhs: Date())
+        }
+        
+        let deleteSuccess = input.didTapDeleteButton
+            .flatMapLatest { return self.useCase.deleteCurrentDiary() }
+            .catch { _ in return .empty() }
         
         return Output(
-            createdDate: createdDate,
-            content: useCase.diaryContent.asObservable(),
-            condition: useCase.diaryCondition.asObservable(),
-            isLike: useCase.diaryLike.asObservable(),
+            diary: fetchedDiary,
             isEditable: isEditable,
-            didSuccessRemove: useCase.removeDiary.asObservable()
+            didSuccessRemove: deleteSuccess
         )
     }
 }

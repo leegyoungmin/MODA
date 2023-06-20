@@ -63,6 +63,7 @@ final class DetailDiaryViewController: UIViewController {
     }()
     
     private let viewModel: DetailDiaryViewModel?
+    private let didTapSaveButtonEvent = PublishSubject<Void>()
     private let editMode = PublishSubject<Bool>()
     private let disposeBag = DisposeBag()
     
@@ -88,9 +89,9 @@ final class DetailDiaryViewController: UIViewController {
     func bindingFromViewModel() {
         let input = DetailDiaryViewModel.Input(
             viewWillAppear: rx.methodInvoked(#selector(viewWillAppear)).map { _ in }.asObservable(),
-            didTapSaveButton: editButton.rx.tap.asObservable(),
+            didTapSaveButton: didTapSaveButtonEvent,
             isEditMode: editMode.asObservable(),
-            editedContent: contentTextView.rx.text.changed.asObservable(),
+            editedContent: contentTextView.rx.text.orEmpty.asObservable(),
             didTapLikeButton: likeButton.rx.tap.asObservable(),
             didTapDeleteButton: removeButton.rx.tap.asObservable(),
             viewWillDisappear: rx.methodInvoked(#selector(viewWillDisappear)).map { _ in }.asObservable()
@@ -98,20 +99,23 @@ final class DetailDiaryViewController: UIViewController {
         
         let output = viewModel?.transform(input: input)
         
-        output?.createdDate
+        output?.diary
+            .compactMap { $0.createdDate.toString("yyyy년 MM월 dd일") }
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output?.condition
-            .compactMap { $0?.description }
+        output?.diary
+            .map { $0.condition.description }
             .bind(to: conditionLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output?.content
+        output?.diary
+            .map { $0.content }
             .bind(to: contentTextView.rx.text)
             .disposed(by: disposeBag)
         
-        output?.isLike
+        output?.diary
+            .map { $0.isLike }
             .bind(to: likeButton.rx.isSelected)
             .disposed(by: disposeBag)
         
@@ -126,22 +130,26 @@ final class DetailDiaryViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
-            
+        
     }
     
     func bindingUI() {
-        editButton.rx.tap
-            .map { self.editButton.isSelected }
-            .bind(to: editMode)
-            .disposed(by: disposeBag)
+        editButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         
-        editMode.subscribe { [weak self] in
-            guard let self = self else { return }
-            
-            self.contentTextView.isEditable = !$0
-            self.editButton.isSelected = !$0
+        editMode
+            .bind(to: contentTextView.rx.isEditable)
+            .disposed(by: disposeBag)
+    }
+    
+    @objc private func didTapSaveButton(_ selector: UIButton) {
+        if selector.isSelected {
+            didTapSaveButtonEvent.onNext(())
+            editMode.onNext(false)
+        } else {
+            editMode.onNext(true)
         }
-        .disposed(by: disposeBag)
+        
+        selector.isSelected.toggle()
     }
 }
 
