@@ -151,7 +151,7 @@ private extension DiaryListViewController {
                 childController.delegate = self
                 
                 sheetController.modalPresentationStyle = .overFullScreen
-                sheetController.modalTransitionStyle = .coverVertical
+                sheetController.modalTransitionStyle = .crossDissolve
                 
                 self.present(sheetController, animated: true)
             }

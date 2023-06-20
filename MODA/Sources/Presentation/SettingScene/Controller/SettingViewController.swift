@@ -225,7 +225,10 @@ private extension SettingViewController {
         let noticeController = NoticeSettingViewController()
         noticeController.delegate = self
         let controller = BottomSheetViewController(controller: noticeController)
+        
         controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        
         self.present(controller, animated: true)
     }
     
@@ -280,8 +283,13 @@ private extension SettingViewController {
 
 private extension SettingViewController {
     func configureUI() {
+        configureNavigationBar()
         configureHierarchy()
         makeConstraints()
+    }
+    
+    func configureNavigationBar() {
+        navigationItem.title = "설정"
     }
     
     func configureHierarchy() {

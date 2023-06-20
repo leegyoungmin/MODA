@@ -23,8 +23,6 @@ final class BottomSheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapBackground))
         self.view.addGestureRecognizer(tapGesture)
         
@@ -32,14 +30,26 @@ final class BottomSheetViewController: UIViewController {
         self.controller.view.addGestureRecognizer(tapGesture2)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureUI()
+        showBottomSheet()
+    }
+    
     @objc func didTapBackground() {
         self.dismiss(animated: true)
+    }
+    
+    func showBottomSheet() {
+        UIView.transition(with: self.view, duration: 0.3) {
+            self.view.backgroundColor = .gray.withAlphaComponent(0.3)
+        }
     }
 }
 
 private extension BottomSheetViewController {
     func configureUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.5)
         configureHierarchy()
         makeConstraints()
     }
