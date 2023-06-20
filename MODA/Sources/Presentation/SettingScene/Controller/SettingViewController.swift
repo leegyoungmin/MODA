@@ -90,20 +90,26 @@ extension SettingViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        if indexPath.section == .zero && indexPath.row == .zero {
-            let noticeController = NoticeSettingViewController()
-            noticeController.delegate = self
-            let controller = BottomSheetViewController(controller: noticeController)
-            controller.modalPresentationStyle = .overFullScreen
-            self.present(controller, animated: true)
-        } else if indexPath.section == 1 {
+        switch indexPath.section {
+        case 0:
             if indexPath.row == .zero {
-                self.presentMail()
-            } else if indexPath.row == 1 {
-                AppStoreReviewManager.requestReviewIfAppropriate()
-            } else if indexPath.row == 2 {
-                self.presentPolicyView()
+                logOut()
             }
+        case 1:
+            if indexPath.row == .zero {
+                self.presentNoticeSettingView()
+            }
+        case 2:
+            switch indexPath.row {
+            case 0:
+                self.presentMail()
+            case 1:
+                AppStoreReviewManager.requestReviewIfAppropriate()
+            case 2:
+                self.presentPolicyView()
+            default: break
+            }
+        default: break
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -116,7 +122,7 @@ extension SettingViewController: NoticeSettingDelegate {
         didTapSave time: (hour: Int, minute: Int)
     ) {
         guard let cell = settingTableView.cellForRow(
-            at: IndexPath(row: 0, section: 0)
+            at: IndexPath(row: 0, section: 1)
         ) as? SettingCell else {
             return
         }
@@ -182,10 +188,13 @@ private extension SettingViewController {
 }
 
 private extension SettingViewController {
+    func logOut() {
+        UserDefaults.standard.removeObject(forKey: "currentUser")
+        presentSignInViewController()
+    }
     func removeAllNotification(identifier: [String]) {
-        UNUserNotificationCenter.current().removeDeliveredNotifications(
-            withIdentifiers: identifier
-        )
+        UNUserNotificationCenter.current()
+            .removeDeliveredNotifications(withIdentifiers: identifier)
     }
     
     func requestNotification(hour: Int, minute: Int) {
@@ -212,6 +221,31 @@ private extension SettingViewController {
 }
 
 private extension SettingViewController {
+    func presentNoticeSettingView() {
+        let noticeController = NoticeSettingViewController()
+        noticeController.delegate = self
+        let controller = BottomSheetViewController(controller: noticeController)
+        controller.modalPresentationStyle = .overFullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func presentSignInViewController() {
+        let scenes = UIApplication.shared.connectedScenes
+        
+        if let delegate = scenes.first?.delegate as? SceneDelegate,
+           let window = delegate.window {
+            
+            let viewModel = SignInViewModel(
+                useCase: DefaultSignInUseCase(
+                    repository: DefaultAuthRepository(
+                        service: UserService()
+                    )
+                )
+            )
+            window.rootViewController = SignInViewController(viewModel: viewModel)
+        }
+    }
+    
     func presentMail() {
         if MFMailComposeViewController.canSendMail() {
             let controller = MFMailComposeViewController()
@@ -238,9 +272,7 @@ private extension SettingViewController {
 
 private extension SettingViewController {
     func presentPolicyView() {
-        guard let url = URL(string: "policy_site"~) else {
-            return
-        }
+        guard let url = URL(string: "policy_site"~) else { return }
         
         UIApplication.shared.open(url)
     }

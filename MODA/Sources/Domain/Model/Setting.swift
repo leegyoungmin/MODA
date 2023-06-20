@@ -24,6 +24,9 @@ extension SettingSection {
         let description = String(format: "%02d", hour) + ":" + String(format: "%02d", minute)
         
         return [
+            .init(title: "계정 관리", options: [
+                .init(title: "로그아웃", content: "")
+            ]),
             .init(title: "alert_setting"~, options: [
                 .init(title: "alert_time"~, content: description)
             ]),
