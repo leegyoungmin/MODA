@@ -41,7 +41,19 @@ final class DiaryListViewModel: ViewModel {
         let toggleDiary = input.updateTargetDiary
             .flatMapLatest { return self.diaryListUseCase.toggleLike(to: $0) }
         
-        let diaries = Observable.merge([input.viewDidAppear, input.refresh, toggleDiary])
+        let deleteDiary = input.removeTargetItem
+            .flatMapLatest { return self.diaryListUseCase.deleteItem(with: $0) }
+        
+        let selectedDay = Observable.merge([input.selectedYear, input.selectedMonth])
+            .map { _ in }
+        
+        let diaries = Observable.merge([
+            input.viewDidAppear,
+            input.refresh,
+            toggleDiary,
+            deleteDiary,
+            selectedDay
+        ])
             .flatMapLatest { _ -> Observable<[Diary]> in
                 return self.diaryListUseCase.loadAllDiaries(option: [:])
             }
@@ -54,29 +66,12 @@ final class DiaryListViewModel: ViewModel {
     }
     
     func bindInput(_ input: Input) {
-
         input.selectedMonth
             .bind(to: diaryListUseCase.selectedMonth)
             .disposed(by: disposeBag)
         
         input.selectedYear
             .bind(to: diaryListUseCase.selectedYear)
-            .disposed(by: disposeBag)
-        
-        input.removeTargetItem
-            .subscribe { [weak self] diary in
-                guard let self = self else { return }
-                self.diaryListUseCase.deleteItem(with: diary)
-            }
-            .disposed(by: disposeBag)
-        
-        Observable.of(diaryListUseCase.selectedYear, diaryListUseCase.selectedMonth)
-            .merge()
-            .subscribe { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.diaryListUseCase.loadAllDiaries(option: [:])
-            }
             .disposed(by: disposeBag)
     }
 }

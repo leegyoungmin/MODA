@@ -14,5 +14,5 @@ protocol DiaryListUseCase {
     
     func loadAllDiaries(option: [String: String]) -> Observable<[Diary]>
     func toggleLike(to newDiary: Diary) -> Observable<Void>
-    func deleteItem(with diary: Diary)
+    func deleteItem(with diary: Diary) -> Observable<Void>
 }

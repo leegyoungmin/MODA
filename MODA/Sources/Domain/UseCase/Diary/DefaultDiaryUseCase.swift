@@ -41,21 +41,7 @@ final class DefaultDiaryListUseCase: DiaryListUseCase {
         )
     }
     
-    func updateDiary(diary: Diary) -> Observable<[Diary]> {
-        return self.diaryRepository.updateDiary(
-            id: diary.id,
-            content: diary.content,
-            condition: diary.condition.rawValue,
-            isLike: diary.isLike
-        )
-        .flatMap { _ in
-            self.loadAllDiaries()
-        }
-    }
-    
-    func deleteItem(with diary: Diary) {
-        self.diaryRepository.removeDiary(id: diary.id)
-            .bind(to: removeSuccess)
-            .disposed(by: disposeBag)
+    func deleteItem(with diary: Diary) -> Observable<Void> {
+        return self.diaryRepository.removeDiary(id: diary.id)
     }
 }

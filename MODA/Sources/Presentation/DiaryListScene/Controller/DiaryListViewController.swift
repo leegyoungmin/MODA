@@ -84,7 +84,6 @@ private extension DiaryListViewController {
     /// - ViewModel 데이터 관련 바인딩
     func bindingFromViewModel() {
         let viewDidAppear = self.rx.methodInvoked(#selector(viewDidAppear))
-            .take(1)
             .map { _ in }
             .asObservable()
         
@@ -185,11 +184,8 @@ private extension DiaryListViewController {
             .disposed(by: disposeBag)
         
         diaryListTableView.rx.modelSelected(Diary.self)
-            .subscribe { [weak self] element in
-                guard let self = self, let value = element.element else { return }
-                
-                self.presentDetailView(with: value.id)
-            }
+            .map { $0.id }
+            .bind(onNext: self.presentDetailView)
             .disposed(by: disposeBag)
     }
     
