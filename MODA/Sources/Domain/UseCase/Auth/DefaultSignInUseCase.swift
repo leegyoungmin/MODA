@@ -10,7 +10,6 @@ import RxSwift
 final class DefaultSignInUseCase: SignInUseCase {
     var id = BehaviorSubject<String>(value: "")
     var password = BehaviorSubject<String>(value: "")
-    var isSaved = PublishSubject<Bool>()
     
     private let repository: AuthRepository
     private var disposeBag = DisposeBag()
@@ -30,7 +29,6 @@ final class DefaultSignInUseCase: SignInUseCase {
     
     func login() -> Observable<User> {
         guard let id = try? id.value(), let password = try? password.value() else {
-            isSaved.onNext(false)
             return Observable.error(NetworkError.unknownError)
         }
         
