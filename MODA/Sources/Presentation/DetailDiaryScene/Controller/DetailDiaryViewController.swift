@@ -30,6 +30,7 @@ final class DetailDiaryViewController: UIViewController {
         textView.showsVerticalScrollIndicator = false
         textView.isEditable = false
         textView.isSelectable = false
+        textView.keyboardDismissMode = .interactive
         return textView
     }()
     
@@ -150,18 +151,40 @@ final class DetailDiaryViewController: UIViewController {
         
         selector.isSelected.toggle()
     }
+    
+    @objc private func didTapDoneButton() {
+        view.endEditing(true)
+    }
 }
 
 private extension DetailDiaryViewController {
     func configureUI() {
         configureNavigationBar()
         configureHierarchy()
+        configureKeyBoard()
         makeConstraints()
     }
     
     func configureNavigationBar() {
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    func configureKeyBoard() {
+        let toolbarButtonKeyboard = UIToolbar()
+        toolbarButtonKeyboard.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(
+            title: "완료",
+            style: .done,
+            target: nil,
+            action: #selector(didTapDoneButton)
+        )
+    
+        toolbarButtonKeyboard.setItems([doneButton], animated: true)
+        toolbarButtonKeyboard.tintColor = UIConstants.Colors.accentColor
+        
+        contentTextView.inputAccessoryView = toolbarButtonKeyboard
     }
     
     func configureHierarchy() {
